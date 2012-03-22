@@ -1,0 +1,141 @@
+\documentclass[11pt, a4paper]{report}
+\usepackage{polski}
+\usepackage[cp1250]{inputenc}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{subfig}
+\usepackage{url}
+\usepackage{float}
+
+\restylefloat{figure}
+
+\renewcommand{\figurename}{Rys.}
+\renewcommand{\tablename}{Tab.}
+\renewcommand{\lstlistlistingname}{Spis listingów}
+
+
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
+\pagestyle{fancy}
+
+
+\pagestyle{fancy}
+\rhead{}
+\lhead{\nouppercase{\leftmark}}
+
+
+
+\lstdefinelanguage{apache}{
+morekeywords={ServerAdmin, ServerName, ServerAlias, DocumentRoot, Options, AllowOverride, Order, ErrorLog, LogLevel, CustomLog, allow},
+sensitive=false,
+morestring=[b]"
+}
+
+\definecolor{bbb}{gray}{0.90}
+
+\newcommand{\lstMikro}[1]
+{\lstinline[breakatwhitespace=true, postbreak=\kern-3ex, basicstyle=\small\ttfamily,breaklines=true,language=bash,literate={\`}{}{0\discretionary{-}{}{}}]$#1$}
+
+\lstset{
+         basicstyle=\scriptsize\ttfamily, % Standardschrift
+			numbers=left,
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         %stepnumber=2,               % Abstand zwischen den Zeilennummern
+         numbersep=5pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{blue},
+         stringstyle=\color{red}\ttfamily, % Farbe der String
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=6pt,
+			framextopmargin=0pt,
+         backgroundcolor=\color{bbb},
+         showstringspaces=false     % Leerzeichen in Strings anzeigen ?        
+ }
+
+
+
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\makeatletter
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+
+% new itemize environment with itemsep parameter
+\newenvironment{packed_item}[1][0]
+  { \begin{itemize}
+    % set spacing between items
+    \addtolength{\itemsep}{#1\baselineskip}
+    % set spacing between lines
+    \addtolength{\baselineskip}{#1\baselineskip} }
+  { \end{itemize} }
+
+
+\renewcommand{\maketitle}{\begin{titlepage}
+
+    \vspace*{1cm}
+
+    \begin{center}\small
+    Politechnika £ódzka\\
+    Wydzia³ Fizyki Technicznej i Matematyki Stosowanej\\
+    Informatyka\\
+    Systemy Informatyczne i Bazy Danych
+    \end{center}
+
+    \vspace{3cm}
+
+    \noindent\linia
+
+    \begin{center}
+
+      \LARGE \textsc{\@title}
+
+         \end{center}
+
+     \linia
+
+    \vspace{0.5cm}
+
+    \begin{flushright}
+
+    \textit{\small Autor:}\\
+
+    \normalsize \textsc{\@author} \par
+
+    \vspace{1cm}
+
+     \textit{\small Opiekun:}\\
+
+         dr in¿. Anety Poniszewska - Marañda
+		
+     \end{flushright}
+
+    \vspace*{\stretch{6}}
+
+    \begin{center}
+
+    \@date
+
+    \end{center}
+
+  \end{titlepage}%
+
+}
+
+\makeatother

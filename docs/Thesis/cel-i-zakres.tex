@@ -1,0 +1,66 @@
+\chapter{Wstêp}
+
+Niniejsza praca dyplomowa dotyczy zagadnieñ in¿ynierii oprogramowania oraz technologii baz danych. G³ówny cel badañ stanowi przedstawienie realnych korzyœci wynikaj¹cych z zastosowania optymalizacji aplikacji internetowych. 
+
+\section{Problematyka i zakres pracy}
+Wraz ze wzrostem popularnoœci Internetu jako medium informacyjnego, istotnym problemem pozostaje obs³u¿enie nap³ywaj¹cego ruchu sieciowego ze strony u¿ytkowników.
+
+Celem pracy jest analiza technik optymalizacji aplikacji internetowych z uwzglêdnieniem wykonywanych po stronie serwera (\textit{server side}) oraz szeregu usprawnieñ po stronie przegl¹darki \textit{client side}.
+
+Obserwacja zostanie przeprowadzona na przyk³adzie aplikacji z dziedziny \textit{e-commerce} napisanej w jêzyku \textit{PHP}. Wybór takiej dziedziny jest celowy, poniewa¿ najczêœciej w³aœnie w takich aplikacjach wystêpuj¹ problemy natury optymalizacyjnej. Spowodowane jest to najczêœciej koniecznoœci¹ obs³u¿enia wielu kont u¿ytkowników, transakcji biznesowych, czy przede wszystkim generowanie rozbudowanego wizualnie interfejsu u¿ytkownika. Podczas generowania obrazów, wykonywania kodu serwera, czy parsowania rozbudowanych struktur dokumentu \textit{HTML}, czas oczekiwania na wynik mo¿e siê drastycznie wyd³u¿yæ.\\
+
+W internecie istnieje stosunkowo du¿o publikacji zwi¹zanych z tematyk¹ optymalizacji, jednak¿e w wiêkszoœci wypadków omawiany jest tylko nik³y procent wszystkich zagadnieñ. Zazwyczaj pomijane s¹ aspekty zwi¹zane z kodem po stronie klienta, a tak¿e studium narzêdzi i metod badawczych. Najpopularniejsze na rynku s¹ publikacje dotycz¹ce optymalizacji samego kodu lub zapytañ bazodanowych.\\ Praca ma na celu przedstawienie mo¿liwie najszerszego wachlarzu technik optymalizacji, nale¿y przy tym zaznaczyæ, ¿e statystycznie tylko 20\% czasu przetwarzania strony przez przegl¹darkê, jest poœwiêcane na oczekiwanie na odpowiedŸ serwera. Implikuje to olbrzymie znaczenie optymalizacji kodu po stronie klienta w celu znacznego przyspieszenia odpowiedzi.\\
+
+Obecnie Internet przesta³ ju¿ byæ tylko wojskowym eksperymentem czy miejscem na prezentacje swojej strony domowej, sta³ siê wyspecjalizowanym medium globalnej komunikacji. Wiêkszoœæ firm, instytucji czy organizacji rz¹dowych czuje siê w obowi¹zku posiadania i utrzymywania strony internetowej. Dlatego te¿ czêsto posiadanie sprawnie dzia³aj
+
+Ze wzglêdu na niekwestionowan¹ popularnoœæ jêzyka PHP oraz jego olbrzymi¹ prostotê - w stosunkowo krótkim czasie od powstania jêzyka, zaczê³y pojawiaæ siê proste strony, nastêpnie aplikacje internetowe a koñcz¹c na portalach i us³ugach sieciowych.
+	
+Specyfika tego jêzyka oraz brak œciœle narzuconych standardów sprawi³y, ¿e praktycznie ka¿dy, bez zbêdnego zg³êbiania technik programistycznych i co najgorsze bez separacji logiki od danych i ich prezentacji - by³ w stanie napisaæ swoj¹ stronê domow¹. Pocz¹tkowo skrót PHP oznacza³ przecie¿ \textit{Personal Home Page} - osobista strona domowa. 
+
+W póŸniejszym czasie, ze wzglêdu na pojawianie siê olbrzymich trudnoœci w zakresie skalowania, restrukturyzacji i utrzymywania istniej¹cych aplikacji, zaczêto baczniej przygl¹daæ siê tworzonemu oprogramowaniu. 
+W ten sposób powsta³y paradygmaty programistyczne i wzorce projektowe umo¿liwiaj¹ce redukowanie z³o¿onoœci modelowanych zagadnieñ. Oczywiœcie mowa tutaj o ogólnej ewolucji oprogramowania, jednak na przyk³adzie jêzyka PHP widaæ to bardzo dok³adnie.\\
+
+Projektowana w ramach pracy aplikacja stanowi studium przypadku w³aœciwego podejœcia do programowania aplikacji internetowych,  z u¿yciem frameworka \textit{Symfony}. 
+W trakcie tworzenia aplikacji przewidywane jest polepszenie cyklu wytwarzania dziêki:
+\begin{packed_item}[-0,2]
+    \item zdolnoœci prototypowania, na podstawie schematu bazowego,
+	 \item efektywnemu zarz¹dzaniu kodem poprzez systemy kontroli wersji,
+    \item szybkiemu testowaniu aplikacji, dziêki idei testów jednostkowych i funkcjonalnych,
+	 \item u³atwionemu i niezale¿nemu od silnika, dostêpowi do bazy danych, poprzez zastosowanie oprogramowania ORM (\textit{Object Relational Maping}),
+	 \item elastycznemu zarz¹dzaniu projektem, dziêki u¿yciu CLI (\textit{Command Line Interface}),
+ \item redukcji opcji konfiguracyjnych do absolutnego minimum dziêki przyjêciu za³o¿eñ COC (\textit{Convention Over Configuration}).
+\end{packed_item}
+
+Proces wytwarzania niezawodnego oprogramowania oparty jest na umiejêtnoœciach \textbf{pracy zespo³owej} oraz \textbf{dobrej organizacji kodu}, a tak¿e na szybkim przep³ywie informacji miêdzy klientem a programistami. Niniejsza praca porusza zagadnienie programowania zgodnego z za³o¿eniami metodyki \textbf{RAD} (\textit{Rapid Application Development}), ze szczególnym uwzglêdnieniem za³o¿eñ, takich jak \textbf{DRY} (\textit{Don't repeat yourself}) lub \textbf{KISS} (\textit{Keep it simple stupid}).
+
+\section{Za³o¿enia wstêpne}
+Nie sposób rozpocz¹æ projektu bez uwzglêdnienia istotnych kwestii, zwi¹zanych z ograniczeniami narzuconymi przez framework. U¿ycie \textit{Symfony} wi¹¿e siê z akceptacj¹ narzutu pamiêci, wymuszonego przez stosowanie powi¹zanych z frameworkiem komponentów. Wœród nich nale¿y wymieniæ oprogramowanie \textit{ORM}, system routingu, mechanizm obs³ugi ¿¹dania oraz system dekoracji treœci i filtrowania zawartoœci. 
+
+W \textit{\textit{Symfony}} droga, jak¹ pokonuje ¿¹danie, od momentu przyjêcia przez kontroler, do momentu obs³u¿enia, jest du¿o d³u¿sza ni¿ w aplikacjach "p³askich". Ma to oczywiœcie swoje wady zwi¹zane z wydajnoœci¹, jednak¿e dziêki odpowiedniej optymalizacji, rozwi¹zanie ma zdecydowanie wiêcej zalet. 
+Aktywacja systemu buforowania wyników przetwarzania \textit{symfony cache}, niweluje problemy wydajnoœciowe, osi¹gaj¹c w rezultacie wydajny system nad którym istnieje pe³na kontrola.\\
+
+\textit{\textit{Symfony}} jest jednak frameworkiem, który z  praktycznego punktu widzenia \textbf{nie nadaje siê} do prostych aplikacji, z niewielk¹ iloœci¹ logiki biznesowej oraz prostymi za³o¿eniami. 
+Korzyœci wynikaj¹ce z u¿ywania frameworka docenia siê wówczas, gdy model liczy wiêcej ni¿ kilka klas. Kiedy uwzglêdnia siê mnog¹ iloœæ relacji miêdzy encjami, a tak¿e kiedy planuje siê w przysz³oœci zapewniæ aplikacji skalowalnoœæ przy u¿yciu technologii, takich jak \textit{akceleratory} lub \textit{load balancery}. Korzyœci z przyjêcia konwencji narzuconych przez framework, doceni¹ przede wszystkim programiœci wspó³pracuj¹cy ze sob¹ przy projekcie. Bêd¹ to zarówno ci odpowiedzialni za programowanie logiki, jak i ci odpowiedzialni za prezentacjê treœci. 
+
+Treœæ pracy dyplomowej stanowi wypadkow¹ informacji zawartych w dokumentacji frameworka, wiedzy zwi¹zanej z realizacj¹ wzorców projektowych w jêzyku PHP, a tak¿e wiedzy praktycznej wynikaj¹cej z doœwiadczenia w pracy z frameworkiem oraz jêzykiem PHP. 
+
+Iloœæ polskich publikacji i ksi¹¿ek dotycz¹cych \textit{Symfony} jest nik³a lub stanowi bezpoœrednie prze³o¿enie dokumentacji frameworka. Niniejsza praca ma dostarczyæ praktycznej wiedzy, umo¿liwiaj¹cej wdra¿anie siê w specyfikê frameworka, zarówno pocz¹tkuj¹cym programistom jak i tym, którzy swoj¹ pierwsz¹ stronê w Internecie maj¹ ju¿ dawno za sob¹. 
+
+Praca stanowi wstêp i przygotowanie do programowania aplikacji internetowych, niezale¿nych od przyjêtej platformy. Du¿a czêœæ z prezentowanych zagadnieñ jest bowiem uniwersalna, wiêc ka¿dy programista znajdzie odpowiednie narzêdzia, by zrealizowaæ omawiane mechanizmy we w³asnej technologii.
+
+\section{Uk³ad pracy}
+\label{sec:uklad-pracy}
+
+Praca zosta³a podzielona na nastêpuj¹co:\\
+\begin{itemize}
+    \item \textbf{Rozdzia³ pierwszy} opisuje w ogóln¹ tematykê i 
+zagadnienia zwi¹zane z prac¹.
+	\item \textbf{W drugim rozdziale} przedstawiono wymagania stawiane przed aplikacj¹ oraz jej budowê.
+	\item \textbf{Trzeci rozdzia³} pozwala na zapoznanie siê z ogólnie zarysowan¹ ide¹ dzia³ania frameworka, by móc zdefiniowaæ œrodowisko testowe oraz zacz¹æ eksploracje kodu \lstMikro{Symfony}, jako implementacji wzorca Model-Widok-Kontroler.
+	\item \textbf{Rozdzia³ czwarty} okreœla strukturê danych w obrêbie aplikacji oraz relacje j¹ kszta³tuj¹ce. Ponadto, omówiono celowoœæ wyboru narzêdzi typu ORM w projekcie. Dokonuje szczegó³owej analizy narzêdzia ORM u¿ytego w projekcie. Przedstawia jego zalety i wady.
+	\item \textbf{Rozdzia³ pi¹ty} stanowi nawi¹zanie do trójwarstwowej struktury aplikacji, pozwalaj¹c zrozumieæ mechanizmy obs³ugi ¿¹dañ u¿ytkownika.
+	\item \textbf{Rozdzia³ szósty} wyjaœnia szczegó³y delegacji adresów ¿¹dañ na reprezentuj¹ce je zasoby.
+	\item \textbf{Rozdzia³ siódmy} wyjaœnia koniecznoœæ u¿ywania testów w aplikacji, wyjaœniaj¹c idee kryj¹c¹ siê za programowaniem sterowanym testami.
+	\item \textbf{Rozdzia³ ósmy} pokazuje technologiê \textit{scaffoldingu} podczas tworzenia zaplecza aplikacji.
+	\item \textbf{Rozdzia³ dziewi¹ty} przedstawia dzia³anie aplikacji zgodnie ze wczeœniej ustalonym scenariuszem u¿ycia.
+\end{itemize}
