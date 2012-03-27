@@ -1,0 +1,6 @@
+This is my master thesis that will be elaborate of nowadays web applications 
+performance including optimizations separated into frontend and backend part.
+
+The practical part of work will be e-commerce web app that will be tuned to fit 
+specific demands as huge number of queries, network traffic and other typical
+web apps problems that need to be solved to ensure best app quality.
