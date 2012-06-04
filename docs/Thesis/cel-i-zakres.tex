@@ -4,7 +4,9 @@ Niniejsza praca dyplomowa dotyczy zagadnieñ in¿ynierii oprogramowania oraz techn
 
 Celem pracy jest analiza technik optymalizacji aplikacji internetowych z uwzglêdnieniem wykonywanych po stronie serwera (\textit{server side}) oraz szeregu usprawnieñ po stronie przegl¹darki \textit{client side}. Dodatkowo wa¿ne jest wyró¿nienie wszystkich poœrednich czynników, które mog¹ wp³yn¹æ na dzia³anie aplikacji.\\
 
-Obserwacja zostanie przeprowadzona na przyk³adzie aplikacji z dziedziny \textit{e-commerce} napisanej w jêzyku \textit{PHP}. Wybór takiej dziedziny jest celowy, poniewa¿ najczêœciej w³aœnie w takich aplikacjach wystêpuj¹ problemy natury optymalizacyjnej. Spowodowane jest to najczêœciej koniecznoœci¹ obs³u¿enia wielu klientów, transakcji bazodanowych, czy przede wszystkim generowanie rozbudowanego wizualnie interfejsu u¿ytkownika. Podczas generowania obrazów, wykonywania kodu serwera, czy interpretowania rozbudowanych struktur dokumentu \textit{HTML}, czas oczekiwania na wynik mo¿e siê zauwa¿alnie wyd³u¿yæ.\\
+Do implementacji systemu wykorzystano technologie skryptowe PHP oraz Python. Pierwsza z nich pozwoli na szybkie przedstawienie obrazu typowej aplikacji e-commerce (olbrzymi odsetek takich aplikacji w internecie jest napisanych w³aœnie w tym jêzyku). Python z kolei pozwoli wykorzystaæ zalety platformy Google Application Engine (GAE), która zapewnia skalowaln¹ architekturê do póŸniejszych testów.
+
+Obserwacja zostanie przeprowadzona na przyk³adzie aplikacji z dziedziny \textit{e-commerce}. Wybór takiej dziedziny jest celowy, poniewa¿ najczêœciej w³aœnie w takich aplikacjach wystêpuj¹ problemy natury optymalizacyjnej. Spowodowane jest to najczêœciej koniecznoœci¹ obs³u¿enia wielu klientów, transakcji bazodanowych, czy przede wszystkim generowanie rozbudowanego wizualnie interfejsu u¿ytkownika. Podczas generowania obrazów, wykonywania kodu serwera, czy interpretowania rozbudowanych struktur dokumentu \textit{HTML}, czas oczekiwania na wynik mo¿e siê zauwa¿alnie wyd³u¿yæ.\\
 
 Praca ma równie¿ na celu prezentacjê narzêdzi badawczych umo¿liwiaj¹cych znalezienie w¹skich garde³ aplikacji. Tylko sukcesywne ³¹czenie ró¿nych narzêdzi oraz ci¹g³e monitorowanie dzia³ania zapewni aplikacji stabilnoœæ oraz wysok¹ dostêpnoœæ.
 
@@ -43,8 +45,6 @@ Treœæ pracy dyplomowej stanowi wypadkow¹ informacji zawartych w dokumentacjach d
 W kolejnych rozdzia³ach, omawiane bêd¹ kolejne etapy drogi jak¹ pokonuje ¿¹danie od rozpoczêcia do zwrócenia i zinterpretowania przez przegl¹darkê u¿ytkownika. Czêsto kolejne etapy s¹ prawie niezauwa¿alne ze wzglêdu na ma³e ró¿nice czasowe, jednak podczas wnikliwej analizy ka¿dy z etapów trzeba rozpatrywaæ indywidualnie.\\
 
 Analiza wydajnoœciowa przeprowadzana w wypadku prostych aplikacji, które nie bêd¹ w przysz³oœci podlega³y intensywnemu obci¹¿eniu nie ma w zasadzie sensu. Publikacja zyskuje na wartoœci w wypadku kiedy aplikacja jest bardziej rozbudowana, a my potrzebujemy szybkiego i rzetelnego sposobu na wykrycie potencjalnych elementów do optymalizacji.
-
-Do implementacji systemu wykorzystano framework Symfony, ze wzglêdu na mo¿liwoœæ szybkiego prototypowania okreœlonych funkcjonalnoœci. W ten sposób bêdzie mo¿liwe utworzenie pewnego szkieletu, który potem zostanie rozbudowany. Dodatkowo Symfony zapewnia monitorowanie na bie¿¹co iloœci zapytañ oraz wykorzystanej pamiêci.
 
 
 \section{Uk³ad pracy}

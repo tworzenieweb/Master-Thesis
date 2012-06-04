@@ -1,3 +1,165 @@
-\chapter{Narzêdzia badawcze}
+\chapter{Analiza jakoœciowa i wydajnoœciowa aplikacji}
 
-Narzêdzia
+Projektuj¹c aplikacje, ju¿ od samego pocz¹tku nale¿y myœleæ o zapewnieniu najlepszej mo¿liwej jakoœci, a tak¿e problemach, które mog¹ siê pojawiæ w po wdro¿eniu oprogramowania. W celu zapewnienia oprogramowaniu najwy¿szej skutecznoœci pracy nale¿y wzi¹æ pod uwagê wiele cech, wœród których najwa¿niejsze podane s¹ poni¿ej.
+
+\begin{description}
+\item[Skalowalnoœæ (ang. \textit{Scalability})] - cecha aplikacji okreœlana jako zdolnoœæ do wzrostu wydajnoœci aplikacji wraz ze zwiêkszeniem iloœci dostêpnych zasobów (serwery WWW, bazy danych, wydajniejsze procesory).
+
+\item[Niezawodnoœæ (ang. \textit{High availability})] - to projekt, jak i odpowiednia implementacja systemu, zapewniaj¹ca okreœlony poziom ci¹g³oœci wykonywania operacji w czasie. Polega to na zapewnieniu jak najwiêkszej dostêpnoœci us³ugi.
+
+\item[Wydajnoœæ (ang. \textit{Performance})] - przek³ada siê na mo¿liwoœæ faktycznego obs³u¿enia du¿ego ruchu sieciowego, przy jednoczesnym utrzymaniu czasu odpowiedzi aplikacji na stosownym poziomie.
+\end{description}
+
+Czêsto skalowalnoœæ jest mylona z wydajnoœci¹, jednak przek³adaj¹c to na bardziej ¿yciowy przyk³ad, wydajnoœæ aplikacji mo¿na porównaæ do szybkiego samochodu, jednak bez zapewnienia odpowiednich dróg, ten szybki samochód lub gorzej, ich zbiór nie jest w stanie rozwin¹æ maksymalnej prêdkoœci, poniewa¿ jest blokowany przez inne pojazdy. Skalowalnoœæ jest wiêc zapewnieniem odpowiedniej infrastruktury gwarantuj¹cej w³aœciwy rozrost systemu.
+
+W celu zapewnienia mo¿liwie najlepszej jakoœci tworzonej aplikacji, nale¿y stale monitorowaæ aktualny poziom wydajnoœci aplikacji. Nale¿y jednak mieæ na uwadze, ¿e na wydajnoœæ aplikacji sk³ada siê wydajnoœæ poszczególnych wêz³ów systemu. Nale¿y wiêc testowaæ poszczególne z nich osobnymi metodami. 
+
+W celu rzetelnego okreœlenia przyczyn b³êdów warto rozpocz¹æ analizê od najbardziej ogólnego komponentu czyli serwera WWW. Kolejno nale¿y dokonaæ dekompozycji wyró¿niaj¹c kolejne wêz³y systemu, takie jak poszczególne instancje serwera WWW czy serwery bazodanowe.
+
+\section{Analiza wydajnoœci serwera WWW}
+
+Zadaniem serwera WWW jest zwrócenie do przegl¹darki wyniku przetwarzania zasobu opisanego adresem URL. W najprostszym wypadku analiza wydajnoœci serwera polega na odpytaniu serwera o okreœlony zasób i zmierzenie czasu od rozpoczêcia tej akcji do odebrania tego rezultatu. Taki proces mo¿emy przeœledziæ i przeanalizowaæ w wiêkszoœci popularnych przegl¹darek np. Google Chrome (Rys. \ref{fig:rys1_chrome}).
+
+\begin{figure}[htbp]
+\caption{Analiza czasu wykonywania strony http://ftims.edu.p.lodz.pl//}
+\label{fig:rys1_chrome}
+\includegraphics[scale=0.71]{rys1_chrome.pdf}
+\end{figure}
+
+Ten sposób analizy jest jednak przydatny jedynie w wypadku znacznych problemów z wydajnoœci¹ aplikacji, poniewa¿ testowanie czasu odpowiedzi dla pojedynczego u¿ytkownika, wykonuj¹cego pojedyncze ¿¹danie, nie jest w ¿adnym stopniu miarodajne.
+
+W celu zapewnienia bardziej rzetelnego testu nale¿y skorzystaæ z dedykowanych rozwi¹zañ takich jak \texttt{ab} oraz \texttt{siege}. S¹ to typowe narzêdzia przeznaczone do sprawdzania jak dobrze serwer radzi sobie z obs³ug¹ bardziej z³o¿onego ruchu sieciowego. Przyk³adowo, dla wczeœniej u¿ytej strony, mo¿na zasymulowaæ ruch równy wykonaniu 10 jednoczesnych ¿¹dañ przez 10 niezale¿nych u¿ytkowników. W tym celu nale¿y wydaæ komendê \lstinline{ab -n 10 -c 10 http://ftims.edu.p.lodz.pl/}. Rezultat dzia³ania tej¿e komendy widoczny jest na listingu \ref{listing:ab}.
+
+\begin{lstlisting}[caption=Analiza strony z wykorzystaniem narzêdzia \texttt{ab}, label=listing:ab]
+Server Software:        Apache/2.2.14
+Server Hostname:        ftims.edu.p.lodz.pl
+Server Port:            80
+
+Document Path:          /
+Document Length:        48759 bytes
+
+Concurrency Level:      10
+Time taken for tests:   0.695 seconds
+Complete requests:      10
+Failed requests:        0
+Write errors:           0
+Total transferred:      492510 bytes
+HTML transferred:       487590 bytes
+Requests per second:    14.38 [#/sec] (mean)
+Time per request:       695.270 [ms] (mean)
+Time per request:       69.527 [ms] (mean, across all concurrent requests)
+Transfer rate:          691.77 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       52   63   7.4     63      74
+Processing:   300  503  90.9    532     632
+Waiting:      127  233  62.8    235     381
+Total:        354  565  92.9    593     695
+
+Percentage of the requests served within a certain time (ms)
+  50%    593
+  66%    612
+  75%    625
+  80%    628
+  90%    695
+  95%    695
+  98%    695
+  99%    695
+ 100%    695 (longest request)
+
+\end{lstlisting}
+
+Jak mo¿na wywnioskowaæ z powy¿szych danych, narzêdzie wykonuje wiele przydatnych analiz, widaæ przede wszystkim, ¿e czas oczekiwania na stronê przy 10 u¿ytkownikach jest prawie trzykrotnie wy¿szy ni¿ podczas jednego ¿¹dania wykonanego w przegl¹darce (\ref{fig:rys1_chrome}). 
+
+Oczywiœcie na wyniki pomiarów ma te¿ wp³yw prêdkoœæ po³¹czenia internetowego, dlatego w celu pominiêcia dodatkowych czynników, testy docelowej aplikacji bêdziemy wykonywali przede wszystkim na lokalnym serwerze. Najbardziej miarodajn¹ jednostk¹ okreœlaj¹c¹ wydajnoœæ aplikacji w wypadku narzêdzia \textit{ab} jest liczba zapytañ na sekundê, okreœla ona w wypadku ustawienia wiêkszej iloœci równoleg³ych po³¹czeñ, maksymaln¹ iloœæ jak¹ aplikacja jest w stanie obs³u¿yæ.\\
+
+Na rysunku \ref{fig:rys2_http_lifecycle} przedstawiono cykl ¿ycia ¿¹dania od u¿ytkownika, koñcz¹c na odpowiedzi serwera. Rysunek ten przedstawia drogê jak¹ pokonuje ¿¹danie od u¿ytkownika, koñcz¹c na odebraniu odpowiedzi serwera pochodz¹cej z aplikacji WWW. Jak mo¿na zauwa¿yæ ¿¹danie przebywa stosunkowo du¿¹ drogê nim trafi do faktycznej aplikacji. Dlatego te¿ wszelkie dodatkowe opóŸnienia wynikaj¹ ze stopnia skomplikowania architektury trzech pierwszych wêz³ów. Dlatego te¿ nale¿y mieæ na uwadze, ¿e problemy z szybkoœci¹ dzia³ania aplikacji nie musz¹ le¿eæ wy³¹cznie po stronie aplikacji. Do najbardziej popularnych nale¿¹: niska przepustowoœæ ³¹cza internetowego klienta, wolny serwer DNS, daleka lokalizacja geograficzna serwera WWW, Ÿle skonfigurowany router lub bardzo obci¹¿ona sieæ lokalna.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.55]{fig_request.pdf}
+\caption{Cykl ¿ycia ¿¹dania (\textit{opracowanie w³asne})}
+\label{fig:rys2_http_lifecycle}
+\end{figure}
+
+Nawi¹zuj¹c do listingu \ref{listing:ab}, wartoœciami zwi¹zanymi ze wspomnianymi w poprzednim akapicie wêz³ami s¹ \texttt{Connect} oraz \texttt{Waiting}, czyli odpowiednio czas oczekiwania na po³¹czenie z zasobem i czas pobierania odpowiedzi z zasobu.
+
+Administratorzy serwerów WWW maj¹ bezpoœredni dostêp do statystyk odwiedzin stron, pozwala to zaobserwowaæ pewne trendy u¿ytkowników. Czêsto jest tak, ¿e dane zasoby s¹ intensywnie odpytywane przez u¿ytkowników np. w czasie 10 minut stronê odwiedza nawet 1000 u¿ytkowników, ³atwo to sobie wyobraziæ np. w wypadku premiery jakiejœ nowej gry, lub publikacji wyników egzaminu na uczelnie. Taki periodyczny, lecz bardzo wzmo¿ony ruch mo¿e powodowaæ pewne trudne do ustalenia problemy z dzia³aniem aplikacji. Dlatego te¿ twórcy narzêdzia \texttt{ab}, zaimplementowali równie¿ mo¿liwoœæ testów czasowych (ang. \textit{timed tests}). W ten sposób mo¿na zasymulowaæ jak strona bêdzie siê zachowywa³a równie¿ w takich nag³ych wypadkach.\\
+
+Wydaj¹c komendê \lstinline{ab -c 10 -t 30 http://ftims.edu.p.lodz.pl/}, mo¿na sprawdziæ, jak zachowa siê aplikacja odwiedzana przez 10 u¿ytkowników jednoczeœnie w czasie 30 sekund. Ta komenda pozbawiona jest parametru \textit{-t iloœæ ¿¹dañ}, oznacza to ¿e symulacja zakoñczy siê po 30 sekundach lub po osi¹gniêciu limitu 50 000 ¿¹dañ.
+
+\begin{lstlisting}[caption=Analiza strony przy teœcie obci¹¿enia czasowego, label=listing:ab_2]
+Benchmarking ftims.edu.p.lodz.pl (be patient)
+Finished 504 requests
+
+Server Software:        Apache/2.2.14
+Server Hostname:        ftims.edu.p.lodz.pl
+Server Port:            80
+
+Document Path:          /
+Document Length:        48759 bytes
+
+Concurrency Level:      10
+Time taken for tests:   40.180 seconds
+Complete requests:      504
+Failed requests:        0
+Write errors:           0
+Total transferred:      24822504 bytes
+HTML transferred:       24574536 bytes
+Requests per second:    12.54 [#/sec] (mean)
+Time per request:       797.213 [ms] (mean)
+Time per request:       79.721 [ms] (mean, across all requests)
+Transfer rate:          603.31 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       48   65  14.3     61     145
+Processing:   284  436 288.9    376    2957
+Waiting:      119  199 281.5    151    2660
+Total:        333  500 287.8    439    3007
+
+Percentage of the requests served within a certain time (ms)
+  50%    439
+  66%    458
+  75%    477
+  80%    493
+  90%    563
+  95%    666
+  98%   1420
+  99%   2142
+ 100%   3007 (longest request)
+
+\end{lstlisting}
+
+Listing \ref{listing:ab_2} przedstawia wynik testów. Tym razem zamieszczono pe³en rezultat wykonania tej komendy. Najwa¿niejsz¹ informacj¹ z punktu widzenia optymalizacji jest iloœæ ¿¹dañ na sekundê, która w tym wypadku wynosi \texttt{12.54}. Narzêdzie \texttt{ab} pozwala równie¿ zdiagnozowaæ potencjalne b³êdy aplikacji pod wp³ywem zbyt du¿ego ruchu. Pola takie jak \texttt{Failed requests} oraz \texttt{Write errors} u³atwiaj¹ okreœlenie prawid³owoœci wykonywania ¿¹dañ. W powy¿szym przyk³adzie, wartoœci s¹ akceptowalne (œredni czas ¿¹dania to 0.5 sekundy), co najwa¿niejsze nie wystêpuj¹ b³êdy na poziomie serwera WWW i z du¿ym prawdopodobieñstwem równie¿ b³êdy na poziomie aplikacji. Oczywiœcie zauwa¿alny jest spadek wydajnoœci, w porównaniu z pierwszym testem, co prawda wartoœci œrednie s¹ zbli¿one, jednak widaæ wiêksze rozbie¿noœci miêdzy wartoœciami minimalnymi a maksymalnymi. Najd³u¿sze zapytanie zajê³o ponad 3 sekundy. 
+
+W dokumentacji aplikacji \texttt{ab}, mo¿na znaleŸæ informacjê, ¿e niektóre serwery mog¹ blokowaæ wysy³ane przez niego nag³ówki HTTP. W tym celu mo¿na wykorzystaæ prze³¹cznik umo¿liwiaj¹cy podanie siê za inn¹ przegl¹darkê. Np. chc¹c zasymulowaæ odwiedziny przy u¿yciu przegl¹darki Chrome nale¿y wykonaæ nastêpuj¹c¹ komendê: 
+\lstinline{ab -n 100 -c 5 -H "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.2 (KHTML, like Gecko) Chrome/6.0.447.0 Safari/534.2" http://www.example.com}.
+
+Pomimo wielu zalet wynikaj¹cych z korzystania z narzêdzia \texttt{ab}, istnieje jedna zasadnicza wada. Aplikacja nie daje mo¿liwoœci przetestowania pewnego scenariusza lub jest to bardzo niewygodne, a przypadku aplikacji z wykorzystaniem technologii \textit{JavaScript} i \textit{AJAX} wrêcz niewykonalne.
+
+Dlatego te¿ na prze³omie lat wyspecjalizowa³y siê bardziej zaawansowane narzêdzia przeznaczone do przeœledzenia logicznej kolejnoœci dzia³añ wykonywanych na stronie (pewnego przypadku u¿ycia) i wykonywanie testów w³aœnie w ramach tego zbioru poleceñ. W ten sposób mo¿liwe jest przeprowadzenie tzw. \textit{testów funkcjonalnych}, a tak¿e sprawdzenie w jakim stopniu s¹ one wra¿liwe na zwiêkszony ruch sieciowy. 
+
+Jednym z przyk³adów takiego narzêdzia o naprawdê olbrzymich mo¿liwoœciach jest \texttt{Apache JMeter}. Z jego pomoc¹ mo¿liwe jest nagranie pewnego ci¹gu akcji wykonanych przy pomocy przegl¹darki, a nastêpnie przeprowadzenie ci¹gu analiz i testów na tak wyodrêbnionym zbiorze. Tabela \ref{table:1_jmeter} pokazuje wynik dzia³ania przyk³adowego scenariusza polegaj¹cego na symulowaniu wejœcia na stronê http://www.wp.pl, a nastêpnie klikniêciu jednego z linków wiadomoœci, po czym klikniêciu na kolejny link z dostêpnych na bie¿¹cej stronie. Ostatnim elementem ³añcucha akcji jest wys³anie komentarza do artyku³u.
+
+
+
+\begin{table}
+\caption{Tabela z rezultatem dzia³ania aplikacji JMeter}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+
+URL & Œrednia & Min & Max & B³¹d & Req/Min \\
+
+\hline
+..14543704,wiadomosc.html & 2299 & 415 & 94329 & 2.2 & 43.7 \\ 
+\hline 
+...1028235,wiadomosci.html & 2485 & 335 & 94434 & 2.8 & 43.7 \\ 
+\hline 
+...14545325,wiadomosc.html & 2023 & 394 & 94285 & 1.8 & 43.7 \\ 
+\hline 
+£¹cznie & 2269 & 335 & 94434 & 2.27 & 131.1 \\ 
+\hline 
+\end{tabular} 
+\label{table:1_jmeter}
+\end{table}

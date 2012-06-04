@@ -1,14 +1,15 @@
 \contentsline {chapter}{\numberline {1}Wst\k ep}{2}
-\contentsline {section}{\numberline {1.1}Problematyka i zakres pracy}{2}
+\contentsline {section}{\numberline {1.1}Problematyka i zakres pracy}{3}
 \contentsline {section}{\numberline {1.2}Za\IeC {\l }o\.zenia wst\k epne}{4}
 \contentsline {section}{\numberline {1.3}Uk\IeC {\l }ad pracy}{5}
-\contentsline {chapter}{\numberline {2}Narz\k edzia badawcze}{6}
-\contentsline {chapter}{\numberline {3}Wymagania i budowa aplikacji}{7}
-\contentsline {chapter}{\numberline {4}Architektura aplikacji}{8}
-\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{9}
-\contentsline {chapter}{\numberline {6}Optymalizacja kodu klienta}{10}
-\contentsline {chapter}{\numberline {7}Metody rozproszenia aplikacji i us\IeC {\l }ug}{11}
-\contentsline {chapter}{Bibliografia}{12}
-\contentsline {chapter}{Spis rysunk\'ow}{13}
-\contentsline {chapter}{Spis listing\'ow}{14}
-\contentsline {chapter}{P\IeC {\l }yta CD}{15}
+\contentsline {chapter}{\numberline {2}Analiza jako\'sciowa i wydajno\'sciowa aplikacji}{6}
+\contentsline {section}{\numberline {2.1}Analiza wydajno\'sci serwera WWW}{7}
+\contentsline {chapter}{\numberline {3}Wymagania i budowa aplikacji}{12}
+\contentsline {chapter}{\numberline {4}Architektura aplikacji}{13}
+\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{14}
+\contentsline {chapter}{\numberline {6}Optymalizacja kodu klienta}{15}
+\contentsline {chapter}{\numberline {7}Metody rozproszenia aplikacji i us\IeC {\l }ug}{16}
+\contentsline {chapter}{Bibliografia}{17}
+\contentsline {chapter}{Spis rysunk\'ow}{18}
+\contentsline {chapter}{Spis listing\'ow}{19}
+\contentsline {chapter}{P\IeC {\l }yta CD}{20}
