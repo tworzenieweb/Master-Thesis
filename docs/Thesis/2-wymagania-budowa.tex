@@ -2,10 +2,20 @@
 
 Aplikacja powinna spe³niaæ wszystkie oczekiwane cele biznesowe, jak równie¿ zapewniaæ prawid³owe funkcjonowanie bez wzglêdu na aktualnie panuj¹ce warunki. Aplikacja demonstracyjna bêdzie ksiêgarni¹ internetow¹ oferuj¹c¹ wiele typowych funkcji, charakterystycznych dla tej bran¿y.
 
+G³ównym celem tworzonego oprogramowania jest odpowiednie wywa¿enie pracy wykonanej po stronie serwera, jak równie¿ po stronie przegl¹darki. Dlatego te¿ du¿y nacisk pracy zosta³ po³o¿ony na utworzenie us³ug udostêpniaj¹cych interfejs dostêpowy do bazy danych. W ten sposób wykorzystuj¹c architekturê REST kod JavaScript mo¿e dokonywaæ modyfikacji modelu, przy najmniejszym udziale serwera WWW.
+
+
 \section{Zakres funkcjonalny}
 
+Projektowana aplikacja stanowi wirtualn¹ ksiêgarniê, podobnie jak w wypadku jej realnego odpowiednika, zapewnia mo¿liwoœæ przegl¹dania zasobów, podzielonych na kategorie lub oznaczonych okreœlonymi s³owami kluczowymi. W odró¿nieniu od prawdziwej ksiêgarni, w internetowych aplikacjach konieczne jest zdefiniowanie pewnej to¿samoœci, która bêdzie póŸniej podstaw¹ do zakupu ksi¹¿ki, lub sprawdzenia stanu zamówienia.
 
-Wymagania podzielono na czêœæ administracyjn¹ i czêœæ u¿ytkownika, natomiast zbiór funkcjonalnoœc przedstawiony jest w tabeli \ref{table:2_funkcje}.\\
+Dlatego te¿ istotne jest stworzenie spójnego systemu uwierzytelniania, zapewniaj¹cego zarówno bezpieczeñstwo, jak równie¿ ³atwoœæ ewentualnego przypomnienia zapomnianego has³a.
+
+Poniewa¿ oferta ksi¹¿kowa, ci¹gle siê zmienia, na rynek trafiaj¹ nowe ksi¹¿ki, a nawet tworz¹ siê nowe gatunki, istotn¹ rolê w tworzonej aplikacji stanowi wspó³istnienie zarówno czêœci przeznaczonej dla zwyk³ego u¿ytkownika, jak równie¿ czêœci administracyjnej (\textit{backend}). Sekcja ta powinna byæ równie¿ zabezpieczona przed potencjalnym w³amaniem lub z³oœliwym atakiem ze strony intruzów.
+
+Poniewa¿ obecnie w dobie ery WEB 2.0 strony oferuj¹ du¿o wiêksz¹ iterakcjê, ni¿ by³o to mo¿liwe na pocz¹tku ery Internetu. Dlatego te¿ projektowana aplikacja daje równie¿ mo¿liwoœæ oceny i komentowania istniej¹cych zbiorów. Jest to bardzo wa¿ne z punktu widzenia biznesu i sprzeda¿y, poniewa¿ popularnoœæ i przychylne noty, z pewnoœci¹ napêdz¹ chêtnych do kupna.
+
+Wymagania podzielono na czêœæ administracyjn¹ i czêœæ u¿ytkownika, natomiast zbiór funkcjonalnoœci przedstawiony jest w tabeli \ref{table:2_funkcje}.\\
 
 \begin{table*}\centering
 \ra{1.3}
@@ -26,7 +36,66 @@ Nadzorowanie kont u¿ytkowników & Wyszukiwanie ksi¹¿ek w wyszukiwarce\\
 \label{table:2_funkcje}
 \end{table*}
 
+Diagram komponentów dla tworzonej aplikacji zosta³ uwzglêdniony na rysunku \ref{fig:diagram_komponentow}. Jak mo¿na wywnioskowaæ z diagramu, aplikacja wykorzystuje mapowanie obiektowo relacyjne w celu u³atwienia komunikacji z baz¹ danych. Jest to bardzo wygodne rozwi¹zanie daj¹ce wiele swobody i elastycznoœci tworzonemu oprogramowaniu.
+
+
+\begin{figure}[hbtp]
+\caption{Diagram komponentów tworzonej aplikacji}
+\includegraphics[scale=0.75]{diagram_komponentow.pdf}
+\label{fig:diagram_komponentow}
+\end{figure}
+
 
 Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ, w tym celu, akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu frontendu, dopiero w wypadku wy³¹czenia wykonywania skryptów, wykonane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie np. podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
 
 Nale¿y jednak mieæ na uwadze bezpieczeñstwo oprogramowania, dlatego nie nale¿y polegaæ w 100\% na walidacji wykonywanej przez JavaScript, poniewa¿ u¿ytkownik mo¿e bez problemu wy³¹czyæ dzia³anie skryptów. Dlatego te¿ podczas tworzenia tego typu rozwi¹zañ walidacja po stronie klienta powinna iœæ zawsze w parze z walidacj¹ po stronie serwera.
+
+Ze wzglêdu na konserwacje i rozwój tworzonej aplikacji, jest ona zarz¹dzana przy pomocy systemu kontroli wersji git. W ten sposób tworzony kod jest pod œcis³¹ kontrol¹, mo¿e byæ potem rozwijany przez wiêcej ni¿ jednego programisty, eliminuj¹c konflikty podczas pracy na wspólnych zasobach.
+
+Aplikacja wykorzystuje jêzyk HTML5, który staje siê powoli standardem tworzenia kodu po stronie klienta. Zawiera bowiem wiele nowoczesnych mechanizmów i udogodnieñ w stosunku do poprzedniej wersji np. HTML4 oraz XHTML 1.0. Maj¹c na uwadze prawid³owe funkcjonowanie w poszczególnych przegl¹darkach i ró¿n¹ implementacje nowego standardu, aplikacja wykorzystuje dodatek \texttt{HTML5} \texttt{Boilerplate} oraz 
+\texttt{Twitter Bootstrap} jako metodê na otrzymanie podobnych rezultatów w szerokiej gamie urz¹dzeñ (w tym urz¹dzenia mobilne).\\
+
+Projektowana aplikacja wykorzystuje technologiê AJAX (ang. Asynchronous
+JavaScript and XML, asynchroniczny JavaScript i XML ), dziêki czemu mo¿liwa jest symulacja zachowania aplikacji desktopowej. Reakcja na akcje u¿ytkownika nastêpuje bez potrzeby prze³adowania strony. Pozwala to na du¿¹ oszczêdnoœæ przepustowoœci i czasu koniecznego do przetworzenia
+ca³ej strony. Dziêki zastosowaniu frameworka jQuery dla jêzyka JavaScript, mo¿liwe jest stosowanie bardziej przyjaznego interfejsu u¿ytkownika, przy jednoczesnym zapewnieniu kompatybilnoœci wstecz z istniej¹cymi wersjami przegl¹darek internetowych.
+
+\section{Budowa aplikacji}
+
+Aplikacja zosta³a zbudowana przy pomocy frameworka symfony wykorzystuj¹c wzorzec projektowy MVC. W ten sposób mo¿liwa jest separacja warstw logiki, modelu oraz widoku. Zapewnia to ³atwoœæ w utrzymaniu oprogramowania, przez co kod jest bardziej zrozumia³y i mniej podatny na b³êdy. \\
+
+Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³anie poci¹ga wiele daleko id¹cych konsekwencji. Dlatego wa¿ne jest, by kod aplikacji by³ spójny i podzielony na mniejsze jednostki budulcowe. Umo¿liwi to ³atwiejsze wykrywanie problematycznych aspektów aplikacji, istotnych dla prawid³owego dzia³ania ca³ego projektu. Rêczne testowanie ca³ego projektu jest procesem ¿mudnym, trudnym, a niekiedy nawet niemo¿liwym. Dlatego istotne jest, by w rozbudowanych systemach z obszernym drzewem zale¿noœci, móc ³atwo testowaæ wprowadzane zmiany  i przewidywaæ mo¿liwe skutki uboczne. 
+
+W rozbudowanych aplikacjach zazwyczaj tylko osoba architekta oprogramowania ma ca³oœciowe pojêcie o tworzonej aplikacji. Dlatego te¿ zwyk³y programista tworz¹cy dany fragment aplikacji, mo¿e nie byæ œwiadom skutków ubocznych opracowywanej implementacji w stosunku do ca³ego projektu. Ci¹g³a konsultacja tworzonego kodu z architektem jest nie tylko nieekonomiczna, ale tak¿e mo¿e siê okazaæ nieskuteczna. Dzieje siê tak, bowiem pewne detale dzia³ania aplikacji mo¿na omy³kowo pomin¹æ lub zlekcewa¿yæ.
+
+Rozwi¹zanie omawianego problemu polega na wykorzystaniu techniki tworzenia oprogramowania TDD (ang. \textit{Test-driven Development}). Technika \textit{programowania sterowanego testami} jest zaliczana do metodyk zwinnych \textit{Agile}. Na rysunku \ref{fig:cykltdd}, pokazano typowy cykl wytwarzania aplikacji. Ka¿dy mechanizm wytwarzanego oprogramowania zak³ada \textit{pokrycie testami}, a same testy pisane s¹ przed faktycznym kodem aplikacji.
+
+Bardzo czêsto aplikacja musi ulec modyfikacj¹ polegaj¹cym na relokacji pewnych fragmentów kodu, przenosz¹c je w bardziej odpowiednie dla nich miejsce. Podczas takich zmian funkcjonalnoœæ kodu nie ulega zmianie, natomiast mo¿na narzuciæ realizacjê pewnych standardów, okreœlanych mianem \textit{konwencji kodowania}. Technika zmian okreœlana jako \textit{refaktoring}, jest sposobem na zwiêkszenie czytelnoœci kodu i polepszenie jego logicznej konstrukcji. Istnieje jednak ryzyko b³êdów wynikaj¹cych z zale¿noœci pomiêdzy modyfikowanymi fragmentami kodu a ca³¹ aplikacj¹. Stosuj¹c metodykê \textit{TDD}, mo¿na unikn¹æ za ka¿dym razem prawdopodobieñstwa wyst¹pienia b³êdów wynikaj¹cych z braku spójnoœci.
+
+\begin{figure}[t]
+\centering
+\includegraphics[bb=0 0 600 800,scale=0.6, trim=0 390 0 0]{tdd.pdf}
+\caption{Cykl wytwarzania w metodyce TDD}
+\label{fig:cykltdd}
+\end{figure}
+
+\section{Projekt bazy danych}
+
+Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej przy okazji projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL, oraz proces de-normalizacji, który musia³ zostaæ dokonany.
+
+\begin{sidewaysfigure}
+\centering%
+\caption{Projek bazy danych}
+\includegraphics[scale=1, bb=600 550 0 0]{db.pdf}
+\label{fig:baza_danych}
+\end{sidewaysfigure}
+
+
+\section{Organizacja kodu}
+
+Pewnym u³atwieniem w implementacji projektu bêdzie stworzenie mapy organizacji kodu, która umo¿liwi umiejscowienie elementów budulcowych projektu w kontekœcie ca³ej aplikacji. Wyró¿niono podzia³ aplikacji, modu³ów oraz najbardziej atomowej czêœci projektu, czyli akcji. Ka¿dy z modu³ów wydziela charakterystyczn¹ dla siebie dziedzinê przetwarzania, w wiêkszoœci wypadków ograniczan¹ przez docelow¹ klasê modelu. W ten sposób modu³ \lstMikro{school} dla aplikacji \lstMikro{frontend}.
+
+Dziêki zastosowaniu technologii tworzenia prototypów modu³ów na podstawie istniej¹cego schematu bazy (\textit{scaffolding}), wiêkszoœæ modu³ów wchodz¹cych w sk³ad aplikacji \lstMikro{backend}, mog³a zostaæ utworzona w sposób zautomatyzowany. W ten sposób implementacja modu³ów dla tej aplikacji zosta³a znormalizowana do interfejsu \textit{CRUD}, a dziêki systemowi obs³ugi zdarzeñ, mo¿na nadaæ dla ka¿dego z modu³ów uniwersalne restrykcje. Budowa i dzia³anie \textit{generatorów}, wykorzystanych do osi¹gniêcia wspomnianego rozwi¹zania, zosta³o omówione w rozdziale \ref{cha:generatory}.\\
+
+Specyfika projektu zak³ada koniecznoœæ komunikacji pomiêdzy wieloma niezale¿nymi komponentami, które sk³adaj¹ siê na framework \textit{Symfony}. Stwarza to koniecznoœæ utworzenia diagramu komponentów. Na podstawie rysunku \ref{fig:diagram_komponentow} oraz przedstawionych w tym rozdziale przypadków u¿ycia widaæ, ¿e aplikacja wymaga zastosowania rozbudowanego systemu uprawnieñ ACL (\textit{Access Control List}). Ponadto, konieczne jest prze³o¿enie adresów URL, na odpowiedni¹ logikê aplikacji. W tym celu wykorzystano komponent \lstMikro{EventDispatcher}, który dokona odpowiedniej interpretacji nadchodz¹cych ¿¹dañ.\\
+
+Poniewa¿ projektowana aplikacja stawia wiele wymagañ w stosunku do realizacji, konieczne bêdzie zastosowanie wzorca \textit{Model-Widok-Kontroler} oraz narzêdzi gwarantuj¹cych ³atwy dostêp do bazy danych celem zapewnienia spójnoœci implementacji.

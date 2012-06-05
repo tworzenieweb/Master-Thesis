@@ -17,6 +17,15 @@
 \usepackage{booktabs}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
+\let\origdescription\description
+\renewenvironment{description}{
+  \setlength{\leftmargini}{0em}
+  \origdescription
+  \setlength{\itemindent}{0em}
+  \setlength{\labelsep}{\textwidth}
+}
+{\endlist}
+
 \renewcommand{\abstractname}{Abstract}
 
 \restylefloat{figure} 

@@ -5,12 +5,20 @@
 \contentsline {chapter}{\numberline {2}Analiza jako\'sciowa i wydajno\'sciowa aplikacji}{5}
 \contentsline {section}{\numberline {2.1}Analiza wydajno\'sci serwera WWW}{6}
 \contentsline {section}{\numberline {2.2}Analiza wydajno\'sci frontendu}{11}
+\contentsline {section}{\numberline {2.3}Analiza wydajno\'sci bazy danych}{13}
 \contentsline {chapter}{\numberline {3}Wymagania i budowa aplikacji}{15}
-\contentsline {chapter}{\numberline {4}Architektura aplikacji}{17}
-\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{18}
-\contentsline {chapter}{\numberline {6}Optymalizacja kodu klienta}{19}
-\contentsline {chapter}{\numberline {7}Metody rozproszenia aplikacji i us\IeC {\l }ug}{20}
-\contentsline {chapter}{Bibliografia}{21}
-\contentsline {chapter}{Spis rysunk\'ow}{22}
-\contentsline {chapter}{Spis listing\'ow}{23}
-\contentsline {chapter}{P\IeC {\l }yta CD}{24}
+\contentsline {section}{\numberline {3.1}Zakres funkcjonalny}{15}
+\contentsline {section}{\numberline {3.2}Budowa aplikacji}{18}
+\contentsline {section}{\numberline {3.3}Projekt bazy danych}{20}
+\contentsline {section}{\numberline {3.4}Organizacja kodu}{20}
+\contentsline {chapter}{\numberline {4}Architektura aplikacji}{22}
+\contentsline {section}{\numberline {4.1}Rodzaje chmur}{22}
+\contentsline {section}{\numberline {4.2}Nie relacyjne bazy danych NoSQL}{23}
+\contentsline {section}{\numberline {4.3}Aplikacja zorientowana na us\IeC {\l }ugi}{23}
+\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{24}
+\contentsline {chapter}{\numberline {6}Optymalizacja kodu klienta}{25}
+\contentsline {chapter}{\numberline {7}Metody rozproszenia aplikacji i us\IeC {\l }ug}{26}
+\contentsline {chapter}{Bibliografia}{27}
+\contentsline {chapter}{Spis rysunk\'ow}{28}
+\contentsline {chapter}{Spis listing\'ow}{29}
+\contentsline {chapter}{P\IeC {\l }yta CD}{30}

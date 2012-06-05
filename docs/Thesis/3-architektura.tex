@@ -1,3 +1,27 @@
 \chapter{Architektura aplikacji}
 
-Architektura
+Istotnym celem pracy jest zapewnienie mo¿liwie najlepszej w danej chwili wydajnoœci. Twierdzenie to powinno byæ prawdziwe równie¿ wówczas, kiedy aplikacja znajduje siê pod dzia³aniem silnego ruchu sieciowego. Aby to zapewniæ, konieczne jest wykorzystanie odpowiedniej architektury aplikacji.
+
+Od kilku lat na rynku IT mo¿na zaobserwowaæ du¿e zainteresowanie zwi¹zane z chmurami obliczeniowymi. Jeszcze wiêksze zamieszanie na rynku spowodowa³o udostêpnienie przez Google oraz Microsoft ich produktów znanych jako \textit{Google Application Engine} oraz \textit{Windows Azure}. S¹ to us³ugi kwalifikowane jako \textit{PaaS} czyli \textit{Platform as a Service}. Oznacza to, ¿e korzystaj¹c z ich produktów otrzymujemy kompletne œrodowisko uruchomieniowe aplikacji oraz zaplecze technologiczne umo¿liwiaj¹ce uruchamianie aplikacji. W wypadku GAE mo¿liwe jest programowanie aplikacji z wykorzystaniem udostêpnionego przez us³ugê zbioru bibliotek, napisanych w trzech jêzykach: Java, Python oraz Go. Nastêpnie przy pomocy udostêpnionych narzêdzi mo¿liwe jest wdro¿enie aplikacji (\textit{Deployment}).
+
+Takie podejœcie do tworzenia aplikacji internetowych zyska³o olbrzymi¹ iloœæ zwolenników, poniewa¿ pozwoli³o na ca³kowite przeniesienie ciê¿aru zarz¹dzania skomplikowan¹ infrastruktur¹ na producentów rozwi¹zañ \textit{Paas}. Innym wa¿nym powodem dla którego wielu ludzi zdecydowa³o siê na wykorzystanie nowych us³ug, jest mo¿liwoœæ konfiguracji architektury do w³asnych potrzeb, a tak¿e (co by³o kluczowym powodem), do aktualnego obci¹¿enia aplikacji.
+
+\section{Rodzaje chmur}
+
+Rysunek \ref{fig:chmury} pokazuje zasadnicze ró¿nice miêdzy poszczególnymi rodzajami chmur. Chmura oferowana przez Google Application Engine, zapewnia wsparcie w zakresie architektury serwera, systemu plików, a tak¿e systemu bazodanowego. Dodatkowo GAE udostêpnia równie¿ mo¿liwoœæ korzystania z us³ug w tle oraz serwerów mailowych.
+
+\begin{figure}[hbtp]
+\caption{Zestawienie rodzajów chmury ze wzglêdu na udostêpniane zasoby}
+\includegraphics[scale=0.75, bb=0 0 100 200]{paas.pdf}
+\label{fig:chmury}
+\end{figure}
+
+Jak, wiêc wynika z zestawienia rodzajów chmur, oferuje ona du¿o wiêcej ponad standardow¹ infrastrukturê.
+
+\section{Nie relacyjne bazy danych NoSQL}
+
+Wraz z wykorzystaniem nie relacyjnych baz danych, zmieni³ siê zupe³nie pomys³ na organizacjê danych. Si³¹ baz danych NoSQL jest brak œciœle okreœlonej struktury, przez co schemat danych mo¿e siê dowolnie zmieniaæ w trakcie rozwoju aplikacji. Innym wa¿nym powodem wykorzystania bazy Google Datastore oferowanej przez GAE jest szybkoœæ i skalowalnoœæ. W odró¿nieniu od zwyk³ego hostingu, baza danych w GAE mo¿e byæ rozproszona na dowoln¹ iloœæ instancji.
+
+\section{Aplikacja zorientowana na us³ugi}
+
+Inn¹ wa¿n¹ cech¹ tworzonej aplikacji, jest wyszczególnienie us³ug (\textit{webserviceów}), które pomog¹ w wykonywaniu operacji na modelu przy pomocy metod protoko³u HTTP. Bêd¹ to wiêc popularne w dzisiejszych czasach us³ugi REST. Ze wzglêdu na specyfikê aplikacji i du¿y udzia³ jêzyka JavaScript w tworzonej logice, w wiêkszoœci wypadków us³ugi te bêd¹ zwraca³y w notacji JSON.
