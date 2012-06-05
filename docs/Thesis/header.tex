@@ -14,7 +14,12 @@
 \usepackage{url}
 \usepackage{float}
 
-\restylefloat{figure}
+\usepackage{booktabs}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\renewcommand{\abstractname}{Abstract}
+
+\restylefloat{figure} 
 
 \renewcommand{\figurename}{Rys.}
 \renewcommand{\tablename}{Tab.}

@@ -82,13 +82,28 @@ Na rysunku \ref{fig:rys2_http_lifecycle} przedstawiono cykl ¿ycia ¿¹dania od u¿y
 \label{fig:rys2_http_lifecycle}
 \end{figure}
 
-Nawi¹zuj¹c do listingu \ref{listing:ab}, wartoœciami zwi¹zanymi ze wspomnianymi w poprzednim akapicie wêz³ami s¹ \texttt{Connect} oraz \texttt{Waiting}, czyli odpowiednio czas oczekiwania na po³¹czenie z zasobem i czas pobierania odpowiedzi z zasobu.
+Nawi¹zuj¹c do listingu \ref{listing:ab}, wartoœciami zwi¹zanymi ze wspomnianymi w poprzednim akapicie wêz³ami s¹ \texttt{Connect} oraz \texttt{Waiting}, czyli odpowiednio czas oczekiwania na po³¹czenie z zasobem i czas pobierania odpowiedzi z zasobu. Istnieje 5 g³ównych czynników wp³ywaj¹cych na czas odpowiedzi serwera.
 
-Administratorzy serwerów WWW maj¹ bezpoœredni dostêp do statystyk odwiedzin stron, pozwala to zaobserwowaæ pewne trendy u¿ytkowników. Czêsto jest tak, ¿e dane zasoby s¹ intensywnie odpytywane przez u¿ytkowników np. w czasie 10 minut stronê odwiedza nawet 1000 u¿ytkowników, ³atwo to sobie wyobraziæ np. w wypadku premiery jakiejœ nowej gry, lub publikacji wyników egzaminu na uczelnie. Taki periodyczny, lecz bardzo wzmo¿ony ruch mo¿e powodowaæ pewne trudne do ustalenia problemy z dzia³aniem aplikacji. Dlatego te¿ twórcy narzêdzia \texttt{ab}, zaimplementowali równie¿ mo¿liwoœæ testów czasowych (ang. \textit{timed tests}). W ten sposób mo¿na zasymulowaæ jak strona bêdzie siê zachowywa³a równie¿ w takich nag³ych wypadkach.\\
+\begin{description}
+
+\item[Po³o¿enie geograficzne i problemy z sieci¹ komputerow¹.]
+
+Nie bez znaczenia dla czasu odpowiedzi, jaki u¿ytkownik odczuwa jest lokalizacja serwerów stron. Jeœli serwery s¹ zlokalizowane w USA, a u¿ytkownicy odwiedzaj¹cy stronê s¹ np. z Europy, dystans jaki musi pokonaæ ¿¹danie od momentu dotarcia do zasobu, oczekiwania na dokument, a¿ do jego pobrania jest nie wspó³miernie wiêkszy ni¿ w wypadku stron hostowanych dla tego samego po³o¿enia geograficznego. Stopieñ opóŸnienia jest zazwyczaj uzale¿niony od iloœci routerów, serwerów poœrednich, a nawet oceanów, które pokonuje ¿¹danie od punktu pocz¹tkowego do odbiorcy i z powrotem.
+
+\item[Wielkoœæ dokumentu odpowiedzi serwera.] Zale¿noœæ miêdzy wielkoœci¹ dokumentu, a czasem odpowiedzi serwera jest dosyæ oczywista, ³atwo wiêc sprawdziæ, ¿e im wiêkszy dokument trzeba pobraæ, tym wiêcej czasu potrzeba na zakoñczenie tego procesu.
+
+\item[Wykonywanie kodu aplikacji.] Najczêstsza przyczyna wolnego dzia³ania aplikacji wynika w³aœnie z braku optymalizacji kodu klienta. D³ugi czas wykonywania kodu aplikacji implikuje, d³ugi czas ³¹czny oczekiwania na odpowiedŸ serwera.
+\item[Rodzaj u¿ytej przegl¹darki.] Nie bez znaczenia jest równie¿ rodzaj u¿ytej przegl¹darki, czêsto wbudowane w przegl¹darkê wewnêtrzne mechanizmy buforowania zasobów pozwalaj¹ w znaczny sposób zredukowaæ iloœæ zapytañ wysy³anych do serwera. Dotyczy to zw³aszcza danych statycznych takich jak arkusze CSS, pliki JavaScript czy zasoby graficzne. 
+
+\item[Konfiguracja serwera WWW.] W zale¿noœci do u¿ytej technologii istnieje wiele ró¿nych serwerów WWW. Wœród najpopularniejszych prym wiedzie serwer HTTP Apache. Dla rozwi¹zañ napisanych w technologii Java czêsto wykorzystywane s¹ serwery GlassFish, Tomcat, Jetty. Czêsto wykorzystywane serwery, nie s¹ odpowiednio skonfigurowane do obs³ugi aplikacji. Nale¿y wywa¿yæ ustawienia serwera do bie¿¹cych potrzeb, poniewa¿ w wiêkszoœci wypadków domyœlne ustawienia mog¹ znacznie obni¿yæ ogóln¹ wydajnoœæ. Innym wa¿nym dzia³aniem jest dostosowywanie serwera do konkretnych zastosowañ - do serwowania plików statycznych lepszym rozwi¹zaniem jest wykorzystanie bardziej oszczêdnego pamiêciowo i operacyjnie serwera ngnix, natomiast do bardziej zaawansowanych zastosowañ, w tym wykonywanie kodu aplikacji, serwera Apache lub osobnej instancji serwera ngnix.
+
+\end{description}
+
+Administratorzy serwerów WWW maj¹ bezpoœredni dostêp do statystyk odwiedzin stron, pozwala to zaobserwowaæ pewne trendy u¿ytkowników. Czêsto jest tak, ¿e dane zasoby s¹ intensywnie odpytywane przez u¿ytkowników np. w czasie 10 minut stronê odwiedza nawet 1000 u¿ytkowników, ³atwo to sobie wyobraziæ np. w wypadku premiery jakiejœ nowej gry, lub publikacji wyników egzaminu na uczelni. Taki periodyczny, lecz bardzo wzmo¿ony ruch mo¿e powodowaæ pewne trudne do ustalenia problemy z dzia³aniem aplikacji. Dlatego te¿ twórcy narzêdzia \texttt{ab}, zaimplementowali równie¿ mo¿liwoœæ testów czasowych (ang. \textit{timed tests}). W ten sposób mo¿na zasymulowaæ jak strona bêdzie siê zachowywa³a równie¿ w takich nag³ych wypadkach.\\
 
 Wydaj¹c komendê \lstinline{ab -c 10 -t 30 http://ftims.edu.p.lodz.pl/}, mo¿na sprawdziæ, jak zachowa siê aplikacja odwiedzana przez 10 u¿ytkowników jednoczeœnie w czasie 30 sekund. Ta komenda pozbawiona jest parametru \textit{-t iloœæ ¿¹dañ}, oznacza to ¿e symulacja zakoñczy siê po 30 sekundach lub po osi¹gniêciu limitu 50 000 ¿¹dañ.
 
-\begin{lstlisting}[caption=Analiza strony przy teœcie obci¹¿enia czasowego, label=listing:ab_2]
+\begin{lstlisting}[caption=Test obci¹¿enia czasowego, label=listing:ab_2]
 Benchmarking ftims.edu.p.lodz.pl (be patient)
 Finished 504 requests
 
@@ -133,33 +148,59 @@ Percentage of the requests served within a certain time (ms)
 
 Listing \ref{listing:ab_2} przedstawia wynik testów. Tym razem zamieszczono pe³en rezultat wykonania tej komendy. Najwa¿niejsz¹ informacj¹ z punktu widzenia optymalizacji jest iloœæ ¿¹dañ na sekundê, która w tym wypadku wynosi \texttt{12.54}. Narzêdzie \texttt{ab} pozwala równie¿ zdiagnozowaæ potencjalne b³êdy aplikacji pod wp³ywem zbyt du¿ego ruchu. Pola takie jak \texttt{Failed requests} oraz \texttt{Write errors} u³atwiaj¹ okreœlenie prawid³owoœci wykonywania ¿¹dañ. W powy¿szym przyk³adzie, wartoœci s¹ akceptowalne (œredni czas ¿¹dania to 0.5 sekundy), co najwa¿niejsze nie wystêpuj¹ b³êdy na poziomie serwera WWW i z du¿ym prawdopodobieñstwem równie¿ b³êdy na poziomie aplikacji. Oczywiœcie zauwa¿alny jest spadek wydajnoœci, w porównaniu z pierwszym testem, co prawda wartoœci œrednie s¹ zbli¿one, jednak widaæ wiêksze rozbie¿noœci miêdzy wartoœciami minimalnymi a maksymalnymi. Najd³u¿sze zapytanie zajê³o ponad 3 sekundy. 
 
-W dokumentacji aplikacji \texttt{ab}, mo¿na znaleŸæ informacjê, ¿e niektóre serwery mog¹ blokowaæ wysy³ane przez niego nag³ówki HTTP. W tym celu mo¿na wykorzystaæ prze³¹cznik umo¿liwiaj¹cy podanie siê za inn¹ przegl¹darkê. Np. chc¹c zasymulowaæ odwiedziny przy u¿yciu przegl¹darki Chrome nale¿y wykonaæ nastêpuj¹c¹ komendê: 
+W dokumentacji aplikacji \texttt{ab}, mo¿na znaleŸæ informacjê, ¿e niektóre serwery mog¹ blokowaæ wysy³ane przez niego nag³ówki HTTP. 
+W tym celu mo¿na wykorzystaæ prze³¹cznik umo¿liwiaj¹cy podanie siê za inn¹ przegl¹darkê. 
+Np. chc¹c zasymulowaæ odwiedziny przy u¿yciu przegl¹darki Chrome nale¿y wykonaæ poni¿sz¹ komendê.
 \lstinline{ab -n 100 -c 5 -H "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.2 (KHTML, like Gecko) Chrome/6.0.447.0 Safari/534.2" http://www.example.com}.
 
 Pomimo wielu zalet wynikaj¹cych z korzystania z narzêdzia \texttt{ab}, istnieje jedna zasadnicza wada. Aplikacja nie daje mo¿liwoœci przetestowania pewnego scenariusza lub jest to bardzo niewygodne, a przypadku aplikacji z wykorzystaniem technologii \textit{JavaScript} i \textit{AJAX} wrêcz niewykonalne.
 
 Dlatego te¿ na prze³omie lat wyspecjalizowa³y siê bardziej zaawansowane narzêdzia przeznaczone do przeœledzenia logicznej kolejnoœci dzia³añ wykonywanych na stronie (pewnego przypadku u¿ycia) i wykonywanie testów w³aœnie w ramach tego zbioru poleceñ. W ten sposób mo¿liwe jest przeprowadzenie tzw. \textit{testów funkcjonalnych}, a tak¿e sprawdzenie w jakim stopniu s¹ one wra¿liwe na zwiêkszony ruch sieciowy. 
 
-Jednym z przyk³adów takiego narzêdzia o naprawdê olbrzymich mo¿liwoœciach jest \texttt{Apache JMeter}. Z jego pomoc¹ mo¿liwe jest nagranie pewnego ci¹gu akcji wykonanych przy pomocy przegl¹darki, a nastêpnie przeprowadzenie ci¹gu analiz i testów na tak wyodrêbnionym zbiorze. Tabela \ref{table:1_jmeter} pokazuje wynik dzia³ania przyk³adowego scenariusza polegaj¹cego na symulowaniu wejœcia na stronê http://www.wp.pl, a nastêpnie klikniêciu jednego z linków wiadomoœci, po czym klikniêciu na kolejny link z dostêpnych na bie¿¹cej stronie. Ostatnim elementem ³añcucha akcji jest wys³anie komentarza do artyku³u.
+Jednym z przyk³adów takiego narzêdzia o naprawdê olbrzymich mo¿liwoœciach jest \texttt{Apache JMeter}. Z jego pomoc¹ mo¿liwe jest nagranie pewnego ci¹gu akcji wykonanych przy pomocy przegl¹darki, a nastêpnie przeprowadzenie ci¹gu analiz i testów na tak wyodrêbnionym zbiorze. Tabela \ref{table:1_jmeter} pokazuje wynik dzia³ania przyk³adowego scenariusza polegaj¹cego na symulowaniu wejœcia na stronê http://www.wp.pl, a nastêpnie klikniêciu jednego z linków wiadomoœci, po czym klikniêciu na kolejny link z dostêpnych na bie¿¹cej stronie. Ostatnim elementem ³añcucha akcji jest wys³anie komentarza do artyku³u. JMeter podobnie jak \texttt{ab} umo¿liwia wykonywanie równoleg³ych po³¹czeñ u¿ytkowników okreœlanych jako w¹tki (\textit{threads}).\\
 
+W zdefiniowanym przypadku u¿ycia 5 u¿ytkowników wykonuje jednoczeœnie t¹ sam¹ sytuacje 500 razy. Na zakoñczenie dane mo¿liwe s¹ do wyeksportowania do formatu \textit{CSV} lub wyœwietlenia bezpoœrednio na ekranie. JMeter jest narzêdziem bardzo rozbudowanym, przez co idealnie nadaje siê do testowania zaawansowanych scenariuszy zarówno pod k¹tem poprawnoœci dzia³ania, jak równie¿ ogólnej wydajnoœci.
 
-
-\begin{table}
+\begin{table*}\centering
+\ra{1.3}
+\begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
+URL & Œrednia & Min & Max & B³¹d (\%) & Req/Min \\
+\bottomrule
+..14543704,wiadomosc.html & 2299 & 415 & 94329 & 2.2 & 43.7 \\  
+...1028235,wiadomosci.html & 2485 & 335 & 94434 & 2.8 & 43.7 \\  
+...14545325,wiadomosc.html & 2023 & 394 & 94285 & 1.8 & 43.7 \\  
+\bottomrule
+£¹cznie & 2269 & 335 & 94434 & 2.27 & 131.1 \\  
+\end{tabular}
 \caption{Tabela z rezultatem dzia³ania aplikacji JMeter}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-
-URL & Œrednia & Min & Max & B³¹d & Req/Min \\
-
-\hline
-..14543704,wiadomosc.html & 2299 & 415 & 94329 & 2.2 & 43.7 \\ 
-\hline 
-...1028235,wiadomosci.html & 2485 & 335 & 94434 & 2.8 & 43.7 \\ 
-\hline 
-...14545325,wiadomosc.html & 2023 & 394 & 94285 & 1.8 & 43.7 \\ 
-\hline 
-£¹cznie & 2269 & 335 & 94434 & 2.27 & 131.1 \\ 
-\hline 
-\end{tabular} 
 \label{table:1_jmeter}
-\end{table}
+\end{table*}
+
+\section{Analiza wydajnoœci frontendu}
+
+W poprzednim podrozdziale zosta³a omówiona tematyka testowania czasu dzia³ania zasobów serwowanych przez serwer WWW. Wykorzystuj¹c wspomniane wczeœniej narzêdzia mo¿na jednoznacznie ustaliæ czy aplikacja funkcjonuje w sposób prawid³owy, czy nie wystêpuj¹ b³êdy w pracy oraz jak dobrze oprogramowanie radzi sobie ze wzmo¿onym obci¹¿eniem.
+
+Wydawaæ by siê mog³o, ¿e problem testowania wydajnoœci aplikacji zosta³ jednoznacznie omówiony.
+Nic bardziej mylnego, jedynie w idealnym œwiecie, strona WWW sk³ada³a by siê wy³¹cznie z tekstu, a u¿ytkownicy do przegl¹dania internetu, korzystali wy³¹cznie z terminali.\\
+
+Obecnie wszyscy u¿ytkownicy korzystaj¹ przynajmniej z jednej przegl¹darki internetowej, dlatego dla wiêkszej precyzji, konieczne jest wyszczególnienie pewnego kluczowego komponentu jakim jest front-end aplikacji. W przypadku aplikacji internetowych, front-end to graficzna nak³adka s³u¿¹ca do komunikacji z u¿ytkownikiem i prezentacji danych opracowanych przez architekturê systemu (back-end) w sposób przystêpny i zrozumia³y dla u¿ytkowników. Odpowiednia optymalizacja frontendu jest o tyle wa¿na, ¿e jest to pierwsza technologia z jak¹ u¿ytkownik ma kontakt w momencie przegl¹dania aplikacji \cite{book:proPHP}.
+
+Frontend jest miejscem analizy i przetwarzania wyniku odpowiedzi serwera. W wiêkszoœci wypadków miejscem osadzenia frontendu jest przegl¹darka WWW, natomiast jêzykiem obowi¹zuj¹cej komunikacji jest jêzyk HTML. Od kilku lat w wyniku rozwoju trendu WEB 2.0 istotnym elementem ka¿dej strony staje siê przeniesienie czêœci logiki aplikacji na stronê przegl¹darki (frontendu). Cienkie do tej pory aplikacje webowe (thin client), zaczynaj¹ dziêki zdobycz¹ technologicznym takim jak AJAX stawaæ siê grubymi klientami. Oznacza to, ¿e przetwarzanie danych mo¿e mieæ miejsce w przegl¹darce internetowej.
+
+Dlatego te¿ istotnym elementem analizy wydajnoœciowej jest analiza frontendu. Wœród istniej¹cych na rynku rozwi¹zañ, najpopularniejszymi s¹ te, które s¹ wbudowane bezpoœrednio w interfejs przegl¹darki internetowej. Jednym z pierwszych rozwi¹zañ tego typu by³a wtyczka Firebug napisana dla przegl¹darki Firefox. Jest to obecnie najbardziej zaawansowane narzêdzie tego typu, rywalizuj¹ce jednoczeœnie z natywnymi narzêdziami deweloperskimi dla przegl¹darki Chrome.
+
+Interfejs Firebuga pozwala na szczegó³ow¹ inspekcjê kodu HTML wraz z mo¿liwoœci¹ dynamicznej podmiany jego zawartoœci. Nie mniej wa¿nymi narzêdziami, s¹: mo¿liwoœæ wykonywania i debugowania kodu JavaScript na stronie, inspekcja zwi¹zanego z dokumentem HTML obiektu DOM, edycja i rewizja kodu JavaScript oraz narzêdzie do monitorowania ruchu sieciowego wykonywanego przez aplikacjê.
+
+Ten ostatni modu³ pe³ni podobn¹ rolê do narzêdzia \texttt{ab}, jednak wyœwietla wszystkie zasoby, które maj¹ bezpoœrednie powi¹zanie z bie¿¹cym dokumentem HTML. Omawiane wczeœniej narzêdzia pokazywa³ jedynie czas renderowania dokumentu HTML, jednak nale¿y mieæ na uwadze, ¿e strona internetowa sk³ada siê z wielu ró¿nych zasobów wœród których nie sposób pomin¹æ: grafik, arkuszy CSS, dokumentów JavaScript, apletów Java, dokumentów Flash.
+
+Ka¿da strona mo¿e zawieraæ 0 lub wiêcej takich zasobów, dlatego na ³¹czny czas ³adowania strony sk³ada siê zarówno czas oczekiwania na dokument HTML, jak równie¿ czas konieczny na pobranie ka¿dego z powi¹zanych z nim zasobów. Nawi¹zuj¹c do \cite{book:yahoo} istniej zasada, która mówi, ¿e w wiêkszoœci wypadków tylko 10-20\% czasu odpowiedzi jest spêdzane na oczekiwanie na dokument HTML, natomiast pozosta³e 80-90\% to czas na pobieranie pozosta³ych zasobów.
+
+Rysunek \ref{fig:ruch_sieciowy} jest najlepszym przyk³adem tej zasady. Strona wykonuje 32 zapytania do serwera, z czego tylko jedno to zapytanie o dokument HTML. Pobranie tego dokumentu zajê³o oko³o 400ms, tymczasem ³¹czny czas wczytywania strony wyniós³ 3.21 sekundy. Oznacza to, ¿e generowanie dokumentu zajê³o zaledwie 12\% ³¹cznego czasu oczekiwania. Na podstawie danych z Firebuga ³atwo stwierdziæ pewne nieprawid³owoœci, bowiem w ramach strony wczytywane s¹ 2 stosunkowo du¿e (1,1 MB) dokumenty graficzne, które prawdopodobnie nie zosta³y zeskalowane do odpowiednich rozmiarów. \texttt{Firebug} stanowi, wiêc cenne narzêdzie przy diagnostyce frontendu strony. Staje siê jeszcze przydatniejszy przy pojawianiu siê elementów dynamicznych JavaScript, poniewa¿ pozwala œledziæ zarówno aktualnie wykonywany kod, jak równie¿ nas³uchiwaæ zapytañ asynchronicznych wykonywanych przez AJAX. Narzêdzie to mo¿e byæ równie¿ przydatne podczas œledzenia zmian dokonywanych w dokumencie HTML, za pomoc¹ narzêdzia inspekcji, umo¿liwia zbadanie ka¿dego wêz³a.
+
+\begin{figure}[hbtp]
+\includegraphics[scale=0.45]{rys3_firebug.pdf}
+\caption{Analiza ruchu sieciowego na stronie http://ftims.p.lodz.pl}
+\label{fig:ruch_sieciowy}
+\end{figure}
+
+

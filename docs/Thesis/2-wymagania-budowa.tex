@@ -1,3 +1,32 @@
 \chapter{Wymagania i budowa aplikacji}
 
-Wymagania
+Aplikacja powinna spe³niaæ wszystkie oczekiwane cele biznesowe, jak równie¿ zapewniaæ prawid³owe funkcjonowanie bez wzglêdu na aktualnie panuj¹ce warunki. Aplikacja demonstracyjna bêdzie ksiêgarni¹ internetow¹ oferuj¹c¹ wiele typowych funkcji, charakterystycznych dla tej bran¿y.
+
+\section{Zakres funkcjonalny}
+
+
+Wymagania podzielono na czêœæ administracyjn¹ i czêœæ u¿ytkownika, natomiast zbiór funkcjonalnoœc przedstawiony jest w tabeli \ref{table:2_funkcje}.\\
+
+\begin{table*}\centering
+\ra{1.3}
+\begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
+Czêœæ Administracyjna & Sekcja u¿ytkownika  \\
+\bottomrule
+
+Dodawanie ksi¹¿ek & Rejestracja\\
+Edycja ksi¹¿ek & Edycja i podgl¹d konta\\
+Usuwanie ksi¹¿ek & Ocenianie ksi¹¿ek\\
+Moderacja wpisów & Komentowanie ksi¹¿ek\\
+Dodawanie kategorii & Przegl¹danie kategorii\\
+Dodawanie plików do ksi¹¿ek & Pobieranie streszczeñ ksi¹¿ek\\
+Nadzorowanie kont u¿ytkowników & Wyszukiwanie ksi¹¿ek w wyszukiwarce\\
+
+\end{tabular}
+\caption{Tabela z wykazem funkcjonalnoœci}
+\label{table:2_funkcje}
+\end{table*}
+
+
+Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ, w tym celu, akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu frontendu, dopiero w wypadku wy³¹czenia wykonywania skryptów, wykonane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie np. podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
+
+Nale¿y jednak mieæ na uwadze bezpieczeñstwo oprogramowania, dlatego nie nale¿y polegaæ w 100\% na walidacji wykonywanej przez JavaScript, poniewa¿ u¿ytkownik mo¿e bez problemu wy³¹czyæ dzia³anie skryptów. Dlatego te¿ podczas tworzenia tego typu rozwi¹zañ walidacja po stronie klienta powinna iœæ zawsze w parze z walidacj¹ po stronie serwera.
