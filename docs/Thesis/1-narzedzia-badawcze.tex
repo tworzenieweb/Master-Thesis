@@ -1,13 +1,13 @@
 \chapter{Analiza jakoœciowa i wydajnoœciowa aplikacji}
 
-Projektuj¹c aplikacje, ju¿ fazy projektowej, nale¿y myœleæ o zapewnieniu wysokiej wydajnoœci, a tak¿e o potencjalnych problemach, które mog¹ siê pojawiæ po wdro¿eniu oprogramowania. W celu zapewnienia tworzonej aplikacji najwy¿szej skutecznoœci pracy, nale¿y wzi¹æ pod uwagê wiele cech, wœród których najwa¿niejsze zdefiniowane s¹ poni¿ej.
+Projektuj¹c aplikacje, ju¿ w fazie projektowej, nale¿y myœleæ o zapewnieniu wysokiej wydajnoœci, a tak¿e o potencjalnych problemach, które mog¹ siê pojawiæ po wdro¿eniu oprogramowania. W celu zapewnienia tworzonej aplikacji najwy¿szej skutecznoœci pracy, nale¿y wzi¹æ pod uwagê wiele cech, wœród których najwa¿niejsze zdefiniowane s¹ poni¿ej.
 
 \begin{description}
-\item[Skalowalnoœæ (ang. \textit{Scalability})] cecha aplikacji, okreœlana jako zdolnoœæ do wzrostu wydajnoœci aplikacji. Wraz ze zwiêkszeniem iloœci dostêpnych zasobów sprzêtowych (serwery WWW, bazy danych, wydajniejsze procesory).
+\item[Skalowalnoœæ (ang. \textit{Scalability})] cecha aplikacji, okreœlana jako zdolnoœæ do wzrostu wydajnoœci aplikacji wraz ze zwiêkszeniem iloœci dostêpnych zasobów sprzêtowych (serwery WWW, bazy danych, wydajniejsze procesory).
 
 \item[Niezawodnoœæ (ang. \textit{High availability})] stanowi projekt, jak i odpowiedni¹ implementacje systemu, zapewniaj¹ca okreœlony poziom ci¹g³oœci wykonywania operacji w czasie. Polega to na zapewnieniu jak najwiêkszej dostêpnoœci us³ugi.
 
-\item[Wydajnoœæ (ang. \textit{Performance})] przek³ada siê na mo¿liwoœæ faktycznego obs³u¿enia du¿ego ruchu sieciowego, przy jednoczesnym utrzymaniu czasu odpowiedzi aplikacji na stosownym poziomie.
+\item[Wydajnoœæ (ang. \textit{Performance})] przek³ada siê na mo¿liwoœæ szybkiego wykonywania kodu aplikacji oraz utrzymaniu czasu odpowiedzi aplikacji na stosownym poziomie.
 \end{description}
 
 Czêsto skalowalnoœæ jest mylona z wydajnoœci¹, jednak przek³adaj¹c to na bardziej ¿yciowy przyk³ad, wydajnoœæ aplikacji mo¿na porównaæ do szybkiego samochodu. Z drugiej strony, bez zapewnienia odpowiednich dróg, ten szybki samochód lub ich grupa, nie jest w stanie rozwin¹æ maksymalnej prêdkoœci. W najgorszym wypadku mo¿e nawet utkwiæ w korku, blokowany przez inne pojazdy. 
@@ -179,7 +179,7 @@ Jednym z przyk³adów takiego narzêdzia o naprawdê olbrzymich mo¿liwoœciach jest \
 
 W zdefiniowanym przypadku u¿ycia 5 u¿ytkowników wykonuje jednoczeœnie t¹ logikê 500 razy. Na zakoñczenie dane mo¿liwe s¹ do wyeksportowania do formatu \textit{CSV} lub wyœwietlone bezpoœrednio na ekranie. JMeter jest narzêdziem bardzo rozbudowanym, przez co idealnie nadaje siê do testowania zaawansowanych scenariuszy zarówno pod k¹tem poprawnoœci dzia³ania, jak równie¿ ogólnej wydajnoœci.
 
-\begin{table*}\centering
+\begin{table}\centering
 \ra{1.3}
 \begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
 URL & Œrednia & Min & Max & B³¹d (\%) & Req/Min \\
@@ -188,11 +188,11 @@ URL & Œrednia & Min & Max & B³¹d (\%) & Req/Min \\
 ...1028235,wiadomosci.html & 2485 & 335 & 94434 & 2.8 & 43.7 \\  
 ...14545325,wiadomosc.html & 2023 & 394 & 94285 & 1.8 & 43.7 \\  
 \bottomrule
-£¹cznie & 2269 & 335 & 94434 & 2.27 & 131.1 \\  
+\textbf{£¹cznie} & \textbf{2269} & \textbf{335} & \textbf{94434} & \textbf{2.27} & \textbf{131.1} \\  
 \end{tabular}
 \caption{Tabela z rezultatem dzia³ania aplikacji JMeter}
 \label{table:1_jmeter}
-\end{table*}
+\end{table}
 
 \section{Analiza wydajnoœci frontendu}
 
@@ -201,19 +201,31 @@ W poprzednim podrozdziale zosta³a omówiona tematyka testowania czasu dzia³ania z
 Wydawaæ by siê mog³o, ¿e problem testowania wydajnoœci aplikacji zosta³ jednoznacznie omówiony.
 Nic bardziej mylnego, jedynie w idealnym œwiecie, strona WWW sk³ada³a by siê wy³¹cznie z tekstu, a u¿ytkownicy do przegl¹dania Internetu, korzystaliby wy³¹cznie z terminali.\\
 
-Obecnie wszyscy u¿ytkownicy korzystaj¹ przynajmniej z jednej przegl¹darki internetowej, dlatego dla wiêkszej precyzji, konieczne jest wyszczególnienie pewnego kluczowego komponentu jakim jest front-end aplikacji. W przypadku aplikacji internetowych, front-end to graficzna nak³adka s³u¿¹ca do komunikacji z u¿ytkownikiem i prezentacji danych opracowanych przez architekturê systemu (back-end) w sposób przystêpny i zrozumia³y dla u¿ytkowników. Odpowiednia optymalizacja frontendu jest o tyle wa¿na, ¿e jest to pierwsza technologia z jak¹ u¿ytkownik ma kontakt w momencie przegl¹dania aplikacji \cite{book:proPHP}.
 
-Frontend jest miejscem analizy i przetwarzania wyniku odpowiedzi serwera. W wiêkszoœci wypadków miejscem osadzenia frontendu jest przegl¹darka WWW, natomiast jêzykiem obowi¹zuj¹cej komunikacji jest jêzyk\linebreak HTML. Od kilku lat w wyniku rozwoju trendu WEB 2.0, istotnym zabiegiem, stron staje siê przeniesienie czêœci logiki aplikacji na stronê przegl¹darki (frontendu). Cienkie do tej pory aplikacje webowe (thin client), zaczynaj¹ dziêki zdobycz¹ technologicznym takim jak AJAX stawaæ siê klientami grubymi. Oznacza to, ¿e przetwarzanie danych mo¿e mieæ miejsce w przegl¹darce internetowej.\\
+Wspó³czesny u¿ytkownik internetu, do przegl¹dania jego zasobów wykorzystuje przegl¹darkê internetow¹, zdoln¹ do wyœwietlania zarówno tekstu, jak i mediów wszelakiego typu. Dlatego  te¿, dla wiêkszej precyzji, konieczne jest wyszczególnienie kluczowego komponentu oprogramowania, jakim jest \textit{front-end} aplikacji. 
 
-Dlatego te¿ istotnym elementem analizy wydajnoœciowej jest analiza frontendu. Wœród istniej¹cych na rynku rozwi¹zañ, najpopularniejszymi s¹ te, które s¹ wbudowane bezpoœrednio w interfejs przegl¹darki internetowej. Jednym z pierwszych rozwi¹zañ tego typu by³a wtyczka Firebug napisana dla przegl¹darki Firefox. Jest to obecnie najbardziej zaawansowane narzêdzie tego typu, rywalizuj¹ce jednoczeœnie z natywnymi narzêdziami deweloperskimi dla przegl¹darki Chrome.
+W przypadku aplikacji internetowych, \textit{front-end} to graficzny interfejs s³u¿¹ca do komunikacji u¿ytkownika ze stron¹ i prezentacji danych opracowanych przez zaplecze systemu (back-end) w sposób przystêpny i zrozumia³y.\\
+ 
+Odpowiednia optymalizacja \textit{front-endu} jest o tyle wa¿na, ¿e jest to pierwsza technologia z jak¹ u¿ytkownik ma kontakt w momencie korzystania z  aplikacji webowej \cite{book:proPHP}.
 
-Interfejs Firebuga pozwala na szczegó³ow¹ inspekcjê kodu HTML wraz z mo¿liwoœci¹ dynamicznej podmiany jego zawartoœci. Nie mniej wa¿nymi narzêdziami, s¹: mo¿liwoœæ wykonywania i debugowania kodu JavaScript na stronie, inspekcja zwi¹zanego z dokumentem HTML obiektu DOM, edycja i rewizja kodu JavaScript oraz narzêdzie do monitorowania ruchu sieciowego wykonywanego przez aplikacjê.
+Frontend realizuje  przetwarzanie i analizê wyniku odpowiedzi serwera, przy czym obowi¹zuj¹cym jêzykiem komunikacji jest jêzyk HTML (\textit{HiperText Markup Language }). Od kilku lat w wyniku rozwoju trendu WEB 2.0, istotnym zabiegiem, projektowanych aplikacji, staje siê przeniesienie czêœci logiki na stronê przegl¹darki (frontendu). Cienkie do tej pory aplikacje webowe (\textit{thin client}), zaczynaj¹  - dziêki zdobycz¹ technologicznym takim jak \textit{AJAX} realizuj¹ znacznie szerszy zakres funkcjonalny ni¿ dotychczas. Oznacza to, ¿e przetwarzanie danych mo¿e mieæ miejsce wykorzystuj¹c przegl¹darkê internetow¹ i jêzyk JavaScript. Dlatego te¿ kolejnym istotnym elementem analizy wydajnoœciowej staje siê analiza \textit{frontendu}.\\
 
-Ten ostatni modu³ pe³ni podobn¹ rolê do narzêdzia \texttt{ab}, jednak wyœwietla wszystkie zasoby, które maj¹ bezpoœrednie powi¹zanie z bie¿¹cym dokumentem HTML. Omawiane wczeœniej narzêdzia pokazywa³ jedynie czas renderowania dokumentu HTML, jednak nale¿y mieæ na uwadze, ¿e strona internetowa sk³ada siê z wielu ró¿nych zasobów wœród których nie sposób pomin¹æ: grafik, arkuszy CSS, dokumentów JavaScript, apletów Java, dokumentów Flash.
 
-Ka¿da strona mo¿e zawieraæ 0 lub wiêcej takich zasobów, dlatego na ³¹czny czas ³adowania strony sk³ada siê zarówno czas oczekiwania na dokument HTML, jak równie¿ czas konieczny na pobranie ka¿dego z powi¹zanych z nim zasobów. Nawi¹zuj¹c do \cite{book:yahoo} istniej zasada, która mówi, ¿e w wiêkszoœci wypadków tylko 10-20\% czasu odpowiedzi jest spêdzane na oczekiwanie na dokument HTML, natomiast pozosta³e 80-90\% to czas na pobieranie pozosta³ych zasobów.
+Na podstawie badañ firmy Juniper, stwierdzono, ¿e œredni czas, jaki u¿ytkownik jest w stanie poczekaæ na za³adowanie strony to zaledwie 4 sekundy. Nie warto wiêc traciæ potencjalnych klientów strony, tylko i wy³¹cznie z powodu braku optymalizacji po stronie przegl¹darki.
 
-Rysunek \ref{fig:ruch_sieciowy} jest najlepszym przyk³adem tej zasady. Strona wykonuje 32 zapytania do serwera, z czego tylko jedno to zapytanie o dokument HTML. Pobranie tego dokumentu zajê³o oko³o 400ms, tymczasem ³¹czny czas wczytywania strony wyniós³ 3.21 sekundy. Oznacza to, ¿e generowanie dokumentu zajê³o zaledwie 12\% ³¹cznego czasu oczekiwania. Na podstawie danych z Firebuga ³atwo stwierdziæ pewne nieprawid³owoœci, bowiem w ramach strony wczytywane s¹ 2 stosunkowo du¿e (1,1 MB) dokumenty graficzne, które prawdopodobnie nie zosta³y zeskalowane do odpowiednich rozmiarów. \texttt{Firebug} stanowi, wiêc cenne narzêdzie przy diagnostyce frontendu strony. Staje siê jeszcze przydatniejszy przy pojawianiu siê elementów dynamicznych JavaScript, poniewa¿ pozwala œledziæ zarówno aktualnie wykonywany kod, jak równie¿ nas³uchiwaæ zapytañ asynchronicznych wykonywanych przez AJAX. Narzêdzie to mo¿e byæ równie¿ przydatne podczas œledzenia zmian dokonywanych w dokumencie HTML, za pomoc¹ narzêdzia inspekcji, umo¿liwia zbadanie ka¿dego wêz³a.
+Wœród istniej¹cych na rynku rozwi¹zañ s³u¿¹cych do analizy po stronie klienta, najpopularniejszymi s¹ te, które s¹ wbudowane bezpoœrednio w interfejs przegl¹darki internetowej (jest to przecie¿ najbardziej intuicyjne podejœcie). Jednym z pierwszych rozwi¹zañ tego typu by³a wtyczka \texttt{Firebug} napisana dla przegl¹darki Firefox. Jest to obecnie najbardziej zaawansowane narzêdzie tego typu, rywalizuj¹ce jednoczeœnie z natywnymi dodatkami deweloperskimi dla przegl¹darki Chrome.\\
+
+Interfejs Firebuga pozwala na szczegó³ow¹ inspekcjê kodu HTML wraz z mo¿liwoœci¹ dynamicznej operacji na wêz³ach DOM dokumentu HTML. Nie mniej wa¿nymi narzêdziami s¹: mo¿liwoœæ wykonywania i debugowania kodu JavaScript na stronie, inspekcja zwi¹zanego z dokumentem HTML obiektu DOM, edycja i rewizja kodu JavaScript oraz narzêdzie do monitorowania ruchu sieciowego wykonywanego przez aplikacjê.
+
+Ten ostatni modu³ pe³ni podobn¹ rolê do narzêdzia \texttt{ab}, jednak wyœwietla wszystkie zasoby, które maj¹ bezpoœrednie powi¹zanie z bie¿¹cym dokumentem HTML. Omawiane wczeœniej narzêdzia pokazywa³y jedynie czas renderowania dokumentu HTML, jednak nale¿y mieæ na uwadze, ¿e strona internetowa sk³ada siê z wielu ró¿nych zasobów, wœród których nie sposób pomin¹æ: grafik, arkuszy CSS, kodu JavaScript, apletów Java czy obiektów Adobe Flash.
+
+Ka¿da strona mo¿e zawieraæ zró¿nicowan¹ iloœæ takich zasobów, dlatego na ³¹czny czas ³adowania strony sk³ada siê zarówno czas oczekiwania na dokument HTML, jak równie¿ czas konieczny na pobranie ka¿dego z powi¹zanych z nim zasobów. 
+
+Nawi¹zuj¹c do \cite{book:yahoo} istniej zasada, która mówi, ¿e tylko 10-20\% czasu odpowiedzi jest spêdzane na oczekiwanie dokumentu HTML, natomiast pozosta³e 80-90\% to czas na pobieranie pozosta³ych zasobów i ³adowanie zawartoœci DOM.
+
+Rysunek \ref{fig:ruch_sieciowy} jest najlepszym przyk³adem tej zasady. Strona wykonuje 32 zapytania do serwera, z czego tylko jedno to ¿¹danie dokumentu HTML. Pobranie tego dokumentu zajê³o oko³o 400ms, tymczasem ³¹czny czas wczytywania strony wyniós³ \textbf{3.21 sekundy}. Oznacza to, ¿e generowanie dokumentu zajê³o zaledwie \textbf{12\%} ³¹cznego czasu oczekiwania. 
+
+Na podstawie danych z Firebuga ³atwo stwierdziæ pewne nieprawid³owoœci, bowiem w ramach strony wczytywane s¹ 2 stosunkowo du¿e (1,1 MB) dokumenty graficzne, które prawdopodobnie nie zosta³y wymiarowane do odpowiednich rozmiarów. \texttt{Firebug} stanowi, wiêc cenne narzêdzie przy diagnostyce \textit{frontendu} strony. Narzêdzie sstaje siê jeszcze przydatniejszy przy pojawianiu siê elementów dynamicznych JavaScript, poniewa¿ pozwala œledziæ zarówno aktualnie wykonywany kod, jak równie¿ nas³uchiwaæ zapytañ asynchronicznych wykonywanych przez AJAX. Narzêdzie to mo¿e byæ równie¿ przydatne podczas œledzenia zmian dokonywanych w dokumencie HTML, za pomoc¹ narzêdzia inspekcji, umo¿liwia bowiem zbadanie ka¿dego wêz³a.
 
 \begin{figure}[hbtp]
 \includegraphics[scale=0.45]{rys3_firebug.pdf}
@@ -223,4 +235,276 @@ Rysunek \ref{fig:ruch_sieciowy} jest najlepszym przyk³adem tej zasady. Strona wy
 
 \section{Analiza wydajnoœci bazy danych}
 
-Bardzo czêsto ogólna wydajnoœæ aplikacji uzale¿niona jest od szybkoœci operacji odczytu / zapisu bazy danych. Poci¹ga to za sob¹ równie¿ testy tego wêz³a aplikacji. 
+Bardzo czêsto ogólna wydajnoœæ aplikacji uzale¿niona jest od szybkoœci operacji odczytu / zapisu bazy danych. W pewnym momencie twórcy aplikacji zaczynaj¹ oczekiwaæ od niej wiêkszej wydajnoœci. Nale¿y jednak zadaæ pytanie co nale¿y tak naprawdê optymalizowaæ? Konkretne zapytanie? Schemat bazy? Czy mo¿e sprzêt na którym baza danych pracuje? Jedynym sposobem na znalezienie jednoznacznej odpowiedzi, jest zmierzenie pracy wykonywanej przez bazê  i sprawdzenie wydajnoœci pod wp³ywem ró¿nych czynników \cite{book:mysql}.
+
+Bazy danych ewoluowa³y na przestrzeni kilkunastu lat, pocz¹tkowo by³y to po prostu pliki o okreœlonej strukturze, jednak wraz ze wzrostem wymagañ zaczêto stosowaæ równoleg³y dostêp do danych, a tak¿e dbaj¹c o spójnoœæ danych, zaimplementowano system transakcji.
+
+Obecnie widaæ specjalizacji baz danych do konkretnych zastosowañ, pomimo dominacji na rynku baz relacyjnych opartych o standard \textit{SQL 93}, zaczêto równie¿ torowaæ drogê nowym rozwi¹zaniom takim jak \textit{NoSQL} czyli bazy danych o nieuporz¹dkowanej strukturze, pozbawionych œciœle zdefiniowanych schematów, zyskuj¹c wiêksz¹ elastycznoœæ. Dodatkowo w okreœlonych zastosowaniach tego typu bazy danych okazuj¹ siê du¿o szybsze ni¿ bazy relacyjne. Szybkoœæ ta jest tym wiêksza, im wiêksza jest przechowywana kolekcja danych. S¹ to, wiêc bazy wysoce skalowalne, choæ mniej spójne ni¿ standardowe.\\
+
+Wœród systemów bazodanowych wykorzystywanych w aplikacji e-commerce, bardzo du¿¹ popularnoœci¹ cieszy siê oprogramowania MySQL. Pomimo du¿o mniejszych mo¿liwoœci ni¿ np. komercyjne rozwi¹zania Oracle czy MS SQL Server, omawiana baza danych jest elastyczna i ³atwo zaadaptowaæ j¹ do w³asnych potrzeb. Od czasu wprowadzenia zgodnoœci ze standardem ACID, MySQL zacz¹³ byæ szeroko wykorzystywany w e-biznesie. 
+
+\begin{figure}[hbtp]
+\center
+\caption{Schemat architektury MySQL}
+\includegraphics[scale=0.5]{baza.pdf}
+\label{fig:mysql_schemat}
+\end{figure}
+
+Rysunek \ref{fig:mysql_schemat} przedstawia, jak wygl¹da architektura systemu baz danych MySQL, z punktu widzenia funkcjonalny komponentów \cite{book:proPHP}[str. 26]. Pierwsza warstwa zawiera us³ugi, które wbrew pozorom nie s¹ unikalne tylko dla omawianego oprogramowania. S¹ to us³ugi  charakterystyczne dla wiêkszoœci narzêdzi w architekturze sieciowej. Wyró¿niono wiêc obs³ugê po³¹czenia, uwierzytelnianie itd.
+Druga warstwa wprowadza wiele zmian i komponentów specyficznych dla MySQL'a. Wyró¿niamy wiêc komponenty odpowiedzialne za parsowanie zapytañ, a tak¿e ich optymalizacjê, buforowanie oraz kod odpowiedzialny za implementacje wbudowanych funkcji (np. data, czas, funkcje matematyczne i kryptograficzne). Ka¿da funkcjonalnoœæ oferowana przez którykolwiek z silników sk³adowania danych (\textit{storage engine}), ma tu swoje miejsce (np. procedury u¿ytkownika, wyzwalacze oraz widoki).
+
+Trzecia warstwa wyró¿nia wszystkie silniki sk³adowania, które odpowiedzialne s¹ bezpoœrednio za przechowywanie i pobieranie danych w MySQL'u. Ka¿dy z silników, ma ró¿ne zastosowania (podobnie jak ró¿ne systemy plików w systemach operacyjnych). Komunikacja z ka¿dym z nich odbywa siê wykorzystuj¹c wewnêtrzne API. Wspomniany interfejs ukrywa ró¿nice w specyfice ka¿dego z mechanizmów, przez co zapytania s¹ bardziej abstrakcyjne i prostsze w u¿yciu dla u¿ytkownika koñcowego. Podobnie jak w wypadku serwerów WWW, miêdzy mechanizmem sk³adowania a serwerem MySQL wystêpuje zale¿noœæ: ¿¹danie - odpowiedŸ. Oznacza to, ¿e serwer wysy³a ¿¹danie i oczekuje na odpowiedŸ.
+
+Najlepsz¹ strategi¹ optymalizacji, jest szukanie miejsc aplikacji, które dzia³aj¹ najwolniej. Utworzono nastêpuj¹cy schemat bazy danych (rys. \ref{fig:baza_danych_test}). Na podstawie rysunku widaæ zale¿noœæ studenta, który przynale¿y do 1 profilu (nauczyciela), który z kolei nale¿y do organizacji. Podobnie student mo¿e nale¿eæ do jednego z istniej¹cych kampusów.
+
+\begin{figure}[hbtp]
+\center
+\caption{Schemat testowej bazy danych}
+\includegraphics[scale=1]{baza_test.pdf}
+\label{fig:baza_danych_test}
+\end{figure}
+
+Jak zachowa siê baza danych przy próbie stworzenia alfabetycznego indeksu studentów, których nazwiska zaczynaj¹ siê na dan¹ literê (listing \ref{listing:sql})?
+
+\begin{lstlisting}[language=sql, caption=Zapytanie do wyœwietlenia menu ksi¹¿ki adresowej uczniów, label=listing:sql]
+SELECT left(s.lastName, 1) letter, COUNT(s.id) students
+FROM student s 
+WHERE s.lastName > 'A'
+GROUP BY letter
+\end{lstlisting}
+
+Rezultat dzia³ania zapytania SQL widoczny jest na listingu \ref{listing:sql_adresowa}. Jak widaæ, zapytanie wykonuje siê w czasie 40 milisekund. Jest to dosyæ krótko, ale wynika to z g³ownie z rozmiarów kolekcji danych (20244 studentów). Wraz z rozrastaniem siê tej tabeli, czas potrzebny na wykonanie tego zapytania bêdzie siê systematycznie powiêksza³. Dzieje siê tak, poniewa¿ tabela studentów nie posiada ¿adnego indeksu.
+
+\begin{lstlisting}[caption=Wynik zapytania z listingu \ref{listing:sql}, label=listing:sql_adresowa]
++--------+----------+
+| letter | students |
++--------+----------+
+| A      |      999 |
+| B      |     1749 |
+| C      |      814 |
+| D      |      670 |
+| E      |      385 |
+| F      |      918 |
+| G      |     1599 |
+| H      |      808 |
+| I      |      245 |
+| J      |      194 |
+| K      |     1695 |
+| L      |     1156 |
+| M      |     1411 |
+| N      |      492 |
+| O      |      240 |
+| P      |      686 |
+| Q      |       14 |
+| R      |     1259 |
+| S      |     2662 |
+| T      |      499 |
+| U      |       57 |
+| V      |      244 |
+| W      |      698 |
+| Y      |      316 |
+| Z      |      400 |
++--------+----------+
+25 rows in set (0.04 sec)
+
+\end{lstlisting}
+
+\subsubsection{Czym jest indeks?}
+
+\textit{Indeks} jest struktur¹ danych przeznaczon¹ do pomocy systemowi baz danych w efektywnym pobieraniu informacji z tabel. S¹ one czêsto wymagane dla zapewnienia dobrej wydajnoœci. Indeksy s¹ szczególnie wa¿ne w momencie kiedy baza danych siê rozrasta, poniewa¿ iloœæ elementów do przeszukiwania wierszowego ulega zwielokrotnieniu.
+
+Podczas zwyk³ego wyszukiwania wartoœci w bazie danych, program musi przeszukaæ ka¿d¹ kolumnê, ka¿dego wiersza w poszukiwaniu okreœlonej wartoœci. W wypadku indeksów sprawa jest uproszczona poniewa¿ dysponujemy pewnym podzbiorem wartoœci np. z danej kolumny lub wyra¿enia. W ten sposób silnik bazy danych wie, ¿e dana wartoœæ znaleziona w okreœlonym indeksie powi¹zana jest z okreœlonym rekordem, wiêc odpowiedŸ jest b³yskawiczna.
+
+Oczywiœcie wykorzystywanie indeksów wi¹¿e siê równie¿ z pewn¹ zajêtoœci¹ danych, poniewa¿ oprócz danych w tabeli, trzeba dodatkowo przechowywaæ dane indeksów. Przeliczaj¹c jedna zyski do strat, wiêkszoœæ przemawia jednak za stosowaniem indeksów.
+
+\subsection{Optymalizacja table przy u¿yciu indeksów}
+
+Optymalizacja zapytañ przy u¿yciu indeksów jest stosunkowo prosta i polega na stworzeniu indeksu, który najlepiej pasuje do wyszukiwanej zawartoœci. W naszym wypadku potrzeba indeksu przechowuj¹cy pierwsz¹ literê nazwiska. Z drugiej strony sortowanie po nazwisku lub nawet wyszukiwanie po nim jest doœæ czêst¹ operacj¹ dlatego warto stworzyæ kompletny indeks dla pola \texttt{lastName} tabeli student (\ref{fig:baza_danych_test}). Na podstawie wyniku uzyskanego w listingu \ref{listing:sql_adresowa2}, widaæ znaczn¹ poprawê czasu wykonywania. Wszystkie zapytania wykorzystuj¹ce kolumnê \texttt{lastName}, powinny wykonywaæ siê zdecydowanie szybciej. 
+
+\begin{lstlisting}[caption=Utworzenie indeksu na polu nazwiska dla tabeli student]
+ALTER TABLE `student` ADD INDEX `lastName_idx`(`lastName`);
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Wynik zapytania z listingu \ref{listing:sql} po optymalizacji indeksu, label=listing:sql_adresowa2]
++--------+----------+
+| letter | students |
++--------+----------+
+| A      |      999 |
+| B      |     1749 |
+| C      |      814 |
+| D      |      670 |
+| E      |      385 |
+| F      |      918 |
+| G      |     1599 |
+| H      |      808 |
+| I      |      245 |
+| J      |      194 |
+| K      |     1695 |
+| L      |     1156 |
+| M      |     1411 |
+| N      |      492 |
+| O      |      240 |
+| P      |      686 |
+| Q      |       14 |
+| R      |     1259 |
+| S      |     2662 |
+| T      |      499 |
+| U      |       57 |
+| V      |      244 |
+| W      |      698 |
+| Y      |      316 |
+| Z      |      400 |
++--------+----------+
+25 rows in set (0.01 sec)
+
+\end{lstlisting}
+
+\subsubsection{Kolejnoœæ z³¹czeñ}
+
+Z³¹czenia (ang. \textit{joins}), s¹ operacj¹ spajaj¹c¹ ze sob¹ dwie lub wiêcej tabel. Dopuszczalne s¹ ³¹czenia 2 ró¿nych tabel lub tej samej (\textit{self-joins}). U¿ywanie z³¹czeñ wynika w du¿ej mierze z normalizacji bazy danych, a co za tym idzie usuniêcia nadmiarowoœci z rekordów tabel. Takie podejœcie w du¿ej mierze poprawia spójnoœæ danych, ale równie¿ mo¿e pogorszyæ w du¿ej mierze wydajnoœæ zapytañ.\\
+
+Standard ANSI wyró¿nia 4 rodzaje z³¹czeñ: INNER, OUTER, LEFT, RIGHT. W specjalnych okolicznoœciach tabela mo¿e byæ równie¿ po³¹czona sama ze sob¹. Zasadnicza ró¿nica w specyfice polega na kryterium ³¹czenia - w wypadku \textit{INNER JOINÓW} wymagane jest istnienie odpowiadaj¹cych sobie krotek po dwóch stronach relacji, natomiast \textit{OUTER JOIN} wymaga spe³nienia tego kryterium przynajmniej na jednej ze strony relacji - odpowiednio lewej lub prawej. 
+
+Ró¿nice miêdzy z³¹czeniami przek³adaj¹ siê równie¿ na wydajnoœæ dzia³ania, najpopularniejsze ze z³¹czeñ \textit{inner join'y} s¹ najszybsze, podczas, gdy pozosta³e przeznaczone s¹ do bardziej specyficznych zastosowañ.
+
+Kolejny z przeprowadzanych testów, bêdzie polega³ na z³¹czeniu ze sob¹ studentów oraz profili, innymi s³owy wyœwietleniu wszystkich studentów przynale¿nych do któregoœ z profili. Wynik dzia³ania poszczególnych testów (listing \ref{listing:zapytania_profile}) zosta³ zestawiony w tabeli \ref{table:3_sql}. Wyniki zapytañ stanowi¹ potwierdzenie ogólnie przyjêtych zasad optymalizacji zapytañ, \textit{inner join} okaza³ siê najszybszym ze z³¹czeñ, jednoczeœnie widaæ, ¿e kolejnoœæ wykonywania z³¹czeñ równie¿ ma wp³yw na wydajnoœæ. Zazwyczaj powinno siê zaczynaæ od tabeli, która posiada miej rekordów (w tym wypadku tabela profile). Ogromna ró¿nica miêdzy czasem wykonywania \textit{left joina} oraz \textit{right joina} w odwrotnej kolejnoœci ³¹czenia wynika z braku indeksu dla pola \texttt{profileId} tabeli \texttt{student}. Po dodaniu indeksów widaæ 10-krotn¹ poprawê szybkoœci wykonywania tego zapytania.\\
+
+Przedstawione dotychczas przypadki by³y stosunkowo proste do naprawy, czêsto jednak zapytania s¹ du¿o bardziej rozbudowane i ciê¿kie do szybkiej dekompozycji. Warto wtedy skorzystaæ z udostêpnianego przez MySQL narzêdzia \texttt{EXPLAIN}. Oferuje on pomoc w zakresie dekompozycji bardziej skomplikowanych zapytañ. Narzêdzie to pokazuje m.in wykorzystane klucze dla ³¹czeñ, liczebnoœæ ³¹czonych tabel, proponowane usprawnienia indeksów.
+
+\begin{lstlisting}[caption=Kilka mo¿liwych do wykorzystania zapytañ,label=listing:zapytania_profile]
+SELECT SQL_NO_CACHE * FROM profile p inner join student s on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM profile p left join student s on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM profile p right join student s on s.profileId = p.id
+
+SELECT SQL_NO_CACHE * FROM student s inner join profile p on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM student s left join profile p on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM student s right join profile p on s.profileId = p.id
+\end{lstlisting}
+
+\begin{table}\centering
+\ra{1.3}
+\begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
+Typ & Czas wykonywania [sec] & Iloœæ rekordów \\
+\bottomrule
+\texttt{inner join student} & 0.2557 & 20244\\
+\texttt{left join student}  & {\color{red}\textbf{5.2125 / 0.5635}} & 20463\\
+\texttt{right join student} & 0.2634 & 20244\\
+\bottomrule
+\texttt{inner join profile} & 0.2726 & 20244\\
+\texttt{left join profile}  & 0.3272 & 20463\\
+\texttt{right join profile} & {\color{red}\textbf{5.2236 / 0.5704}} & 20463
+\end{tabular}
+\caption{Tabela z rezultatem dzia³ania poszczególnych zapytañ}
+\label{table:3_sql}
+\end{table}
+
+Jednym z zapytañ, które mo¿e stanowiæ potencjalny problem w analizie jest zapytanie zaczerpniête z istniej¹cej aplikacji opartej o przedstawiony na rysunku \ref{fig:baza_danych_test} schemat bazy danych. Przedstawione na listingu \ref{listing:sql_dlugie} zapytanie s³u¿y do pokazania wartoœci sum w poszczególnych aktywnoœciach takich jak programy studenckie, praktyki, iloœæ studentów itp. Zapytanie to jest wykonywane w kontekœcie okreœlonego roku szkolnego, a tak¿e konkretnej organizacji - wyœwietla wartoœci dla podleg³ych kampusów.
+
+\begin{lstlisting}[caption=Bardziej rozbudowane zapytanie SQL, language=SQL, label=listing:sql_dlugie]
+SELECT
+c.id, c.name,
+
+(select count(s5.id)
+from student s5
+inner join profile p2 on p2.id = s5.profileId
+left join profileCampus pc2 on pc2.profileId = p2.id
+left join organizationCampus oc2 on oc2.organizationId = p2.organizationId    
+       where (oc2.campusId = c.id or pc2.campusId = c.id)) as students,
+
+ifnull((select count(sip.id)
+from student s3
+inner join studentIntensiveProgram sip on sip.studentId = s3.id
+inner join profile p2 on p2.id = s3.profileId
+left join profileCampus pc2 on pc2.profileId = p2.id
+left join organizationCampus oc2 on oc2.organizationId = p2.organizationId    
+where (oc2.campusId = c.id or pc2.campusId = c.id)
+),0) as programs,
+
+ifnull((select round(SUM(classes*1 + 1on1*3 + shabbaton*5 + socialEvents*0.5 + shabbosMeals*2)) 
+from student s2
+INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
+INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
+      or (ra.month <=8 and ra.year = 2012))
+where s2.campusId = c.id
+group by s2.campusId ), 0) as score,
+
+(select ifnull(sum(datediff("2012-08-30", sy.startDate) BETWEEN 30 and 90 
+      and sy.startDate between "2011-09-01" and "2012-08-30"),0)
+from student s4
+inner join studentYeshiva sy on sy.studentId = s4.id
+where s4.campusId = c.id) as yeshiva_1_3,
+
+(select ifnull(sum(datediff("2012-08-30", sy.startDate) BETWEEN 91 and 180 
+      and sy.startDate between "2011-09-01" and "2012-08-30"),0)
+from student s4
+inner join studentYeshiva sy on sy.studentId = s4.id
+where s4.campusId = c.id) as yeshiva_4_6,
+
+(select ifnull(sum(datediff("2012-08-30", sy.startDate) > 181 
+      and sy.startDate between "2011-09-01" and "2012-08-30"),0)
+from student s4
+inner join studentYeshiva sy on sy.studentId = s4.id
+where s4.campusId = c.id) as yeshiva_6,
+
+ifnull((select count(DISTINCT s1.id)
+from student s1
+inner join profile p2 on p2.id = s1.profileId
+left join profileCampus pc2 on pc2.profileId = p2.id
+left join organizationCampus oc2 on oc2.organizationId = p2.organizationId    
+where (oc2.campusId = c.id or pc2.campusId = c.id) and
+(case 
+      when s1.beganSo = "spring/2011" then "2011-01-01"
+      when s1.beganSo = "summer/2011" then "2011-05-01"
+      when s1.beganSo = "fall/2011" then "2011-09-01"
+      else "2012-08-30"
+end >= "2011-09-01" and right(s1.beganSo, 4) >= 2011 and s1.beganSo != "before")
+),0) AS `so`
+,
+
+ifnull((select SUM(classes)
+from student s2
+INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
+INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
+      or (ra.month <=8 and ra.year = 2012))
+where s2.campusId = c.id
+group by s2.campusId ), 0) as classes,
+
+ifnull((select SUM(1on1)
+from student s2
+INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
+INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
+      or (ra.month <=8 and ra.year = 2012))
+where s2.campusId = c.id
+group by s2.campusId ), 0) as 1on1,
+
+ifnull((select SUM(shabbaton)
+from student s2
+INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
+INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
+      or (ra.month <=8 and ra.year = 2012))
+where s2.campusId = c.id
+group by s2.campusId ), 0) as shabbaton,
+
+ifnull((select SUM(socialEvents)
+from student s2
+INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
+INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
+      or (ra.month <=8 and ra.year = 2012))
+where s2.campusId = c.id
+group by s2.campusId ), 0) as socialEvents,
+
+ifnull((select SUM(shabbosMeals)
+from student s2
+INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
+INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
+      or (ra.month <=8 and ra.year = 2012))
+where s2.campusId = c.id
+group by s2.campusId ), 0) as shabbosMeals
+
+from campus c
+left join organizationCampus oc on oc.campusId = c.id
+left join profileCampus pc on pc.campusId = c.id
+left join profile p on pc.profileId = p.id and p.organizationId = oc.organizationId
+where oc.organizationId = 1 or p.organizationId = 1
+group by c.id
+\end{lstlisting}

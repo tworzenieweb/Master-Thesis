@@ -1,14 +1,17 @@
 \begin{thebibliography}{1}
 
+\bibitem{book:mysql}
+
+
 \bibitem{book:proPHP}
 A.~Padilla and T.~Hawkins.
 \newblock {\em Pro PHP Application Performance Tuning PHP Web Projects for
   Maximum Performance}.
-\newblock Apress, 2010, address =.
+\newblock Apress.
 
 \bibitem{book:yahoo}
 S.~Souders.
 \newblock {\em High Performance Web Sites}.
-\newblock O'Reily, 2007, address =.
+\newblock O'Reily.
 
 \end{thebibliography}
