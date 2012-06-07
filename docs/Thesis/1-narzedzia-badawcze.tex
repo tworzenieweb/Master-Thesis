@@ -179,8 +179,8 @@ Jednym z przyk³adów takiego narzêdzia o naprawdê olbrzymich mo¿liwoœciach jest \
 
 W zdefiniowanym przypadku u¿ycia 5 u¿ytkowników wykonuje jednoczeœnie t¹ logikê 500 razy. Na zakoñczenie dane mo¿liwe s¹ do wyeksportowania do formatu \textit{CSV} lub wyœwietlone bezpoœrednio na ekranie. JMeter jest narzêdziem bardzo rozbudowanym, przez co idealnie nadaje siê do testowania zaawansowanych scenariuszy zarówno pod k¹tem poprawnoœci dzia³ania, jak równie¿ ogólnej wydajnoœci.
 
-\begin{table}\centering
-\ra{1.3}
+\begin{table}
+\centering
 \begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
 URL & Œrednia & Min & Max & B³¹d (\%) & Req/Min \\
 \bottomrule
@@ -371,7 +371,7 @@ Kolejny z przeprowadzanych testów, bêdzie polega³ na z³¹czeniu ze sob¹ studentów
 
 Przedstawione dotychczas przypadki by³y stosunkowo proste do naprawy, czêsto jednak zapytania s¹ du¿o bardziej rozbudowane i ciê¿kie do szybkiej dekompozycji. Warto wtedy skorzystaæ z udostêpnianego przez MySQL narzêdzia \texttt{EXPLAIN}. Oferuje on pomoc w zakresie dekompozycji bardziej skomplikowanych zapytañ. Narzêdzie to pokazuje m.in wykorzystane klucze dla ³¹czeñ, liczebnoœæ ³¹czonych tabel, proponowane usprawnienia indeksów.
 
-\begin{lstlisting}[caption=Kilka mo¿liwych do wykorzystania zapytañ,label=listing:zapytania_profile]
+\begin{lstlisting}[language=SQL, caption=Kilka mo¿liwych do wykorzystania zapytañ,label=listing:zapytania_profile]
 SELECT SQL_NO_CACHE * FROM profile p inner join student s on s.profileId = p.id
 SELECT SQL_NO_CACHE * FROM profile p left join student s on s.profileId = p.id
 SELECT SQL_NO_CACHE * FROM profile p right join student s on s.profileId = p.id
@@ -398,113 +398,99 @@ Typ & Czas wykonywania [sec] & Iloœæ rekordów \\
 \label{table:3_sql}
 \end{table}
 
-Jednym z zapytañ, które mo¿e stanowiæ potencjalny problem w analizie jest zapytanie zaczerpniête z istniej¹cej aplikacji opartej o przedstawiony na rysunku \ref{fig:baza_danych_test} schemat bazy danych. Przedstawione na listingu \ref{listing:sql_dlugie} zapytanie s³u¿y do pokazania wartoœci sum w poszczególnych aktywnoœciach takich jak programy studenckie, praktyki, iloœæ studentów itp. Zapytanie to jest wykonywane w kontekœcie okreœlonego roku szkolnego, a tak¿e konkretnej organizacji - wyœwietla wartoœci dla podleg³ych kampusów.
+Jednym z zapytañ, które mo¿e stanowiæ potencjalny problem w analizie jest zapytanie zaczerpniête z istniej¹cej aplikacji opartej o przedstawiony na rysunku \ref{fig:baza_danych_test} schemat bazy danych. Przedstawione na listingu \ref{listing:sql_dlugie} zapytanie s³u¿y do pokazania wartoœci sum w poszczególnych aktywnoœciach takich jak programy studenckie, praktyki, iloœæ studentów itp. Zapytanie to jest wykonywane w kontekœcie okreœlonego roku szkolnego, a tak¿e konkretnej organizacji - wyœwietla wartoœci dla podleg³ych kampusów. Omawiane zapytanie jest prawdopodobnie jednym z trudniejszych, na jakie mo¿na kiedykolwiek trafiæ. G³ównym problemem takich zapytañ jest istnienie wielu powi¹zanych z nim \textit{zapytañ skorelowanych}. W celu analitycznej analizy tego zapytania u¿yto narzêdzie \texttt{EXPLAIN}. Sk³adnia tego narzêdzia jest prosta i polega na dodaniu tej dyrektywy do wczeœniejszego zapytana. Wynik takiego zapytania zwróci iloœæ wierszy równ¹ iloœci podzapytañ wykonywanych w trakcie przetwarzania (\ref{listing:explain}).
 
 \begin{lstlisting}[caption=Bardziej rozbudowane zapytanie SQL, language=SQL, label=listing:sql_dlugie]
 SELECT
-c.id, c.name,
+o.id, o.name,
+(SELECT group_concat(oc.campusId SEPARATOR ' ' ) FROM organizationCampus oc WHERE oc.organizationId = o.id) as campusIds,
+(SELECT count(s5.id)
+FROM profile p5
+INNER JOIN student s5 on s5.profileId = p5.id
+WHERE p5.organizationId = o.id) as students,
 
-(select count(s5.id)
-from student s5
-inner join profile p2 on p2.id = s5.profileId
-left join profileCampus pc2 on pc2.profileId = p2.id
-left join organizationCampus oc2 on oc2.organizationId = p2.organizationId    
-       where (oc2.campusId = c.id or pc2.campusId = c.id)) as students,
-
-ifnull((select count(sip.id)
-from student s3
-inner join studentIntensiveProgram sip on sip.studentId = s3.id
-inner join profile p2 on p2.id = s3.profileId
-left join profileCampus pc2 on pc2.profileId = p2.id
-left join organizationCampus oc2 on oc2.organizationId = p2.organizationId    
-where (oc2.campusId = c.id or pc2.campusId = c.id)
+IFNULL((SELECT count(DISTINCT s3.id)
+FROM profile p3 
+INNER JOIN student s3 on p3.id = s3.profileId
+INNER JOIN studentIntensiveProgram sip on sip.studentId = s3.id
+WHERE p3.organizationId = o.id
+GROUP BY p3.organizationId
 ),0) as programs,
 
-ifnull((select round(SUM(classes*1 + 1on1*3 + shabbaton*5 + socialEvents*0.5 + shabbosMeals*2)) 
-from student s2
+IFNULL((SELECT round(SUM(classes*1 + 1on1*3 + shabbaton*5 + socialEvents*0.5 + shabbosMeals*2)) 
+FROM
+student s2
+INNER JOIN profile p2 on p2.id = s2.profileId 
 INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
 INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
       or (ra.month <=8 and ra.year = 2012))
-where s2.campusId = c.id
-group by s2.campusId ), 0) as score,
+WHERE p2.organizationId = o.id 
+GROUP BY p2.organizationId ), 0) as score,
 
-(select ifnull(sum(datediff("2012-08-30", sy.startDate) BETWEEN 30 and 90 
+(SELECT ifnull(sum(datediff("2012-08-30", sy.startDate) BETWEEN 30 and 90 
       and sy.startDate between "2011-09-01" and "2012-08-30"),0)
-from student s4
-inner join studentYeshiva sy on sy.studentId = s4.id
-where s4.campusId = c.id) as yeshiva_1_3,
+FROM profile p4
+INNER JOIN student s4 on s4.profileId = p4.id
+INNER JOIN studentYeshiva sy on sy.studentId = s4.id
+WHERE p4.organizationId = o.id) as yeshiva_1_3,
 
-(select ifnull(sum(datediff("2012-08-30", sy.startDate) BETWEEN 91 and 180 
+(SELECT ifnull(sum(datediff("2012-08-30", sy.startDate) BETWEEN 91 and 180 
       and sy.startDate between "2011-09-01" and "2012-08-30"),0)
-from student s4
-inner join studentYeshiva sy on sy.studentId = s4.id
-where s4.campusId = c.id) as yeshiva_4_6,
+FROM profile p4
+INNER JOIN student s4 on s4.profileId = p4.id
+INNER JOIN studentYeshiva sy on sy.studentId = s4.id
+WHERE p4.organizationId = o.id) as yeshiva_4_6,
 
-(select ifnull(sum(datediff("2012-08-30", sy.startDate) > 181 
-      and sy.startDate between "2011-09-01" and "2012-08-30"),0)
-from student s4
-inner join studentYeshiva sy on sy.studentId = s4.id
-where s4.campusId = c.id) as yeshiva_6,
+(SELECT ifnull(sum(datediff("2012-08-30", sy.startDate) > 181 
+      and sy.startDate > 2000),0)
+FROM profile p4
+INNER JOIN student s4 on s4.profileId = p4.id
+INNER JOIN studentYeshiva sy on sy.studentId = s4.id
+WHERE p4.organizationId = o.id) as yeshiva_6,
 
-ifnull((select count(DISTINCT s1.id)
-from student s1
-inner join profile p2 on p2.id = s1.profileId
-left join profileCampus pc2 on pc2.profileId = p2.id
-left join organizationCampus oc2 on oc2.organizationId = p2.organizationId    
-where (oc2.campusId = c.id or pc2.campusId = c.id) and
-(case 
-      when s1.beganSo = "spring/2011" then "2011-01-01"
-      when s1.beganSo = "summer/2011" then "2011-05-01"
-      when s1.beganSo = "fall/2011" then "2011-09-01"
-      else "2012-08-30"
-end >= "2011-09-01" and right(s1.beganSo, 4) >= 2011 and s1.beganSo != "before")
-),0) AS `so`
-,
-
-ifnull((select SUM(classes)
-from student s2
-INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
-INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
-      or (ra.month <=8 and ra.year = 2012))
-where s2.campusId = c.id
-group by s2.campusId ), 0) as classes,
-
-ifnull((select SUM(1on1)
-from student s2
-INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
-INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
-      or (ra.month <=8 and ra.year = 2012))
-where s2.campusId = c.id
-group by s2.campusId ), 0) as 1on1,
-
-ifnull((select SUM(shabbaton)
-from student s2
-INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
-INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
-      or (ra.month <=8 and ra.year = 2012))
-where s2.campusId = c.id
-group by s2.campusId ), 0) as shabbaton,
-
-ifnull((select SUM(socialEvents)
-from student s2
-INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
-INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
-      or (ra.month <=8 and ra.year = 2012))
-where s2.campusId = c.id
-group by s2.campusId ), 0) as socialEvents,
-
-ifnull((select SUM(shabbosMeals)
-from student s2
-INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
-INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
-      or (ra.month <=8 and ra.year = 2012))
-where s2.campusId = c.id
-group by s2.campusId ), 0) as shabbosMeals
-
-from campus c
-left join organizationCampus oc on oc.campusId = c.id
-left join profileCampus pc on pc.campusId = c.id
-left join profile p on pc.profileId = p.id and p.organizationId = oc.organizationId
-where oc.organizationId = 1 or p.organizationId = 1
-group by c.id
+IFNULL((SELECT sum(case 
+when s1.beganSo = "spring/2011" then "2011-01-01"
+when s1.beganSo = "summer/2011" then "2011-05-01"
+when s1.beganSo = "fall/2011" then "2011-09-01"
+else "2012-08-30"
+end >= "2011-09-01" and right(s1.beganSo, 4) >= 2011 and s1.beganSo != "before") 
+FROM student s1
+INNER JOIN profile p1 on s1.profileId = p1.id
+WHERE p1.organizationId = o.id
+GROUP BY o.id),0) AS `so`
+FROM organization o
+GROUP BY o.id
+HAVING score > 0
+ORDER BY o.name
 \end{lstlisting}
+
+\begin{sidewaystable}
+\begin{tabular}{@{}rrrrcrrrcrrr@{}}
+\toprule
+\textbf{id} & \textbf{select\_type} & \textbf{table} & \textbf{type} & \textbf{possible\_keys} & \textbf{key} \\ \bottomrule
+\textit{1} & \textit{PRIMARY} & o & ALL &  &  \\
+\textit{9} & \textit{DEPENDENT SUBQUERY} & p1 & ref & PRIMARY,organizationId & organizationId \\
+\textit{9} & \textit{DEPENDENT SUBQUERY} & s1 & ref & profile\_idx & profile\_idx \\
+\textit{8} & \textit{DEPENDENT SUBQUERY} & p4 & ref & PRIMARY,organizationId & organizationId \\
+\textit{8} & \textit{DEPENDENT SUBQUERY} & s4 & ref & PRIMARY,profile\_idx & profile\_idx \\
+\textit{8} & \textit{DEPENDENT SUBQUERY} & sy & ref & studentIdx & studentIdx \\
+\textit{7} & \textit{DEPENDENT SUBQUERY} & p4 & ref & PRIMARY,organizationId & organizationId \\
+\textit{7} & \textit{DEPENDENT SUBQUERY} & s4 & ref & PRIMARY,profile\_idx & profile\_idx \\
+\textit{7} & \textit{DEPENDENT SUBQUERY} & sy & ref & studentIdx & studentIdx \\
+\textit{6} & \textit{DEPENDENT SUBQUERY} & p4 & ref & PRIMARY,organizationId & organizationId \\
+\textit{6} & \textit{DEPENDENT SUBQUERY} & s4 & ref & PRIMARY,profile\_idx & profile\_idx \\
+\textit{6} & \textit{DEPENDENT SUBQUERY} & sy & ref & studentIdx & studentIdx \\
+\textit{5} & \textit{DEPENDENT SUBQUERY} & p2 & ref & PRIMARY,organizationId & organizationId \\
+\textit{5} & \textit{DEPENDENT SUBQUERY} & s2 & ref & PRIMARY,profile\_idx & profile\_idx \\
+\textit{5} & \textit{DEPENDENT SUBQUERY} & r1 & ref & student\_idx,report\_idx & student\_idx \\
+\textit{5} & \textit{DEPENDENT SUBQUERY} & ra & eq\_ref & PRIMARY,month\_idx,year\_idx & PRIMARY \\
+\textit{4} & \textit{DEPENDENT SUBQUERY} & p3 & ref & PRIMARY,organizationId & organizationId \\
+\textit{4} & \textit{DEPENDENT SUBQUERY} & s3 & ref & PRIMARY,profile\_idx & profile\_idx \\
+\textit{4} & \textit{DEPENDENT SUBQUERY} & sip & ref & student\_idx & student\_idx \\
+\textit{3} & \textit{DEPENDENT SUBQUERY} & p5 & ref & PRIMARY,organizationId & organizationId \\
+\textit{3} & \textit{DEPENDENT SUBQUERY} & s5 & ref & profile\_idx & profile\_idx \\
+\textit{2} & \textit{DEPENDENT SUBQUERY} & oc & index &  & PRIMARY
+\end{tabular}
+\caption{Wynik dzia³ania polecenia \texttt{EXPLAIN}}
+\label{table:4_explain}
+\end{sidewaystable}
