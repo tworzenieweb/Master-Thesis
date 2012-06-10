@@ -34,7 +34,7 @@ S¹ to typowe narzêdzia przeznaczone do sprawdzania jak dobrze serwer radzi sobie
 Przyk³adowo, dla wczeœniej u¿ytej strony, mo¿na zasymulowaæ ruch równy wykonaniu 10 jednoczesnych ¿¹dañ przez 10 niezale¿nych u¿ytkowników. 
 W tym celu nale¿y wydaæ komendê \lstinline{ab -n 10 -c 10 http://ftims.edu.p.lodz.pl/}. Rezultat dzia³ania komendy widoczny jest na listingu \ref{listing:ab}.
 
-\begin{lstlisting}[caption=Analiza strony z wykorzystaniem narzêdzia \texttt{ab}, label=listing:ab]
+\begin{lstlisting}[float=htpbm, caption=Analiza strony z wykorzystaniem narzêdzia \texttt{ab}, label=listing:ab]
 Server Software:        Apache/2.2.14
 Server Hostname:        ftims.edu.p.lodz.pl
 Server Port:            80
@@ -361,7 +361,17 @@ ALTER TABLE `student` ADD INDEX `lastName_idx`(`lastName`);
 
 \subsubsection{Kolejnoœæ z³¹czeñ}
 
+
 Z³¹czenia (ang. \textit{joins}), s¹ operacj¹ spajaj¹c¹ ze sob¹ dwie lub wiêcej tabel. Dopuszczalne s¹ ³¹czenia 2 ró¿nych tabel lub tej samej (\textit{self-joins}). U¿ywanie z³¹czeñ wynika w du¿ej mierze z normalizacji bazy danych, a co za tym idzie usuniêcia nadmiarowoœci z rekordów tabel. Takie podejœcie w du¿ej mierze poprawia spójnoœæ danych, ale równie¿ mo¿e pogorszyæ w du¿ej mierze wydajnoœæ zapytañ.\\
+
+\begin{lstlisting}[language=SQL, caption=Kilka mo¿liwych do wykorzystania z³¹czeñ,label=listing:zapytania_profile]
+SELECT SQL_NO_CACHE * FROM profile p inner join student s on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM profile p left join student s on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM profile p right join student s on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM student s inner join profile p on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM student s left join profile p on s.profileId = p.id
+SELECT SQL_NO_CACHE * FROM student s right join profile p on s.profileId = p.id
+\end{lstlisting}
 
 Standard ANSI wyró¿nia 4 rodzaje z³¹czeñ: INNER, OUTER, LEFT, RIGHT. W specjalnych okolicznoœciach tabela mo¿e byæ równie¿ po³¹czona sama ze sob¹. Zasadnicza ró¿nica w specyfice polega na kryterium ³¹czenia - w wypadku \textit{INNER JOINÓW} wymagane jest istnienie odpowiadaj¹cych sobie krotek po dwóch stronach relacji, natomiast \textit{OUTER JOIN} wymaga spe³nienia tego kryterium przynajmniej na jednej ze strony relacji - odpowiednio lewej lub prawej. 
 
@@ -369,20 +379,7 @@ Ró¿nice miêdzy z³¹czeniami przek³adaj¹ siê równie¿ na wydajnoœæ dzia³ania, najpo
 
 Kolejny z przeprowadzanych testów, bêdzie polega³ na z³¹czeniu ze sob¹ studentów oraz profili, innymi s³owy wyœwietleniu wszystkich studentów przynale¿nych do któregoœ z profili. Wynik dzia³ania poszczególnych testów (listing \ref{listing:zapytania_profile}) zosta³ zestawiony w tabeli \ref{table:3_sql}. Wyniki zapytañ stanowi¹ potwierdzenie ogólnie przyjêtych zasad optymalizacji zapytañ, \textit{inner join} okaza³ siê najszybszym ze z³¹czeñ, jednoczeœnie widaæ, ¿e kolejnoœæ wykonywania z³¹czeñ równie¿ ma wp³yw na wydajnoœæ. Zazwyczaj powinno siê zaczynaæ od tabeli, która posiada miej rekordów (w tym wypadku tabela profile). Ogromna ró¿nica miêdzy czasem wykonywania \textit{left joina} oraz \textit{right joina} w odwrotnej kolejnoœci ³¹czenia wynika z braku indeksu dla pola \texttt{profileId} tabeli \texttt{student}. Po dodaniu indeksów widaæ 10-krotn¹ poprawê szybkoœci wykonywania tego zapytania.\\
 
-Przedstawione dotychczas przypadki by³y stosunkowo proste do naprawy, czêsto jednak zapytania s¹ du¿o bardziej rozbudowane i ciê¿kie do szybkiej dekompozycji. Warto wtedy skorzystaæ z udostêpnianego przez MySQL narzêdzia \texttt{EXPLAIN}. Oferuje on pomoc w zakresie dekompozycji bardziej skomplikowanych zapytañ. Narzêdzie to pokazuje m.in wykorzystane klucze dla ³¹czeñ, liczebnoœæ ³¹czonych tabel, proponowane usprawnienia indeksów.
-
-\begin{lstlisting}[language=SQL, caption=Kilka mo¿liwych do wykorzystania zapytañ,label=listing:zapytania_profile]
-SELECT SQL_NO_CACHE * FROM profile p inner join student s on s.profileId = p.id
-SELECT SQL_NO_CACHE * FROM profile p left join student s on s.profileId = p.id
-SELECT SQL_NO_CACHE * FROM profile p right join student s on s.profileId = p.id
-
-SELECT SQL_NO_CACHE * FROM student s inner join profile p on s.profileId = p.id
-SELECT SQL_NO_CACHE * FROM student s left join profile p on s.profileId = p.id
-SELECT SQL_NO_CACHE * FROM student s right join profile p on s.profileId = p.id
-\end{lstlisting}
-
 \begin{table}\centering
-\ra{1.3}
 \begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
 Typ & Czas wykonywania [sec] & Iloœæ rekordów \\
 \bottomrule
@@ -398,12 +395,22 @@ Typ & Czas wykonywania [sec] & Iloœæ rekordów \\
 \label{table:3_sql}
 \end{table}
 
-Jednym z zapytañ, które mo¿e stanowiæ potencjalny problem w analizie jest zapytanie zaczerpniête z istniej¹cej aplikacji opartej o przedstawiony na rysunku \ref{fig:baza_danych_test} schemat bazy danych. Przedstawione na listingu \ref{listing:sql_dlugie} zapytanie s³u¿y do pokazania wartoœci sum w poszczególnych aktywnoœciach takich jak programy studenckie, praktyki, iloœæ studentów itp. Zapytanie to jest wykonywane w kontekœcie okreœlonego roku szkolnego, a tak¿e konkretnej organizacji - wyœwietla wartoœci dla podleg³ych kampusów. Omawiane zapytanie jest prawdopodobnie jednym z trudniejszych, na jakie mo¿na kiedykolwiek trafiæ. G³ównym problemem takich zapytañ jest istnienie wielu powi¹zanych z nim \textit{zapytañ skorelowanych}. W celu analitycznej analizy tego zapytania u¿yto narzêdzie \texttt{EXPLAIN}. Sk³adnia tego narzêdzia jest prosta i polega na dodaniu tej dyrektywy do wczeœniejszego zapytana. Wynik takiego zapytania zwróci iloœæ wierszy równ¹ iloœci podzapytañ wykonywanych w trakcie przetwarzania (\ref{listing:explain}).
+\subsection{Wykorzystanie polecenia \texttt{EXPLAIN} do optymalizacji zapytañ.}
+
+Przedstawione dotychczas przypadki by³y stosunkowo proste do naprawy, czêsto jednak zapytania s¹ du¿o bardziej rozbudowane i ciê¿kie do szybkiej dekompozycji. Warto wtedy skorzystaæ z udostêpnianego przez MySQL narzêdzia \texttt{EXPLAIN}. Oferuje on pomoc w zakresie dekompozycji bardziej skomplikowanych zapytañ. Narzêdzie to pokazuje m.in wykorzystane klucze dla ³¹czeñ, liczebnoœæ ³¹czonych tabel, proponowane usprawnienia indeksów.
+
+Jednym z zapytañ, które mo¿e stanowiæ potencjalny problem w analizie jest zapytanie zaczerpniête z istniej¹cej aplikacji opartej o przedstawiony na rysunku \ref{fig:baza_danych_test} diagram \textit{ERD}. Przedstawione na listingu \ref{listing:sql_dlugie} zapytanie wyœwietla szczegó³owe statystyki liczebnoœci, punktacji opartej o zsumowane wartoœci obecnoœci na danych zajêciach, a tak¿e uczêszczanych programów, praktyk oraz wielu innych specjalistycznych kategorii. 
+
+Omawiane zapytanie jest prawdopodobnie jednym z trudniejszych, na jakie mo¿na kiedykolwiek trafiæ podczas analizy bazodanowej. G³ównym problemem takich zapytañ jest istnienie wielu powi¹zanych z nim \textit{podzapytañ skorelowanych} czyli takich, których wynik zale¿y od zapytania g³ównego. W celu analitycznej analizy tego zapytania u¿yto narzêdzie \texttt{EXPLAIN}. Sk³adnia tej dyrektywy jest prosta i polega na dodaniu jej na pocz¹tku wczeœniejszego zapytana. Wynik takiego zapytania zwróci iloœæ wierszy równ¹ iloœci wszystkich podzapytañ wykonywanych w trakcie przetwarzania (\ref{table:4_explain}).\\
+
+Na podstawie tabeli widaæ, ¿e na wynik zapytania sk³adaj¹ siê rezultaty ³¹cznie 21 mniejszych zapytañ. Za ka¿dym razem kiedy z³¹czamy jedn¹ tabelê z drug¹ lub wykonujemy zapytanie wewnêtrzne lub skorelowane iloœæ pracy do wykonania ulega zwiêkszeniu. Otrzymane zapytanie zawiera informacje podzielone na 6 kolumn. Ka¿da z nich ma inne znaczenie i prezentuje okreœlon¹ cechê badanego fragmentu zapytania \cite{book:mysql_explain}.
+
 
 \begin{lstlisting}[caption=Bardziej rozbudowane zapytanie SQL, language=SQL, label=listing:sql_dlugie]
-SELECT
-o.id, o.name,
+SELECT o.id, o.name,
+
 (SELECT group_concat(oc.campusId SEPARATOR ' ' ) FROM organizationCampus oc WHERE oc.organizationId = o.id) as campusIds,
+
 (SELECT count(s5.id)
 FROM profile p5
 INNER JOIN student s5 on s5.profileId = p5.id
@@ -422,8 +429,9 @@ FROM
 student s2
 INNER JOIN profile p2 on p2.id = s2.profileId 
 INNER JOIN `reportStudentAttendance` AS `r1` ON r1.studentId = s2.id 
-INNER JOIN `report` AS `ra` ON ra.id = r1.reportId and ((ra.month >= 9 and ra.year = 2011) 
-      or (ra.month <=8 and ra.year = 2012))
+INNER JOIN `report` AS `ra` 
+ON ra.id = r1.reportId 
+and ((ra.month >= 9 and ra.year = 2011) or (ra.month <=8 and ra.year = 2012))
 WHERE p2.organizationId = o.id 
 GROUP BY p2.organizationId ), 0) as score,
 
@@ -464,6 +472,30 @@ HAVING score > 0
 ORDER BY o.name
 \end{lstlisting}
 
+\subsubsection{Opis pól wynikowych polecenia \texttt{EXPLAIN}.}
+
+\begin{description}
+\item[id]
+okreœla numer porz¹dkowy zapytania w kontekœcie planu wykonywania.
+
+\item[select\_type] 
+okreœla rodzaj u¿yty rodzaj zapytania, dostêpne wartoœci to \linebreak\texttt{PRIMARY} (zapytanie g³ówne), \texttt{UNION} (zapytanie typu \texttt{UNION}, drugie lub dalsze zapytanie w kolejnoœci polegaj¹ce na dodanie rezultatu jednego zapytania do drugiego, bez wyró¿nienia kryteriów ³¹czenia). \texttt{DEPENDENT UNION} zale¿y dodatkowo od zapytania g³ównego, \texttt{SUBQUERY} - pierwsze u¿ycie \texttt{SELECT} w podzapytaniu. \texttt{DEPENDENT SUBQUERY} - podobnie jak w poprzednim przypadku, ale zale¿y od zapytania g³ównego.\texttt{DERIVED} - podzapytanie umieszczone w sekcji \texttt{FROM}. \texttt{UNCACHEABLE SUBQUERY / UNION}, to dwa najgorsze typy zapytania, poniewa¿ ich wynik musi byæ wykonywany dla ka¿dego wiersza g³ównego zapytania osobno.
+\item[table] odnosi siê do nazwy tabeli lub aliasu aktualnie przetwarzanego zapytania.
+
+\item[type] rodzaj zasobu u¿ytego do z³¹czenia, najpopularniejsze wartoœci to: \texttt{system} (z³¹czenie z systemow¹ tabel¹, posiadaj¹c¹ jeden wiersz, specjalna odmiana z³¹czenia \texttt{const}), najszybszy rodzaj z³¹czenia, ale ma³o jest praktycznych zastosowañ. \texttt{Const} - z³¹czana tabela ma co najwy¿ej jeden pasuj¹cy element przez co pobierana jest tylko raz, przez co wiersz jest traktowany jako sta³a. Dotyczy porównania pewnej sta³ej wartoœci z \textbf{pe³n¹} wartoœciami \textit{klucza g³ównego} lub unikalnego indeksu. 
+
+\texttt{Eq\_ref}, jest dostêpny w sytuacjach kiedy porównujemy wartoœci z indeksów przy pomocy operatora \texttt{=} i istnieje dok³adnie jedna wartoœæ do pobrania dla ka¿dego klucza z tabeli ³¹cz¹cej. Przyrównana wartoœæ mo¿e byæ sta³¹ lub wczeœniej wczytan¹ kolumn¹ innej tabeli. Kiedy istnieje wiêcej ni¿ jedna wartoœæ dla danego klucza tabeli ³¹cz¹cej, wtedy mamy do czynienia z typem \texttt{ref}. \texttt{Ref} wystêpuje równie¿ wtedy, kiedy wykorzystano operatory \texttt{<=>}. Inn¹ odmian¹ \texttt{ref} jest \texttt{ref\_or\_null}, wystêpuj¹ce wówczas, gdy szukano równie¿ wierszy które s¹ równe wartoœci \texttt{null}.
+
+\texttt{ALL}, najgorszy mo¿liwy przypadek z³¹czenia, ca³a tabela jest przetwarzana i tworzone s¹ wszystkie kombinacje wartoœci z tabeli ³¹cz¹cej. Trochê lepsza sytuacja jest w wypadku \texttt{INDEX}, kiedy to zapytanie wykorzystuje kolumny, które s¹ czêœci¹ pojedynczego indeksu.
+
+\item[possible\_keys] pokazuje proponowane klucze, które mo¿na wykorzystaæ podczas ³¹czenia. W praktyce nie wszystkie z nich mo¿na faktycznie u¿yæ.
+
+\item[key] wykorzystane do ³¹czenia klucze, jeœli to pole jest puste, podobnie jak poprzednie, to wskazówka, ¿e nale¿y dodaæ indeks.
+
+\end{description}
+
+Na podstawie omówionej analizy, widaæ, ¿e dla podzapytania nr 2 wystêpuje rodzaj z³¹czenia typu \texttt{index}, oznacza to, ¿e mo¿na je usprawniæ dodaj¹c indeks szczegó³owy. Poniewa¿ tabela \texttt{organizationCampus}, do której odnosi siê alias \texttt{oc} jest tabel¹ ³¹cznikow¹, jest tam u¿yty klucz g³ówny z³¹czony. Dlatego te¿ tylko czêœæ tego indeksu jest wykorzystana. Po dodaniu szczegó³owego indeksu na pole \texttt{organizationId}, osi¹gniêto po¿¹dany typ \textit{ref}, a czas wykonywania zapytania zredukowa³ siê o 40ms.
+
 \begin{sidewaystable}
 \begin{tabular}{@{}rrrrcrrrcrrr@{}}
 \toprule
@@ -494,3 +526,24 @@ ORDER BY o.name
 \caption{Wynik dzia³ania polecenia \texttt{EXPLAIN}}
 \label{table:4_explain}
 \end{sidewaystable}
+
+\subsection{Optymalizacja definicji table.}
+
+Nie bez znaczenia dla ogólnej wydajnoœci aplikacji jest równie¿ wykorzystanie w³aœciwych dla przechowywanych treœci typów pól. Istnieje szereg regu³ pomocnych w tworzeniu zoptymalizowanych schematów danych. S¹ to regu³y niezale¿ne od wykorzystanego systemu baz danych.
+
+\begin{description}
+\item[Ma³e znaczy lepsze.] Zazwyczaj, nale¿y wykorzystywaæ mo¿liwie najmniejszy typ danych, który jest w stanie prawid³owo przechowaæ powierzone dane. Mniejsze typy danych s¹ szybsze poniewa¿ zu¿ywaj¹ mniej miejsca na dysku, w pamiêci i w pamiêci podrêcznej procesora. Dodatkowo mniejsza iloœæ cykli procesora jest potrzebna do ich przetworzenia.
+\item[Proste typu s¹ wydajniejsze.] Podobnie jak w poprzednim przyk³adzie, proste typy danych wymagaj¹ mniejszych nak³adów pracy procesora do przetworzenia. Dla porównania, typ ca³kowity jest szybszy w porównywaniu ni¿ typ znakowy. Dzieje siê tak poniewa¿ razek ze znakiem powi¹zane s¹ informacje o kodowaniu oraz tzw. \textit{collations} czyli regu³ach sortowania. Inne wa¿ne przyk³ady dotycz¹ np. przechowywania daty i godziny w dedykowanych typach danych zamiast typu ³añcuchowego. Z drugiej strony adres IP powinien byæ przechowywany jako liczba ca³kowita.
+\item[Unikanie wartoœci \texttt{NULL}] Tak czêsto jak to tylko mo¿liwe pola tabeli powinny byæ definiowane jako \texttt{NOT NULL}. Bardzo czêsto schematy baz danych przechowuj¹ wartoœæ \texttt{NULL}, nawet jeœli tego nie potrzebuj¹. Nale¿y mieæ na uwadze, ¿e optymalizator zapytañ du¿o gorzej radzi sobie z takimi kolumnami, poniewa¿ sprawiaj¹ one ¿e indeksy, ich statystyki i porównywanie z wartoœciami jest bardziej skomplikowane. Nawet jeœli  konieczne jest odnotowanie w polu pustej wartoœci, lepiej u¿yæ jakiegoœ arbitralnego symbolu np. 0 lub pusty ³añcuch znakowy.
+\end{description}
+
+Dodatkowo istnieje kilka przes³anek dotycz¹cych wykorzystywania pól typu \texttt{VARCHAR} i \texttt{CHAR}. Zazwyczaj lepiej jest wykorzystywaæ typ \texttt{VARCHAR} (typ znakowy o zmiennej d³ugoœci), kiedy maksymalna szerokoœæ kolumny jest du¿o wiêksza ni¿ wartoœæ œrednia, a iloœæ aktualizacji tego pola jest ma³a, przez co fragmentacja nie jest problemem.  Nie bez znaczenia jest te¿ wybrane kodowanie, w standardzie UTF-8 ka¿dy znak wykorzystuje ró¿n¹ wartoœæ bajtów przestrzeni dyskowej.
+
+Typ \texttt{CHAR} z kolei najlepiej spisuje siê w sytuacjach kiedy przechowywane maj¹ byæ bardzo krótkie ³añcuchy lub ka¿dy ³añcuch jest praktycznie takiej samej d³ugoœci. Dla przyk³adu, \texttt{CHAR} jest dobrym wyborem do przechowywania zahaszowanych wartoœci hase³ u¿ytkowników. W odró¿nieniu od \texttt{VARCHAR}a, ten typ danych nie ulega fragmentacji ze wzglêdu na sta³¹ szerokoœæ pola.
+
+Inn¹ cenn¹ rad¹ jest stosowanie pól wyliczeniowych \texttt{ENUM} jeœli zbiór dostêpnych wartoœci znakowych pola jest sta³y i nie bêdzie podlega³ póŸniejszym zmianom. 
+
+\section{Podsumowanie}
+Na ³amach pierwszego rozdzia³u zosta³y przedstawione podstawowe metody optymalizacji aplikacji WWW. Omówienie mia³o na celu ogólne wprowadzenie w tematykê analizy oprogramowania dzia³aj¹cego w sieci. Istnieje wiele technik optymalizacji front-endu, baz danych czy serwera WWW, wiêkszoœæ z nich jest dostosowana do konkretnych problemów wydajnoœciowych lub skonfigurowanej infrastruktury. Omówione zagadnienia s¹ jednak na tyle ogólne, ¿e mo¿na je odnieœæ z powodzeniem do aplikacji w dowolnym jêzyku programowania, a tak¿e dowolnym silniku bazodanowym. Znaj¹c jednak podstawy, z powodzeniem mo¿na wykonaæ dalsze etap optymalizacji na w³asn¹ rêkê. Przedstawione porady zapewni¹ natomiast solidny fundament tworzonej aplikacji.
+
+Kolejny rozdzia³ ma na celu przedstawienie architektury tworzonego oprogramowania. Bêdzie to rozwiniêcie o praktyczne wskazówki rozdzia³u dotycz¹cego optymalizacji serwera WWW.

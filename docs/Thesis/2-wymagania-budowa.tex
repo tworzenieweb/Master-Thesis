@@ -1,8 +1,10 @@
 \chapter{Wymagania i budowa aplikacji}
 
-Aplikacja powinna spe³niaæ wszystkie oczekiwane cele biznesowe, jak równie¿ zapewniaæ prawid³owe funkcjonowanie bez wzglêdu na aktualnie panuj¹ce warunki. Aplikacja demonstracyjna bêdzie ksiêgarni¹ internetow¹ oferuj¹c¹ wiele typowych funkcji, charakterystycznych dla tej bran¿y.
+Nie sposób rozpocz¹æ implementacji rozwi¹zania, bez kompletnego opisu wymagañ i zaplanowania budowy aplikacji. Jest to jeszcze wa¿niejsze, kiedy celem jest stworzenie wydajnej aplikacji.
 
-G³ównym celem tworzonego oprogramowania jest odpowiednie wywa¿enie pracy wykonanej po stronie serwera, jak równie¿ po stronie przegl¹darki. Dlatego te¿ du¿y nacisk pracy zosta³ po³o¿ony na utworzenie us³ug udostêpniaj¹cych interfejs dostêpowy do bazy danych. W ten sposób wykorzystuj¹c architekturê REST kod JavaScript mo¿e dokonywaæ modyfikacji modelu, przy najmniejszym udziale serwera WWW.
+Aplikacja powinna spe³niaæ wszystkie oczekiwane cele biznesowe, jak równie¿ zapewniaæ prawid³owe funkcjonowanie bez wzglêdu na aktualnie panuj¹ce obci¹¿enie. Aplikacja demonstracyjna bêdzie ksiêgarni¹ internetow¹ oferuj¹c¹ wiele typowych funkcji, charakterystycznych dla tej bran¿y.
+
+G³ównym celem tworzonego oprogramowania jest odpowiednie wywa¿enie pracy wykonanej po stronie serwera, jak równie¿ po stronie przegl¹darki. Dlatego te¿ du¿y nacisk pracy zosta³ po³o¿ony na utworzenie us³ug udostêpniaj¹cych interfejs dostêpowy do bazy danych. W ten sposób wykorzystuj¹c architekturê REST kod JavaScript mo¿e dokonywaæ modyfikacji modelu, przy znikomym udziale serwera WWW.
 
 
 \section{Zakres funkcjonalny}
@@ -36,17 +38,17 @@ Nadzorowanie kont u¿ytkowników & Wyszukiwanie ksi¹¿ek w wyszukiwarce\\
 \label{table:2_funkcje}
 \end{table*}
 
-Diagram komponentów dla tworzonej aplikacji zosta³ uwzglêdniony na rysunku \ref{fig:diagram_komponentow}. Jak mo¿na wywnioskowaæ z diagramu, aplikacja wykorzystuje mapowanie obiektowo relacyjne w celu u³atwienia komunikacji z baz¹ danych. Jest to bardzo wygodne rozwi¹zanie daj¹ce wiele swobody i elastycznoœci tworzonemu oprogramowaniu.
+Rysunek \ref{fig:usecase} przedstawia przypadki u¿ycia wyszczególnione dla tworzonej aplikacji. Warto nadmieniæ, ¿e wiêkszoœæ akcji u¿ytkownika wymaga wczeœniejszego zalogowania, a na pocz¹tku rejestracji konta w wypadku u¿ytkownika ksiêgarni.
 
-
-\begin{figure}[hbtp]
-\caption{Diagram komponentów tworzonej aplikacji}
-\includegraphics[scale=0.75]{diagram_komponentow.pdf}
-\label{fig:diagram_komponentow}
+\begin{figure}[htbp]
+\caption{Przypadki u¿ycia tworzonej aplikacji}
+\includegraphics[scale=0.5]{usecase.pdf}
+\label{fig:usecase}
 \end{figure}
 
 
-Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ, w tym celu, akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu frontendu, dopiero w wypadku wy³¹czenia wykonywania skryptów, wykonane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie np. podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
+
+Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ, w tym celu, akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu frontendu, dopiero w wypadku wy³¹czenia wykonywania skryptów, wys³ane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie np. podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
 
 Nale¿y jednak mieæ na uwadze bezpieczeñstwo oprogramowania, dlatego nie nale¿y polegaæ w 100\% na walidacji wykonywanej przez JavaScript, poniewa¿ u¿ytkownik mo¿e bez problemu wy³¹czyæ dzia³anie skryptów. Dlatego te¿ podczas tworzenia tego typu rozwi¹zañ walidacja po stronie klienta powinna iœæ zawsze w parze z walidacj¹ po stronie serwera.
 
@@ -61,41 +63,34 @@ ca³ej strony. Dziêki zastosowaniu frameworka jQuery dla jêzyka JavaScript, mo¿li
 
 \section{Budowa aplikacji}
 
-Aplikacja zosta³a zbudowana przy pomocy frameworka symfony wykorzystuj¹c wzorzec projektowy MVC. W ten sposób mo¿liwa jest separacja warstw logiki, modelu oraz widoku. Zapewnia to ³atwoœæ w utrzymaniu oprogramowania, przez co kod jest bardziej zrozumia³y i mniej podatny na b³êdy. \\
+Projektowana aplikacja sk³ada siê tak naprawdê z 2 podaplikacji, jedna z nich hostowana jest wykorzystuj¹c us³ugê \textit{Google Application Engine}, która zostanie omówiona w rozdziale \ref{cha:architektura}. Aplikacja ta bêdzie udostêpnia³a us³ugi oparte o architekturê \textit{REST} (ang. \textit{Representation State Transfer}). Aplikacja ta bêdzie zawiera³a równie¿ panel administracyjny do zarz¹dzania ksiêgarni¹. Jest ona napisana w jêzyku Python, wykorzystuj¹c framework Django, a tak¿e wtyczkê Piston umo¿liwiaj¹c¹ proste wystawienie webserwiceów na podstawie modelu bazy danych.
 
-Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³anie poci¹ga wiele daleko id¹cych konsekwencji. Dlatego wa¿ne jest, by kod aplikacji by³ spójny i podzielony na mniejsze jednostki budulcowe. Umo¿liwi to ³atwiejsze wykrywanie problematycznych aspektów aplikacji, istotnych dla prawid³owego dzia³ania ca³ego projektu. Rêczne testowanie ca³ego projektu jest procesem ¿mudnym, trudnym, a niekiedy nawet niemo¿liwym. Dlatego istotne jest, by w rozbudowanych systemach z obszernym drzewem zale¿noœci, móc ³atwo testowaæ wprowadzane zmiany  i przewidywaæ mo¿liwe skutki uboczne. 
+Druga aplikacja bêdzie zawiera³a zakres funkcjonalny zwyk³ego u¿ytkownika, natomiast wszystkie dane bêdzie pobiera³a przy u¿yciu udostêpnionych przez wczeœniej omawian¹ aplikacje \textit{webserviceów}. Aplikacja ta bêdzie napisana w jêzyku PHP z wykorzystaniem frameworka symfony.\\
 
-W rozbudowanych aplikacjach zazwyczaj tylko osoba architekta oprogramowania ma ca³oœciowe pojêcie o tworzonej aplikacji. Dlatego te¿ zwyk³y programista tworz¹cy dany fragment aplikacji, mo¿e nie byæ œwiadom skutków ubocznych opracowywanej implementacji w stosunku do ca³ego projektu. Ci¹g³a konsultacja tworzonego kodu z architektem jest nie tylko nieekonomiczna, ale tak¿e mo¿e siê okazaæ nieskuteczna. Dzieje siê tak, bowiem pewne detale dzia³ania aplikacji mo¿na omy³kowo pomin¹æ lub zlekcewa¿yæ.
+Obydwie aplikacje wykorzystuj¹ wzorzec MVC do separacji warstw logiki, prezentacji i danych, dodatkowo, wykorzystane frameworki s¹ stworzone do szybkiego tworzenia oprogramowania, dziêki za³o¿eniom \textit{scaffoldingu} oraz konwencj¹ \textit{DRY} (ang. \textit{Don't repeat Yourself}) i \textit{KISS} (ang. \textit{Keep it simple stupid}).
 
-Rozwi¹zanie omawianego problemu polega na wykorzystaniu techniki tworzenia oprogramowania TDD (ang. \textit{Test-driven Development}). Technika \textit{programowania sterowanego testami} jest zaliczana do metodyk zwinnych \textit{Agile}. Na rysunku \ref{fig:cykltdd}, pokazano typowy cykl wytwarzania aplikacji. Ka¿dy mechanizm wytwarzanego oprogramowania zak³ada \textit{pokrycie testami}, a same testy pisane s¹ przed faktycznym kodem aplikacji.
+Schemat budowy aplikacji przedstawia rysunek \ref{fig:budowa_aplikacji}. 
+Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³anie poci¹ga wiele daleko id¹cych konsekwencji. Dlatego istotne jest, by kod aplikacji by³ spójny i posiada³ modularn¹ budowê. Umo¿liwi to ³atwiejsze wykrywanie problematycznych aspektów aplikacji, istotnych dla prawid³owego dzia³ania ca³ego projektu. 
 
-Bardzo czêsto aplikacja musi ulec modyfikacj¹ polegaj¹cym na relokacji pewnych fragmentów kodu, przenosz¹c je w bardziej odpowiednie dla nich miejsce. Podczas takich zmian funkcjonalnoœæ kodu nie ulega zmianie, natomiast mo¿na narzuciæ realizacjê pewnych standardów, okreœlanych mianem \textit{konwencji kodowania}. Technika zmian okreœlana jako \textit{refaktoring}, jest sposobem na zwiêkszenie czytelnoœci kodu i polepszenie jego logicznej konstrukcji. Istnieje jednak ryzyko b³êdów wynikaj¹cych z zale¿noœci pomiêdzy modyfikowanymi fragmentami kodu a ca³¹ aplikacj¹. Stosuj¹c metodykê \textit{TDD}, mo¿na unikn¹æ za ka¿dym razem prawdopodobieñstwa wyst¹pienia b³êdów wynikaj¹cych z braku spójnoœci.
-
-\begin{figure}[t]
-\centering
-\includegraphics[bb=0 0 600 800,scale=0.6, trim=0 390 0 0]{tdd.pdf}
-\caption{Cykl wytwarzania w metodyce TDD}
-\label{fig:cykltdd}
+\begin{figure}[htbp]
+\center
+\caption{Diagram budowy aplikacji}
+\includegraphics[scale=0.65]{diagram_aplikacji.pdf}
+\label{fig:budowa_aplikacji}
 \end{figure}
+
 
 \section{Projekt bazy danych}
 
-Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej przy okazji projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL, oraz proces de-normalizacji, który musia³ zostaæ dokonany.
+Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej przy okazji projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL, oraz proces de-normalizacji, który musia³ zostaæ dokonany. Na szczêœcie dziêki wspomnianemu w nastêpnym rozdziale frameworkowi \textit{Django-norel}, mo¿liwe jest ³atwe przechodzenie miêdzy istniej¹cymi implementacjami baz danych.
+
+Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Np. ocena w komentarzu ma wartoœci miêdzy 1-5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)} poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.
+
+Podczas projektowania nale¿y mieæ na uwadze specyfikê u¿ycia poszczególnych tabel. Dla tabel kategorii i ksi¹¿ek, dominowaæ bêd¹ operacje odczytu, natomiast dla tabeli komentarzy operacje zapisu.
 
 \begin{sidewaysfigure}
 \centering%
-\caption{Projek bazy danych}
-\includegraphics[scale=1, bb=600 550 0 0]{db.pdf}
+\includegraphics[scale=1]{db.pdf}
+\caption{Projekt bazy danych}
 \label{fig:baza_danych}
 \end{sidewaysfigure}
-
-
-\section{Organizacja kodu}
-
-Pewnym u³atwieniem w implementacji projektu bêdzie stworzenie mapy organizacji kodu, która umo¿liwi umiejscowienie elementów budulcowych projektu w kontekœcie ca³ej aplikacji. Wyró¿niono podzia³ aplikacji, modu³ów oraz najbardziej atomowej czêœci projektu, czyli akcji. Ka¿dy z modu³ów wydziela charakterystyczn¹ dla siebie dziedzinê przetwarzania, w wiêkszoœci wypadków ograniczan¹ przez docelow¹ klasê modelu. W ten sposób modu³ \lstMikro{school} dla aplikacji \lstMikro{frontend}.
-
-Dziêki zastosowaniu technologii tworzenia prototypów modu³ów na podstawie istniej¹cego schematu bazy (\textit{scaffolding}), wiêkszoœæ modu³ów wchodz¹cych w sk³ad aplikacji \lstMikro{backend}, mog³a zostaæ utworzona w sposób zautomatyzowany. W ten sposób implementacja modu³ów dla tej aplikacji zosta³a znormalizowana do interfejsu \textit{CRUD}, a dziêki systemowi obs³ugi zdarzeñ, mo¿na nadaæ dla ka¿dego z modu³ów uniwersalne restrykcje. Budowa i dzia³anie \textit{generatorów}, wykorzystanych do osi¹gniêcia wspomnianego rozwi¹zania, zosta³o omówione w rozdziale \ref{cha:generatory}.\\
-
-Specyfika projektu zak³ada koniecznoœæ komunikacji pomiêdzy wieloma niezale¿nymi komponentami, które sk³adaj¹ siê na framework \textit{Symfony}. Stwarza to koniecznoœæ utworzenia diagramu komponentów. Na podstawie rysunku \ref{fig:diagram_komponentow} oraz przedstawionych w tym rozdziale przypadków u¿ycia widaæ, ¿e aplikacja wymaga zastosowania rozbudowanego systemu uprawnieñ ACL (\textit{Access Control List}). Ponadto, konieczne jest prze³o¿enie adresów URL, na odpowiedni¹ logikê aplikacji. W tym celu wykorzystano komponent \lstMikro{EventDispatcher}, który dokona odpowiedniej interpretacji nadchodz¹cych ¿¹dañ.\\
-
-Poniewa¿ projektowana aplikacja stawia wiele wymagañ w stosunku do realizacji, konieczne bêdzie zastosowanie wzorca \textit{Model-Widok-Kontroler} oraz narzêdzi gwarantuj¹cych ³atwy dostêp do bazy danych celem zapewnienia spójnoœci implementacji.

@@ -1,3 +1,92 @@
 \chapter{Optymalizacja aplikacji}
 \label{cha:optymalizacja_aplikacji}
-Optymalizacja
+
+Na przestrzeni poprzednich rozdzia³ów przeœledzono szczegó³owo wszystkie istotne kwestie zwi¹zane z optymalizacj¹ aplikacji webowych. Czas, wiêc rozpocz¹æ praktyczn¹ implementacjê oprogramowania.
+
+\section{Framework Django}
+\label{section:django}
+
+Framework \textit{Django} powsta³ na bazie jêzyka python i w nied³ugim czasie zrewolucjonizowa³ proces tworzenia aplikacji internetowym w tym¿e jêzyku.\textit{Django} posiada wszystkie cechy, które charakteryzuj¹ narzêdzia do szybkiego tworzenia oprogramowania (\textit{ang. Rapid Application Development}). Podobnie jak \textit{Ruby on Rails} czy \textit{Symfony}, posiada bibliotekê do mapowania obiektowo - relacyjnego, w ten sposób definiuj¹c obiektowe modele i ich metody, mo¿na bez wiedzy z dziedziny baz danych, wykonywaæ na nich operacje. Oczywiœcie w niniejszej publikacji, istotna jest kompleksowa znajomoœæ zagadnieñ bazodanowych, dlatego te¿ z jednej strony wykorzystano to narzêdzie w celu przyspieszenia procesu implementacji tworzonej aplikacji, z drugiej trzeba mieæ na uwadze wszystkie omówione w poprzednich rozdzia³ach optymalizacje po stronie silnika bazodanowego.\\
+
+Frameworki pokroju Ruby on Rails posiada³y atut w postaci \textit{scaffoldingu} czyli zdolnoœci do generowania podstaw aplikacji przy u¿yciu odpowiednich narzêdzi linii komend. \textit{Django} nie jest pod tym wzglêdem wyj¹tkiem, poniewa¿ umo¿liwia generowanie zarówno bazy aplikacji, jak równie¿ kompletnego panelu administracyjnego, oferuj¹cego zaawansowane funkcje, przydatne np. do redagowania strony przez u¿ytkownika koñcowego bez znajomoœci technologii.
+
+W przypadku projektowanej ksiêgarni, za pomoc¹ generatorów Django umo¿liwi prosty sposób zarz¹dzania aplikacj¹ oparty na wczeœniej zdefiniowanych modelach. Oczywiœcie omówione w poprzednim rozdziale rozszerzenie \textit{Django-Norel} umo¿liwi rozszerzenie zakresu dostêpnych baz danych o bazy nierelacyjne. 
+
+Django-Norel zapewnia równie¿ narzêdzia umo¿liwiaj¹ce ³atwe wdro¿enie tworzonego oprogramowania na platformê Google Application Engine. Aby jednak by³o mo¿liwe umieszczenie projektu na tej platformie nale¿y zarejestrowaæ darmowe konto. Po zweryfikowaniu jego poprawnoœci mo¿liwe jest utworzenie do \textbf{10} darmowych aplikacji, ka¿dej z w³asn¹ baz¹ \textit{Google Datastore} i zbiorem powi¹zanych us³ug.
+
+\section{Wystawienie us³ug jako webservice'y}
+
+Jednym z powodów wyboru frameworka \textit{Django} jest ³atwa mo¿liwoœæ tworzenia \textit{REST}owych us³ug w oparciu o istniej¹ce modele. Zapewnia to wtyczka \textit{Django-Piston}, która dokonuje \textit{serializacji} do kilku popularnych formatów, w tym do notacji \textit{JSON}. Listing \ref{listing:webservice_handler} przedstawia implementacje jednej z  us³ug (Komentarzy). Jak widaæ implementacja takiej us³ugi jest dosyæ prosta z wykorzystaniem wspomnianej wczeœniej wtyczki. Wystarczy stworzyæ now¹ klasê, która dziedziczy po bazowej \texttt{BaseHandler}. Nastêpnie okreœlono dozwolone metody HTTP, odpowiedzialne za pobieranie danych, ich tworzenie, aktualizacje, koñcz¹c na usuwaniu. Piston oferuje mo¿liwoœæ zabezpieczania dostêpu do konkretnych zasobów. W ten sposób tylko osoba znaj¹ca has³o mo¿e dodaæ komentarz czy ocenê. Z drugiej strony mo¿liwe jest stworzenie osobnej wersji us³ugi udostêpniaj¹cej tylko okreœlone operacje. Jak widaæ na listingu odpowiedzialna jest za to klasa \texttt{AnonymousCommentHandler}. Wymieniona us³uga pozwala na dodanie komentarza lub ich podgl¹d. Ostatnia czynnoœæ konieczna do wystawienia us³ugi, jest jej zmapowania na okreœlony adres zasobu. Odpowiedzialny jest za to kod z listingu \ref{listing:webservice_url}.
+
+\begin{lstlisting}[language=python, caption=Implementacja us³ugi odpowiedzialnej za komentarze, label=listing:webservice_handler]
+class AnonymousCommentHandler(AnonymousBaseHandler):
+    model = Comment
+    fields = ('title', 'content', ('user', ('id','first_name', 'last_name', 'username')), 'date', 'grade')
+
+    def read(self, request, book_id):
+        return self.model.objects.filter(book = book_id)
+
+class CommentHandler(BaseHandler):
+    anonymous = AnonymousCommentHandler
+    allowed_methods = ('GET', 'PUT', 'POST')
+    model = Comment
+    fields = ('title', 'content', ('user', ('id','first_name', 'last_name', 'username')), 'date', 'grade')   
+
+    def read(self, request, book_id):
+        
+        self.anonymous.read(request, book_id)
+    
+    @validate(CommentForm)
+    def create(self, request, book_id):
+        data = request.data
+        
+        
+        em = self.model(
+                        title=data['title'], 
+                        content=data['content'], 
+                        grade = data['grade'], 
+                        book_id = book_id, 
+                        user_id = request.user.id
+                        )
+        em.save()
+        
+            
+        return rc.CREATED
+
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,label=listing:webservice_url, caption=Wystawienie us³ugi komentarzy do publicznego dostêpu]
+comment_handler = Resource(CommentHandler, authentication = auth)
+
+urlpatterns = patterns('',
+   url(r'^comments/(?P<book_id>\d+)/', comment_handler, { 'emitter_format': 'json' }),
+)
+\end{lstlisting}
+
+\section{Uruchomienie panelu administracyjnego aplikacji}
+
+Zgodnie z omawianymi w podrozdziale \ref{section:django} mo¿liwoœciami frameworka \textit{Django}, po utworzeniu odpowiednich modeli, mo¿liwe jest dodanie opcji administracyjnych. Rysunek \ref{fig:django_backend} pokazuje wygl¹d zaplecza administracyjnego. Natomiast rysunek \ref{fig:django_backend2} pokazuje przyk³adowy formularz dodawania ksi¹¿ki. Ciekawym udogodnieniem jest wykorzystanie biblioteki \textit{SelectMultiple} napisanej dla JavaScriptowego frameworka jQuery w celu wygodniejszej pracy z polami selectbox wielokrotnego wyboru. W ten sposób po lewej stronie s¹ kategorie, autorzy nie wybrani, natomiast po prawej aktualnie zaznaczeni.
+
+\begin{figure}[htbp]
+\caption{Wygl¹d zaplecza administracyjnego}
+\includegraphics[scale=0.6]{django_backend.pdf}
+\label{fig:django_backend}
+\end{figure}
+
+\begin{figure}[htbp]
+\caption{Wygl¹d zaplecza administracyjnego}
+\includegraphics[scale=0.6]{django_backend2.pdf}
+\label{fig:django_backend2}
+\end{figure}
+
+Jak zosta³o wykazane, framework Django w du¿ym stopniu przyspieszy³ proces implementacji docelowej aplikacji na platformie Google Application Engine. Jednym z ciekawych udogodnieñ oferowanych przez GAE jest system numeracji wersji. Przyk³adowo dodano do aplikacji now¹ funkcjonalnoœæ, która wymaga testów akceptacyjnych, edytuj¹c specjalny plik \texttt{app.yaml}. Parametr \texttt{version} pozwala np. na wdro¿enie aplikacji pod specjaln¹ subdomenê testow¹. Przyk³adowo \texttt{version: staging} spowoduje, ¿e osobna wersja aplikacji dostêpna bêdzie pod adresem \texttt{staging.tworzenieweb.appspot.com}. Dodatkowo w panelu administracyjnym mo¿liwe jest ustawienie, która z wdro¿onych aplikacji jest aplikacj¹ domyœln¹ (rysunek \ref{fig:gae}). 
+
+\begin{figure}[htbp]
+\caption{Zarz¹dzanie wersjami wdro¿onego na platformê oprogramowania}
+\includegraphics[scale=0.6]{gae.pdf}
+\label{fig:gae}
+\end{figure}
+
+
+\section{Framework Symfony}
+
