@@ -19,7 +19,7 @@ Szukaj¹c przyczyn b³êdów, warto rozpocz¹æ analizê od najbardziej ogólnego kompon
 
 \section{Analiza wydajnoœci serwera WWW}
 
-Zadaniem serwera WWW jest wys³anie do inicjatora ¿¹dania wyniku przetwarzania zasobu okreœlonego adresem URL. W najprostszym wypadku, analiza wydajnoœci serwera, polega na odpytaniu go o okreœlony zasób i zmierzenie czasu od rozpoczêcia tej akcji, do odebrania rezultatu. Taki proces mo¿ma przeœledziæ i przeanalizowaæ w wiêkszoœci popularnych przegl¹darek np. Google Chrome, które jest wyposa¿one w wiele przydatnych narzêdzi analitycznych (Rys. \ref{fig:rys1_chrome}).
+Zadaniem serwera WWW jest wys³anie do inicjatora ¿¹dania wyniku przetwarzania zasobu okreœlonego adresem URL. W najprostszym wypadku, analiza wydajnoœci serwera, polega na odpytaniu go o okreœlony zasób i zmierzenie czasu od rozpoczêcia tej akcji, do odebrania rezultatu. Taki proces mo¿na przeœledziæ i przeanalizowaæ w wiêkszoœci popularnych przegl¹darek np. Google Chrome, które jest wyposa¿one w wiele przydatnych narzêdzi analitycznych (Rys. \ref{fig:rys1_chrome}).
 
 \begin{figure}[htbp]
 \caption{Analiza czasu wykonywania strony http://ftims.edu.p.lodz.pl// wykonana w przegl¹darce Google Chrome}
@@ -251,7 +251,7 @@ Wœród systemów bazodanowych wykorzystywanych w aplikacji e-commerce, bardzo du¿¹
 \end{figure}
 
 Rysunek \ref{fig:mysql_schemat} przedstawia, jak wygl¹da architektura systemu baz danych MySQL, z punktu widzenia funkcjonalny komponentów \cite{book:proPHP}[str. 26]. Pierwsza warstwa zawiera us³ugi, które wbrew pozorom nie s¹ unikalne tylko dla omawianego oprogramowania. S¹ to us³ugi  charakterystyczne dla wiêkszoœci narzêdzi w architekturze sieciowej. Wyró¿niono wiêc obs³ugê po³¹czenia, uwierzytelnianie itd.
-Druga warstwa wprowadza wiele zmian i komponentów specyficznych dla MySQL'a. Wyró¿niamy wiêc komponenty odpowiedzialne za parsowanie zapytañ, a tak¿e ich optymalizacjê, buforowanie oraz kod odpowiedzialny za implementacje wbudowanych funkcji (np. data, czas, funkcje matematyczne i kryptograficzne). Ka¿da funkcjonalnoœæ oferowana przez którykolwiek z silników sk³adowania danych (\textit{storage engine}), ma tu swoje miejsce (np. procedury u¿ytkownika, wyzwalacze oraz widoki).
+Druga warstwa wprowadza wiele zmian i komponentów specyficznych dla MySQL'a. Wyró¿niamy wiêc komponenty odpowiedzialne za parsowanie zapytañ, a tak¿e ich optymalizacjê, buforowanie oraz kod odpowiedzialny za implementacje wbudowanych funkcji (np. data, czas, funkcje matematyczne i kryptograficzne). Ka¿da funkcjonalnoœæ oferowana przez którykolwiek z silników sk³adowania danych (\textit{storage engine}), ma tu swoje miejsce (np. procedury u¿ytkownika, wyzwalacze oraz widoki) \cite{book:mysql}.
 
 Trzecia warstwa wyró¿nia wszystkie silniki sk³adowania, które odpowiedzialne s¹ bezpoœrednio za przechowywanie i pobieranie danych w MySQL'u. Ka¿dy z silników, ma ró¿ne zastosowania (podobnie jak ró¿ne systemy plików w systemach operacyjnych). Komunikacja z ka¿dym z nich odbywa siê wykorzystuj¹c wewnêtrzne API. Wspomniany interfejs ukrywa ró¿nice w specyfice ka¿dego z mechanizmów, przez co zapytania s¹ bardziej abstrakcyjne i prostsze w u¿yciu dla u¿ytkownika koñcowego. Podobnie jak w wypadku serwerów WWW, miêdzy mechanizmem sk³adowania a serwerem MySQL wystêpuje zale¿noœæ: ¿¹danie - odpowiedŸ. Oznacza to, ¿e serwer wysy³a ¿¹danie i oczekuje na odpowiedŸ.
 

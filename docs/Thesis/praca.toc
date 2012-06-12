@@ -14,20 +14,21 @@
 \contentsline {section}{\numberline {2.1}Zakres funkcjonalny}{27}
 \contentsline {section}{\numberline {2.2}Budowa aplikacji}{30}
 \contentsline {section}{\numberline {2.3}Projekt bazy danych}{31}
-\contentsline {chapter}{\numberline {3}Architektura aplikacji}{34}
-\contentsline {section}{\numberline {3.1}Rodzaje chmur}{34}
-\contentsline {section}{\numberline {3.2}Nie relacyjne bazy danych NoSQL}{37}
-\contentsline {section}{\numberline {3.3}Aplikacja zorientowana na us\IeC {\l }ugi}{39}
-\contentsline {subsection}{\numberline {3.3.1}AJAX problem same origin policy}{40}
-\contentsline {subsubsection}{\textit {JSONP} (\textit {JSON with padding})}{40}
-\contentsline {chapter}{\numberline {4}Optymalizacja kodu klienta}{43}
-\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{44}
-\contentsline {section}{\numberline {5.1}Framework Django}{44}
-\contentsline {section}{\numberline {5.2}Wystawienie us\IeC {\l }ug jako webservice'y}{45}
-\contentsline {section}{\numberline {5.3}Uruchomienie panelu administracyjnego aplikacji}{46}
-\contentsline {section}{\numberline {5.4}Framework Symfony}{48}
-\contentsline {chapter}{\numberline {6}Metody rozproszenia aplikacji i us\IeC {\l }ug}{49}
-\contentsline {chapter}{Bibliografia}{50}
-\contentsline {chapter}{Spis rysunk\'ow}{51}
-\contentsline {chapter}{Spis listing\'ow}{52}
-\contentsline {chapter}{P\IeC {\l }yta CD}{53}
+\contentsline {chapter}{\numberline {3}Architektura aplikacji}{35}
+\contentsline {section}{\numberline {3.1}Rodzaje chmur}{35}
+\contentsline {section}{\numberline {3.2}Nie relacyjne bazy danych NoSQL.}{38}
+\contentsline {subsection}{\numberline {3.2.1}Specyfika \textit {Google Datastore}.}{40}
+\contentsline {section}{\numberline {3.3}Aplikacja zorientowana na us\IeC {\l }ugi}{41}
+\contentsline {subsection}{\numberline {3.3.1}AJAX problem same origin policy}{42}
+\contentsline {subsubsection}{\textit {JSONP} (\textit {JSON with padding})}{43}
+\contentsline {chapter}{\numberline {4}Optymalizacja kodu klienta}{46}
+\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{51}
+\contentsline {section}{\numberline {5.1}Framework Django}{51}
+\contentsline {section}{\numberline {5.2}Wystawienie us\IeC {\l }ug jako webservice'y}{52}
+\contentsline {section}{\numberline {5.3}Uruchomienie panelu administracyjnego aplikacji}{54}
+\contentsline {section}{\numberline {5.4}Framework Symfony}{54}
+\contentsline {section}{\numberline {5.5}Test wydajno\'sci \textit {webservice}'\'ow}{59}
+\contentsline {chapter}{Bibliografia}{62}
+\contentsline {chapter}{Spis rysunk\'ow}{63}
+\contentsline {chapter}{Spis listing\'ow}{64}
+\contentsline {chapter}{P\IeC {\l }yta CD}{65}

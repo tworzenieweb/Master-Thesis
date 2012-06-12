@@ -88,6 +88,15 @@ Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka
 
 Podczas projektowania nale¿y mieæ na uwadze specyfikê u¿ycia poszczególnych tabel. Dla tabel kategorii i ksi¹¿ek, dominowaæ bêd¹ operacje odczytu, natomiast dla tabeli komentarzy operacje zapisu.
 
+Poniewa¿ z za³o¿enia dostêp do danych bêdzie realizowany poprzez udostêpnione us³ugi, rysunek \ref{fig:uslugi} przedstawia ich definicje, a tak¿e metody komunikacji. W ten sposób tylko za pomoc¹ odpowiednich metod HTTP (PUT - tworzenie, POST - tworzenie / aktualizacja, GET - pobieranie), mo¿liwe jest wykonywanie odpowiedniej logiki.
+
+\begin{figure}[htbp]
+\caption{Udostêpnione na platformie GAE us³ugi}
+\includegraphics[scale=0.5]{serwice.pdf}
+\label{fig:uslugi}
+\end{figure}
+
+
 \begin{sidewaysfigure}
 \centering%
 \includegraphics[scale=1]{db.pdf}

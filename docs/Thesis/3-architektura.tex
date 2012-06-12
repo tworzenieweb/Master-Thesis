@@ -44,7 +44,7 @@ Rysunek \ref{fig:gae_dashboard} przedstawia pogl¹dowy widok bie¿¹cych statystyk 
 \end{figure}
 
 
-\section{Nie relacyjne bazy danych NoSQL}
+\section{Nie relacyjne bazy danych NoSQL.}
 
 Od pocz¹tku ery informatyzacji informacja i jej przechowywanie by³o najwa¿niejszym zadaniem powierzanym komputerom. Bazy danych musz¹ zarówno przechowywaæ dane (Zapis), jak i udostêpniaæ interfejs s³u¿¹cy ich odczytowi, a nawet wyszukiwaniu w oparci o zadane kryteria. Dotychczas wykorzystywano g³ównie relacyjne bazy danych, które ³¹czy³y pojedyncze tabele w ró¿nego rodzaju asocjacje. Wczesnej jednak konieczne jest zdefiniowanie okreœlonego schematu bazy danych, który bêdzie obowi¹zywa³ i nak³ada³ ograniczenia na dane.
 
@@ -79,7 +79,19 @@ Pocz¹tkowo osoby korzystaj¹ce z baz nierelacyjnych zarzuca³y takiemu rozwi¹zaniu
 \item{Niektóre z rozwi¹zañ s¹ zintegrowane ze specyficznym dostawc¹ (App Engine, SimpleDB), wiêc u¿ytkownik nie ma mo¿liwoœci migracji na inn¹ platformê bez du¿ego nak³adu pracy}
 \end{itemize}
 
-W projektowanej aplikacji wykorzystano framework \textit{Django-nonrel} dodaj¹cy obs³ugê baz NoSQL do frameworka \textit{Django}. W ten sposób mo¿liwe jest wykorzystanie abstrakcji bazodanowej i tworzenie rozwi¹zañ niezale¿nie od technologii bazy. Wszystko to mo¿liwe jest dziêki wbudowanemu narzêdziu \textit{ORM} (ang. Object-Relational Mapping), które udostêpnia obiektowy interfejs dostêpu do danych. W ten sposób pisana logika nie jest zale¿na od konkretnej platformy czy rozwi¹zania sk³aduj¹cego.
+W projektowanej aplikacji wykorzystano framework \textit{Django-nonrel} dodaj¹cy obs³ugê baz NoSQL do frameworka \textit{Django}. W ten sposób mo¿liwe jest wykorzystanie abstrakcji bazodanowej i tworzenie rozwi¹zañ niezale¿nie od technologii bazy. Wszystko to mo¿liwe jest dziêki wbudowanemu narzêdziu \textit{ORM} (ang. Object-Relational Mapping), które udostêpnia obiektowy interfejs dostêpu do danych. W ten sposób pisana logika nie jest zale¿na od konkretnej platformy czy rozwi¹zania sk³aduj¹cego.\\
+
+\subsection{Specyfika \textit{Google Datastore}.}
+
+\textit{Google App Engine} posiada swoj¹ wewnêtrzn¹ bazê danych \textit{Datastore}, która przechowuje obiekty danych znane jako \textit{encje}. Ka¿da encja ma jedn¹ lub wiêcej pól ró¿nego typu podobnie jak w relacyjnych bazach. Ka¿da encja jest identyfikowana po jej typie, ma to na celu katalogowanie ich z wzglêdu na pe³nion¹ funkcjê logiczn¹. Jest to pewna analogia do tabel, ale raczej nale¿y to postrzegaæ jako kontenery na luŸno powi¹zane obiekty. Ka¿da encja ma klucz, który unikalne identyfikuje zasób niezale¿nie od typu.\\
+
+\textit{Datastore} mo¿e wykonywaæ wiele operacji w pojedynczej transakcji. Z za³o¿enia transakcja nie mo¿e siê zakoñczyæ do czasu zakoñczenia ostatniej operacji w jej ramach. Oczywiœcie w wypadku niepowodzenia transakcja zosta³aby wycofana, co jest szczególnie przydatne w wypadku rozproszonych aplikacji webowych, gdzie wielu u¿ytkowników mo¿e mieæ dostêp lub wykonywaæ operacje na tym samym obiekcie.
+
+W GAE g³ównym miejscem sk³adowania jest HRD (\textit{High Replication Datastore}). W skrócie jest to miejsce gdzie dane s¹ replikowane do wielu centrów danych wykorzystuj¹c system oparty na algorytmie \textit{Paxos}. Taki zabieg zapewnia wysoki poziom dostêpnoœci dla operacji odczytu i zapisu. Jedyny problem mo¿e wystêpowaæ ze spójnoœci¹ danych ze wzglêdu na czas replikacji do poszczególnych wêz³ów.\\
+
+W odró¿nieniu od standardowych baz danych, GAE wykorzystuje architekturê rozproszon¹, aby zapewniæ automatyczne zarz¹dzanie skalowaniem nawet w wypadku bardzo obszernych zbiorów danych. Pomimo podobieñstw w mechanizmach dostêpu do danych miêdzy poszczególnymi bazami, istotn¹ ró¿nic¹ jest sposób opisywania relacji pomiêdzy obiektami. Np. encje tego samego typu mog¹ mieæ ró¿ne pola, z kolei ró¿ne encje mog¹ mieæ w³aœciwoœci tej samej nazwy, ale przechowywaæ wartoœci ró¿nego typu. Te unikalne cechy sprawiaj¹, ¿e projektowanie i zarz¹dzanie danymi ró¿ni siê znacz¹co w wypadku tej platformy. Poniewa¿ GAE jest stworzone do skalowania, w wypadku wzmo¿onego zapisu, \textit{Datastore} automatycznie rozproszy dane jeœli jest to konieczne na wiêcej instancji. Równie¿ operacje odczytu s¹ dostosowane do szybkiego dzia³ania, poniewa¿ jedyne dozwolone zapytania to takie, które dzia³aj¹ niezale¿nie od wielkoœci danych.
+
+Oznacza to, ¿e wyszukiwanie w zbiorze 100 elementowym zajmie dok³adnie tyle samo czasu co w zbiorze zawieraj¹cym ich milion. \textit{Datastore} robi równie¿ du¿y u¿ytek z indeksów dla kolekcji danych. Istotn¹ cech¹ jest fakt, ¿e w procesie tworzenia aplikacji, biblioteka deweloperska bada, które zapytania wymagaj¹ dodania nowych indeksów i robi to za u¿ytkownika w specjalnym pliku \texttt{indexes.yaml}.
 
 \section{Aplikacja zorientowana na us³ugi}
 
@@ -113,7 +125,16 @@ Obchodz¹c regu³ê bezpieczeñstwa, mo¿liwe jest pobranie zwracanego kodu \textit{J
 
 Przyk³adowy kod obrazuj¹cy ten sposób widoczny jest na listingu \ref{listing:jsonp} oraz \ref{listing:jsonpserver}. Pierwszy skrypt pokazuje frontendow¹ czêœæ rozwi¹zania, drugie natomiast zwraca kod JavaScript, który wykona metodê \texttt{parseJSON} z przetworzonym obiektem JSON zawieraj¹cym wynik dzia³ania zapytania bazodanowego jako parametr funkcji. Nastêpnie metoda \texttt{parseJSON} iteruj¹c w pêtli po elementach obiektu JSON (w jêzyku \textit{JavaScript} obiekty s¹ równie¿ tablicami wiêc mo¿na stosowaæ iteratory tablicowe) wyœwietli po kolei wartoœæ dla ka¿dego klucza obiektu w ramach poszczególnych wierszy wyniku zapytania.
 
-Oczywiœcie omawiane zagadnienie sprawia troche problemów w praktyce, ale korzystaj¹c z wewnêtrznej implementacji oferowanej przez jQuery, ca³a praca wykonywana jest za nas. Dodatkowo oprócz standardowych requestów typu \texttt{GET}, mo¿na wykonywaæ równie¿ inne metody protoko³u \textit{HTTP}.
+Oczywiœcie omawiane zagadnienie sprawia troche problemów w praktyce, ale korzystaj¹c z wewnêtrznej implementacji oferowanej przez jQuery, ca³a praca wykonywana jest za nas. Dodatkowo oprócz standardowych requestów typu \texttt{GET}, mo¿na wykonywaæ równie¿ inne metody protoko³u \textit{HTTP}.\\
+
+W póŸniejszym etapie projektowania aplikacji okaza³o siê, ¿e \textit{JSONP}, pomimo wielu zalet ma równie¿ kilka wad, z za³o¿enia jest on umiejszczany przy pomocy znaczników HTML, przez co jedyna obs³ugiwana przez niego metoda to \textit{HTTP GET}. Jest to niewystarczaj¹ce do realizacji bardziej z³o¿onej logiki obs³ugi webserwiceów, dlatego zastosowano dodatkowo technologie \textit{CORS}.\\
+
+Dziêki wspólnej pracy WAWG (Web Applications Working Group), wspólnie z W3C, uda³o siê opracowaæ now¹ rekomendacjê standardu \textit{Cross-Origin Resource Sharing}. W ten sposób mo¿liwe jest kontrolowanie dostêpu do poszczególnych stron. Dziêki odpowiednim nag³ówk¹ HTTP mo¿liwe jest zezwolenie obiektowi \textit{XMLHTTPRequest} na dostêp do aplikacji udostêpniaj¹cych odpowiednie nag³ówki (\ref{listing:cors}). W ten sposób udostêpniaj¹c poprzez serwer www, poni¿sze nag³ówki, mo¿na zezwoliæ jednej aplikacji (dostêpnej pod adresem \textit{http://foo.example}) na dostêp do tej, która przy u¿yciu nag³ówków \texttt{Access-Control-Allow-Origin} oraz \texttt{Access-Control-Allow-Methods} deklaruje wspó³prace.
+
+\begin{lstlisting}[caption=Realizacja \textit{CORS} w praktyce, label=listing:cors]
+Access-Control-Allow-Origin: http://foo.example  
+Access-Control-Allow-Methods: POST, GET, OPTIONS  
+\end{lstlisting}
 
 \begin{lstlisting}[language=HTML, caption=Kod JavaScript realizuj¹cy JSONP, label=listing:jsonp]
 <html>

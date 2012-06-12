@@ -1,3 +1,94 @@
 \chapter{Optymalizacja kodu klienta}
 
-Optymalizacja kodu klienta
+Poniewa¿ g³ównym medium komunikacji w Internecie jest przegl¹darka, odpowiednia  optymalizacja kodu klienta jest konieczna. Na pocz¹tku warto zacz¹æ od wyboru odpowiedniego noœnika informacji. Jak wiadomo noœnikiem informacji w wypadku stron internetowych jest jêzyk znaczników \textit{HTML} (ang. \textit{HyperText Markup Language}). Obecnie najbardziej popularne s¹ 3 wersje standardu okreœlane jako \textit{HTML 4}, \textit{XHTML 1.0} oraz nowy standard \textit{HTML 5}. Ka¿da wersja ma swoj¹ specyfikê, jednak nale¿y nadmieniæ, ¿e tylko HTML 5 pozbawiony jest starych nalecia³oœci tego jêzyka (znaczniki zwi¹zane z formatowaniem, a nie semantyk¹, ró¿na implementacja specyfikacji) i powoli staje siê standardem na rynku.\\
+
+Wœród przeciwników wykorzystywania nowego standardu, dominuj¹ opiniê, ¿e nie jest od wspierany we wszystkich przegl¹darkach. Warto jednak okreœliæ kilka istotnych faktów zwi¹zanych z obecnie wykorzystywanymi przegl¹darkami. Wed³ug statystyk na 5 lutego 2012, udzia³ przegl¹darek Internet Explorer 6 i 7 w rynku wynosi odpowiednio \textbf{0,69\%} oraz \textbf{2,34\%}. O ile przegl¹darkê w wersji 7 i powy¿ej nale¿y mieæ jeszcze na uwadze, to IE6 mo¿na uznaæ ju¿ za przestarza³¹ i stopniowo ograniczaæ iloœæ czasu poœwiêcon¹ na implementacje kompatybilnej wstecz witryny internetowej.\\
+
+Dobrym zwyczajem jest jednak zapewniæ witrynie jak najlepsze dostosowanie do obecnych na rynku przegl¹darek, dlatego rewolucyjnym pomys³em wykaza³ siê Nicolas Gallagher, Paul Irish oraz Divya Manian czyli czo³owi projektanci, programiœci takich firm jak Twitter, Opera, Chrome. Stworzyli oni bibliotekê \textit{HTML5 Boilerplate}. Stanowi ona fundament tworzenia dokumentów HTML/CSS/JS wykorzystuj¹c najnowsz¹ wiedzê w dziedzinie optymalizacji frontendu aplikacji. Wykorzystanie tej biblioteki zapewni znormalizowanie wygl¹du, zachowania oraz wydajnoœci ka¿dej aplikacji chc¹cej u¿ywaæ technologii HTML5 i nie tylko. Biblioteki zapewniaj¹ kompatybilnoœæ z innymi przegl¹darkami (nawet IE6), zbiór regu³ optymalizuj¹cych czas reakcji strony dziêki kompresji i buforowaniu zasobów. Mo¿liwoœæ ukrywania pewnych komponentów strony, które nie s¹ wspierane przez niektóre przegl¹darki np. znacznik \texttt{<canvas>} czy nowe znaczniki do prezentacji plików multimedialnych. Biblioteka zawiera równie¿ wiele udogodnieñ zwi¹zanych z wyœwietlaniem stron na ekranie telefonów komórkowych.
+
+Projektowana aplikacja wykorzystuje udogodnienia oferowane przez \linebreak\textit{HTML5 Boilerplate}. Dodatkowo aplikacja wykorzystuje bibliotekê \textit{Twitter Bootstrap}, której celem jest zapewnienie funkcjonalnych komponentów, które mo¿na wykorzystaæ do ³atwej i spójnej prezentacji treœci. Jedn¹ z zalet wykorzystania tego rozwi¹zania, jest oparcie szablonu strony na siatce (ang. \textit{grid}). W ten sposób wszystkie elementy s¹ wymiarowane w sposób jednakowy. Dodatkowo udostêpniana jest mo¿liwoœæ tworzenia dynamicznych szablonów, które adaptuj¹ siê do rozdzielczoœci lub po prostu wielkoœci okna. Jest to cenne udogodnienie dla posiadaczy telefonów komórkowych, poniewa¿ nie trzeba poœwiêcañ dodatkowego czasu na adaptacjê wersji mobilnej.
+
+\textit{Twitter Bootstrap} zawiera zbiór elementów graficznych i funkcjonalnych takich jak przyciski, okienka informacyjne, dynamicznie animowane galerie, komponenty autouzupe³niania treœci pól, komponenty nawigacyjne i wiele innych typowych dla specyfiki aplikacji webowych elementów. Ca³oœæ jest spójna i pozwala na zapewnienie jednolitego interfejsu na ca³ej stronie. Dodatkowo podobnie jak w wypadku \textit{HTML5 Boilerplate}, u¿ytkownik ma zapewnion¹ kompatybilnoœæ wstecz dla prawie wszystkich dostêpnych na rynku rozwi¹zañ.\\
+
+Poniewa¿ biblioteka realizuje za³o¿enia semantyczne jêzyka HTML5, iloœæ kodu potrzebna do stworzenia strony jest naprawdê niewielka. W ten sposób dokumenty s¹ lekkie i szybciej siê wczytuj¹. Dodatkowo dziêki mo¿liwoœci¹ CSS (kaskadowe arkusze styli) w wersji 3 mo¿liwe jest tworzenie atrakcyjnych wizualnie efektów bez koniecznoœci tworzenia przez projektantów dodatkowych grafik W ten sposób iloœæ ¿¹dañ jest redukowana do niezbêdnego minimum.
+
+Rysunek \ref{fig:frontend} przedstawia, wygl¹d interfejsu u¿ytkownika po zastosowaniu wspomnianych wczeœniej technologii. Jak widaæ strona dostosowuje siê do ró¿nych szerokoœci przegl¹darki, dziêki wykorzystaniu p³ynnych szablonów (ang. \textit{fluid templates}).
+
+\begin{figure}[htbp]
+\caption{Zrzut ekranu przedstawiaj¹cy interfejs u¿ytkownika}
+\includegraphics[scale=0.6]{frontend.pdf}
+\label{fig:frontend}
+\end{figure}
+
+W celu rozszerzenia mo¿liwoœci jêzyka JavaScript zastosowano framework jQuery. Pomaga on w zapewnieniu kompatybilnoœci tworzonego kodu dla ró¿nych przegl¹darek. Oczywiœcie w³¹czaj¹c przegl¹darkê IE6. Framework jQuery jest szczególnie przydatny ze wzglêdu na zaawansowane funkcjonalnoœci do obs³ugi zapytañ asynchronicznych AJAX. Jest to szczególnie wa¿ne poniewa¿ razem z ¿¹daniem i jego specyfikacj¹ konieczne jest by wys³aæ równie¿ dane zahaszowane dane autoryzacyjne. Ca³oœæ opiera siê na pierwszym zalogowaniu, podczas którego do sesji u¿ytkownika trafia kod autoryzacyjny u¿yty do pomyœlnego zalogowania. W ten sposób us³ugi wiedz¹ ¿e dostêp do nich zosta³ zweryfikowany. Jego brak poskutkowa³ by b³êdem autoryzacji - kod 401. W przysz³oœci mo¿na by t¹ funkcjonalnoœæ rozszerzyæ o autoryzacje poprzez OAuth 2.0, zaimplementowany m.in w Twitterze czy Facebook Graph Api.\\
+
+Listing \ref{listing:js} przedstawia implementacje logiki odpowiedzialnej za wysy³anie komentarzy do webserwisu odpowiedzialnego za dodawanie komentarzy. Do poprawnego dzia³ania konieczna jest znajomoœæ nag³ówka autoryzacyjnego, wiêc musi on byæ przekazany do obiektu \textit{XMLHTTPRequest} jeszcze przed wys³aniem zapytania. Dodatkow¹ funkcjonalnoœci¹ jest wyœwietlanie uaktualnionych komentarzy zaraz po zapisaniu danych. Odpowiedzialna jest za to funkcja \texttt{reloadComments()}, która dodatkowo wykorzystuje now¹ mo¿liwoœæ jêzyka \textit{JavaScript}, mo¿liw¹ dziêki odpowiednim wtyczk¹, polegaj¹c¹ na tworzeniu szablonów, które s¹ póŸniej ³¹czone z danymi, tak jak to odbywa siê np. w innych technologiach po stronie serwera. Mowa tu o \textit{Jquery Templates}, które mog¹ w przysz³oœci trafiæ do standardu jêzyka JavaScript.
+
+
+\begin{lstlisting}[language=html, caption=Kod odpowiedzialny za realizacji dodawania komentarzy, label=listing:js]
+<script id="commentTemplate" type="text/x-jquery-tmpl"> 
+    <div class="row-fluid">
+          <h4>${title} {{html $item.getStars()}}</h4>
+           <p>${content}</p>
+          <p>${date}${user.first_name} ${user.last_name} (${user.username})</p>
+    </div>
+</script>
+
+<script>
+    var url = "<?php echo sfConfig::get('app_gae') . 'comments/' . $book['id'] . '/'; ?>";
+    
+    var reloadComments = function() {
+        $("#comments").html('');
+        $.getJSON(url, function(data) {
+           
+           /* Render the template with the movies data */
+           $( "#commentTemplate" ).tmpl( data, { 
+    getStars: function( ) {
+        var str = '';
+        for(i=0; i < this.data.grade; i++) {
+            str += '<i class="icon-star"></i>'
+        }
+        
+        for(j=i; j < 5; j++) {
+            str += '<i class="icon-star-empty"></i>'
+        }
+        
+        return str;
+    }
+}).appendTo( "#comments" );
+           
+       });
+        
+    }
+    
+    $(function() {
+       
+       reloadComments();
+       
+       
+       $('#commentForm').submit(function (e){
+           e.preventDefault();
+           
+           $.ajax({
+               url: url,
+               data: $(this).serialize(),
+               xhrFields: {
+                   withCredentials: true
+                   
+               },
+               type: 'POST',
+               
+               beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Authorization", "<?php echo $sf_user->getAttribute('user_authorization', null, 'sfGuardSecurityUser') ?>");
+               },
+               
+               success: function(data) {
+                   reloadComments();
+               }
+           });
+           
+       });
+       
+    });
+</script>
+\end{lstlisting}

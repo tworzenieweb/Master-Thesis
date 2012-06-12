@@ -16,7 +16,7 @@ Django-Norel zapewnia równie¿ narzêdzia umo¿liwiaj¹ce ³atwe wdro¿enie tworzonego
 
 \section{Wystawienie us³ug jako webservice'y}
 
-Jednym z powodów wyboru frameworka \textit{Django} jest ³atwa mo¿liwoœæ tworzenia \textit{REST}owych us³ug w oparciu o istniej¹ce modele. Zapewnia to wtyczka \textit{Django-Piston}, która dokonuje \textit{serializacji} do kilku popularnych formatów, w tym do notacji \textit{JSON}. Listing \ref{listing:webservice_handler} przedstawia implementacje jednej z  us³ug (Komentarzy). Jak widaæ implementacja takiej us³ugi jest dosyæ prosta z wykorzystaniem wspomnianej wczeœniej wtyczki. Wystarczy stworzyæ now¹ klasê, która dziedziczy po bazowej \texttt{BaseHandler}. Nastêpnie okreœlono dozwolone metody HTTP, odpowiedzialne za pobieranie danych, ich tworzenie, aktualizacje, koñcz¹c na usuwaniu. Piston oferuje mo¿liwoœæ zabezpieczania dostêpu do konkretnych zasobów. W ten sposób tylko osoba znaj¹ca has³o mo¿e dodaæ komentarz czy ocenê. Z drugiej strony mo¿liwe jest stworzenie osobnej wersji us³ugi udostêpniaj¹cej tylko okreœlone operacje. Jak widaæ na listingu odpowiedzialna jest za to klasa \texttt{AnonymousCommentHandler}. Wymieniona us³uga pozwala na dodanie komentarza lub ich podgl¹d. Ostatnia czynnoœæ konieczna do wystawienia us³ugi, jest jej zmapowania na okreœlony adres zasobu. Odpowiedzialny jest za to kod z listingu \ref{listing:webservice_url}.
+Jednym z powodów wyboru frameworka \textit{Django} jest ³atwa mo¿liwoœæ tworzenia \textit{REST}owych us³ug w oparciu o istniej¹ce modele. Zapewnia to wtyczka \textit{Django-Piston}, która dokonuje \textit{serializacji} do kilku popularnych formatów, w tym do notacji \textit{JSON}. Listing \ref{listing:webservice_handler} przedstawia implementacje jednej z  us³ug (Komentarzy). Jak widaæ implementacja takiej us³ugi jest dosyæ prosta z wykorzystaniem wspomnianej wczeœniej wtyczki. Wystarczy stworzyæ now¹ klasê, która dziedziczy po bazowej \texttt{BaseHandler}. Nastêpnie okreœlono dozwolone metody HTTP, odpowiedzialne za pobieranie danych, ich tworzenie, aktualizacje, koñcz¹c na usuwaniu. Piston oferuje mo¿liwoœæ zabezpieczania dostêpu do konkretnych zasobów. W ten sposób tylko osoba znaj¹ca has³o mo¿e dodaæ komentarz czy ocenê. Z drugiej strony mo¿liwe jest stworzenie osobnej wersji us³ugi udostêpniaj¹cej tylko okreœlone operacje. Jak widaæ na listingu odpowiedzialna jest za to klasa \texttt{AnonymousCommentHandler}. Wymieniona us³uga pozwala na dodanie komentarza lub ich podgl¹d. Ostatnia czynnoœæ konieczna do wystawienia us³ugi, jest jej zmapowania na okreœlony adres zasobu. Odpowiedzialny jest za to kod z listingu \ref{listing:webservice_url}. Po wdro¿eniu aplikacji mo¿liwe jest sprawdzenie dzia³ania us³ugi np. pod adresem \texttt{http://tworzenieweb.appspot.com/api/categories/}. Podany adres zasobu zwraca listê wszystkich kategorii, ³¹cznie z iloœci¹ przypisanych ksi¹¿ek. Listing \ref{listing:webservice_response} przedstawia zwrócony kod w notacji \textit{JSON}.
 
 \begin{lstlisting}[language=python, caption=Implementacja us³ugi odpowiedzialnej za komentarze, label=listing:webservice_handler]
 class AnonymousCommentHandler(AnonymousBaseHandler):
@@ -28,7 +28,7 @@ class AnonymousCommentHandler(AnonymousBaseHandler):
 
 class CommentHandler(BaseHandler):
     anonymous = AnonymousCommentHandler
-    allowed_methods = ('GET', 'PUT', 'POST')
+    allowed_methods = ('GET', 'PUT', 'DELETE', 'POST')
     model = Comment
     fields = ('title', 'content', ('user', ('id','first_name', 'last_name', 'username')), 'date', 'grade')   
 
@@ -40,6 +40,10 @@ class CommentHandler(BaseHandler):
     def create(self, request, book_id):
         data = request.data
         
+        book = Book.objects.filter(id = book_id).exists()
+        
+        if not book:
+            return rc.NOT_FOUND;
         
         em = self.model(
                         title=data['title'], 
@@ -53,6 +57,7 @@ class CommentHandler(BaseHandler):
             
         return rc.CREATED
 
+
 \end{lstlisting}
 
 \begin{lstlisting}[language=python,label=listing:webservice_url, caption=Wystawienie us³ugi komentarzy do publicznego dostêpu]
@@ -61,6 +66,29 @@ comment_handler = Resource(CommentHandler, authentication = auth)
 urlpatterns = patterns('',
    url(r'^comments/(?P<book_id>\d+)/', comment_handler, { 'emitter_format': 'json' }),
 )
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,label=listing:webservice_response, caption=Rezultat zwrócony przez us³ugê kategorii]
+[
+    {
+        "count": 0, 
+        "id": 3003, 
+        "name": "Bazy Danych", 
+        "slug": "bazy-danych"
+    }, 
+    {
+        "count": 2, 
+        "id": 4005, 
+        "name": "Java", 
+        "slug": "java"
+    }, 
+    {
+        "count": 1, 
+        "id": 13004, 
+        "name": "PHP", 
+        "slug": "php"
+    }
+]
 \end{lstlisting}
 
 \section{Uruchomienie panelu administracyjnego aplikacji}
@@ -90,3 +118,167 @@ Jak zosta³o wykazane, framework Django w du¿ym stopniu przyspieszy³ proces imple
 
 \section{Framework Symfony}
 
+Frontend aplikacji zosta³ napisany wykorzystuj¹c framework Symfony w wersji 1.4. Powodem wyboru tej technologii jest mo¿liwoœæ szybkiego tworzenia oprogramowania równie¿ z wykorzystaniem generatorów i za³o¿eñ \textit{scaffoldingu}. Obecnie bardzo czêsto daje siê zaobserwowaæ ³¹czenie technologii podobne do przedstawionego, czyli np. zaplecze aplikacji i interfejs bazodanowy tworzony jest w jednej technologii np. Django albo Ruby on Rails, natomiast prezentacja treœci jest wykonana wykorzystuj¹c jêzyk PHP. Dzieje siê tak, poniewa¿ PHP jest doskonale dostosowane do tworzenia dokumentów koñcowych w jêzyku HTML.
+
+Dla przyspieszenia tworzenia czêœci przegl¹dowej aplikacji, utworzono wykorzystuj¹c ORM Doctrine, to¿samy schemat bazy danych, z obecnym w backendzie. Tak naprawdê jest on potrzebny wy³¹cznie do wygenerowania formularzy danych, poniewa¿ jak zosta³o wspomniane, operacje bazodanowe s¹ wykonywane wykorzystuj¹c webservice'y.
+
+Istotnym udogodnieniem w interfejsie u¿ytkownika jest wykorzystanie wtyczki \textit{jQuery Validation}. Wykorzystuj¹c t¹ bibliotekê, mo¿liwe jest wykonanie sprawdzania poprawnoœci danych wprowadzonych do poszczególnych pól.  Ca³oœæ jest zintegrowana z klasami formularzy Symfony, wiêc w momencie ustalenia przez aplikacje rodzaju formularza, tworzony jest automatyczny plik regu³ walidacji (\ref{listing:reguly}), który jest nastêpnie do³¹czany do Ÿród³a strony. Jeœli kod \textit{JavaScript} jest w³¹czony w przegl¹darce, skrypt nie pozwoli na wys³anie formularza i bêdzie pokazywa³ odpowiednie b³êdy na stronie.
+
+\begin{lstlisting}[language=java, caption=Przyk³adowy zbiór regu³ po stronie klienta, label=listing:reguly]
+processForm = function(form) {
+    form.submit();
+}
+
+jQuery(function($){
+  
+  $('#id').parents('form').validate({
+    rules: {"first_name":{"maxlength":255},"last_name":{"maxlength":255},"email_address":{"required":true,"email":true},"username":{"required":true,"maxlength":128},"password":{"required":true,"maxlength":128},"password_again":{"maxlength":128}},
+    messages: {"first_name":{"maxlength":function(a, elem){ return '\\\"' + $(elem).val() + '\\\" is too long (255 characters max).';}},"last_name":{"maxlength":function(a, elem){ return '\\\"' + $(elem).val() + '\\\" is too long (255 characters max).';}},"email_address":{"required":"Required.","email":"You should provide valid email address"},"username":{"required":"Required.","maxlength":function(a, elem){ return '\\\"' + $(elem).val() + '\\\" is too long (128 characters max).';}},"password":{"required":"Required.","maxlength":function(a, elem){ return '\\\"' + $(elem).val() + '\\\" is too long (128 characters max).';}},"password_again":{"maxlength":function(a, elem){ return '\\\"' + $(elem).val() + '\\\" is too long (128 characters max).';}}},
+    onkeyup: false,
+    wrapper: 'span class="help-inline"',
+    errorElement: 'span',
+    errorPlacement: function(error, element) 
+    {
+    
+     element.parent().parent().addClass('error');
+    
+     if(element.parents('.radio_list').is('*') || element.parents('.checkbox_list').is('*'))
+     {
+       error.appendTo( element.parent().parent().parent() );
+     }
+     else
+     {
+       error.appendTo( element.parent() );
+     }
+
+   },
+   submitHandler: function(form) {
+     
+    processForm(form);
+     
+   }
+  
+  });
+  
+  $('#password_again').rules('add', {"equalTo":"#password","messages":{"equalTo":"The two passwords must be the same."}});
+      
+});
+
+/* for some reason the jQuery Validate plugin does not incluce a generic regex method */
+jQuery.validator.addMethod(
+  "regex",
+  function(value, element, regexp) {
+      if (regexp.constructor != RegExp)
+          regexp = new RegExp(regexp);
+      else if (regexp.global)
+          regexp.lastIndex = 0;
+      return this.optional(element) || regexp.test(value);
+  },
+  "Invalid."
+);
+\end{lstlisting}
+
+Rysunek \ref{fig:register_validation} pokazuje rezultat dzia³ania walidacji formularza, dopiero kiedy wszystkie b³êdy zostan¹ poprawione, skrypt pozwoli na wys³anie ¿¹dania typu POST do docelowej us³ugi. Takie podejœcie w du¿ym stopniu ogranicza ruch sieciowy w aplikacji. Oczywiœcie oprócz walidacji danych po stronie klienta, nale¿y równie¿ bezwzglêdnie sprawdzaæ dane po stronie serwera, poniewa¿ mo¿e to prowadziæ do znacznych uchybieñ w bezpieczeñstwie aplikacji.\\
+
+Innym wa¿nym udogodnieniem jest modyfikacja istniej¹cej wtyczki odpowiedzialnej za ochronê dostêpu do aplikacji. Wtyczka \textit{sfDoctrineGuardPlugin} z za³o¿enia dzia³a³a z baz¹ danych, wiêc w punktach odpowiedzialnych za logowanie do aplikacji, pobieranie obiektu u¿ytkownika czy tworzenie nowego profilu, nale¿a³o zmodyfikowaæ kod. W ten sposób zamiast wykonywaæ zapytania do bazy, serwer lub obiekt \textit{XMLHttpRequest} wysy³a ¿¹danie do aplikacji na platformie GAE i przetwarza zwrócony rezultat. W wypadku uwierzytelnienia konieczne jest zapisanie danych u¿ytkownika do sesji, wiêc od tej pory aplikacja zapamiêta skojarzony obiekt u¿ytkownika.
+
+\begin{figure}[htbp]
+\caption{Wynik dzia³ania wtyczki \textit{jQuery validation}}
+\includegraphics[scale=0.75]{register_validation.pdf}
+\label{fig:register_validation}
+\end{figure}
+
+\section{Test wydajnoœci \textit{webservice}'ów}
+
+W celu sprawdzenia faktycznej wydajnoœci us³ug wykonano kilka testów sprawdzaj¹cych zarówno dzia³anie operacji odczytu jak równie¿ zapisu.
+Jak widaæ na listingu \ref{listing:testgae}, test poszed³ bardzo sprawnie osi¹gaj¹c liczbê prawie 60 ¿¹dañ na sekundê. Test by³ przeprowadzany dla \textbf{100} u¿ytkowników jednoczeœnie. Nastêpnie zosta³a sprawdzona us³uga komentarzy \ref{listing:testkoment}. W wypadku komentarzy test wypad³ trochê gorzej, ale zwi¹zane jest to z wiêkszym skomplikowaniem tej us³ugi i wiêksz¹ iloœci¹ danych do pobrania. Wynik \textbf{37.6} ¿¹dania na sekundê jest bardzo wysok¹ wartoœci¹ i z pewnoœci¹ gwarantuje szybkie dzia³anie aplikacji.\\
+
+Dodatkowo w celu przyspieszenia operacji odczytu w encjach kategorii oraz ksi¹¿ek przechowywane s¹ informacje o œredniej pochodz¹ce z komentarzy, jak równie¿ iloœæ ksi¹¿ek przechowywana w danej kategorii. Oznacza to pewn¹ nadmiarowoœæ, ale jest ona konieczna w tego typu rozwi¹zaniach i powszechnie stosowana.\\
+
+Jak widaæ na listingu \ref{listing:testfrontend} odci¹¿enie frontendu testowane na lokalnym komputerze równie skutecznie radzi sobie z obs³u¿eniem skokowym 100 u¿ytkowników. W przysz³oœci mo¿na przenieœæ kod frontendu równie¿ na jedno z rozwi¹zañ opartych na chmurze dla jêzyka \textit{PHP}. Oferuje to np. hosting pagoda box (\texttt{https://pagodabox.com/}). Na lokalnym œrodowisku testowym wykorzystano serwer Ngnix, który cechuje siê du¿o mniejszym narzutem pamiêci ni¿ np. serwer \textit{Http Apache}.
+
+\begin{lstlisting}[label=listing:testgae, caption=Test wydajnoœci us³ugi pobierania kategorii]
+Server Software:        Google
+Server Hostname:        tworzenieweb2.appspot.com
+
+Document Path:          /api/categories
+Document Length:        0 bytes
+
+Concurrency Level:      100
+Time taken for tests:   1.721 seconds
+Complete requests:      100
+Failed requests:        0
+Write errors:           0
+Requests per second:    58.11 [#/sec] (mean)
+Time per request:       1720.744 [ms] (mean)
+Time per request:       17.207 [ms] (mean, across all concurrent requests)
+Transfer rate:          12.20 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       86  174  48.5    175     256
+Processing:   294  765 297.3    796    1466
+Waiting:      293  764 297.2    794    1465
+Total:        379  939 328.0    931    1718
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[label=listing:testkoment, caption=Test wydajnoœci us³ugi komentarzy]
+Server Software:        Google
+Server Hostname:        tworzenieweb2.appspot.com
+
+Document Path:          /api/comments/6/
+
+
+Concurrency Level:      100
+Time taken for tests:   7.879 seconds
+Complete requests:      100
+Failed requests:        0
+Write errors:           0
+Total transferred:      243500 bytes
+HTML transferred:       210200 bytes
+Requests per second:    37.59 [#/sec] (mean)
+Time per request:       27879.412 [ms] (mean)
+Time per request:       278.794 [ms] (mean, across all concurrent requests)
+Transfer rate:          8.53 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       64 121 60     68   270
+Processing:   270  761 332.0    723    1647
+Waiting:      268  760 332.0    722    1646
+Total:        339 1014 3563.3    847   16173
+
+
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Test frontendu aplikacji na lokalnym komputerze, label=listing:testfrontend]
+Server Software:        nginx/1.1.19
+Server Hostname:        thesis.web.dev
+Server Port:            80
+
+Document Path:          /
+Document Length:        6621 bytes
+
+Concurrency Level:      100
+Time taken for tests:   2.747 seconds
+Complete requests:      100
+Failed requests:        0
+Write errors:           0
+Total transferred:      694500 bytes
+HTML transferred:       662100 bytes
+Requests per second:    36.40 [#/sec] (mean)
+Time per request:       2747.185 [ms] (mean)
+Time per request:       27.472 [ms] (mean, across all concurrent requests)
+Transfer rate:          246.88 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        2    3   0.8      3       5
+Processing:    77 1496 801.5   1509    2742
+Waiting:       77 1496 801.5   1509    2742
+Total:         82 1499 801.7   1512    2746
+
+
+\end{lstlisting}
