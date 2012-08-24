@@ -2,40 +2,43 @@
 \label{cha:architektura}
 Istotnym celem pracy jest zapewnienie mo¿liwie najlepszej w danej chwili wydajnoœci. Twierdzenie to powinno byæ prawdziwe równie¿ wówczas, kiedy aplikacja znajduje siê pod silnym ruchem sieciowym. Aby to zapewniæ, konieczne jest wykorzystanie odpowiedniej architektury aplikacji.\\
 
-Od kilku lat na rynku IT mo¿na zaobserwowaæ du¿e zainteresowanie zwi¹zane z chmurami obliczeniowymi. Jeszcze wiêksze zamieszanie na rynku spowodowa³o udostêpnienie przez Google oraz Microsoft ich flagowych produktów znanych jako \textit{Google Application Engine} oraz \textit{Windows Azure}. S¹ to us³ugi kwalifikowane jako \textit{PaaS} czyli \textit{Platform as a Service}. Oznacza to, ¿e korzystaj¹c z ich produktów otrzymujemy kompletne œrodowisko uruchomieniowe aplikacji oraz zaplecze technologiczne umo¿liwiaj¹ce uruchamianie aplikacji. W wypadku GAE mo¿liwe jest programowanie aplikacji z wykorzystaniem udostêpnionego przez us³ugê zbioru bibliotek, napisanych w trzech jêzykach: Java, Python oraz Go. Nastêpnie przy pomocy udostêpnionych narzêdzi mo¿liwe jest wdro¿enie aplikacji (\textit{Deployment}).\\
+Od kilku lat na rynku IT mo¿na zaobserwowaæ du¿e zainteresowanie zwi¹zane z chmurami obliczeniowymi. Jeszcze wiêksze zamieszanie na rynku spowodowa³o udostêpnienie przez Google oraz Microsoft ich flagowych produktów znanych jako \textit{Google Application Engine} (GAE) oraz \textit{Windows Azure}. S¹ to us³ugi kwalifikowane jako \textit{PaaS}, czyli \textit{Platform as a Service}. Oznacza to, ¿e korzystaj¹c z ich produktów otrzymujemy kompletne œrodowisko uruchomieniowe aplikacji oraz zaplecze technologiczne umo¿liwiaj¹ce uruchamianie aplikacji. W wypadku GAE mo¿liwe jest programowanie aplikacji z wykorzystaniem udostêpnionego przez us³ugê zbioru bibliotek, napisanych w trzech jêzykach: Java, Python oraz Go. Nastêpnie przy pomocy udostêpnionych narzêdzi mo¿liwe jest wdro¿enie aplikacji (\textit{Deployment}).\\
 
-Takie podejœcie do tworzenia aplikacji internetowych zyska³o olbrzymi¹ iloœæ zwolenników, poniewa¿ pozwoli³o na ca³kowite przeniesienie ciê¿aru zarz¹dzania skomplikowan¹ infrastruktur¹ na producentów rozwi¹zañ \textit{Paas}. Innym wa¿nym powodem dla którego wielu ludzi zdecydowa³o siê na wykorzystanie nowych us³ug, jest mo¿liwoœæ konfiguracji architektury do w³asnych potrzeb, a tak¿e (co by³o kluczowym powodem), do aktualnego obci¹¿enia aplikacji.
+Takie podejœcie do tworzenia aplikacji internetowych zyska³o olbrzymi¹ iloœæ zwolenników, poniewa¿ pozwoli³o na ca³kowite przeniesienie ciê¿aru zarz¹dzania skomplikowan¹ infrastruktur¹ na producentów rozwi¹zañ \textit{Paas}. Innym wa¿nym powodem, dla którego wielu ludzi zdecydowa³o siê na wykorzystanie nowych us³ug, jest mo¿liwoœæ konfiguracji architektury do w³asnych potrzeb, a tak¿e (co by³o kluczowym powodem), do aktualnego obci¹¿enia aplikacji.
 
 \section{Rodzaje chmur}
 
-Najogólniej chmury dziel¹ siê na \textit{prywatne} i \textit{publiczne}. Prywatne wchodz¹ w sk³ad czêœci organizacji, ale jednoczesne stanowi¹ autonomiczn¹ us³ugê. Publiczne natomiast udostêpniane s¹ przez zewnêtrznych dostawców us³ug.
-
-Rysunek \ref{fig:chmury} pokazuje zasadnicze ró¿nice miêdzy poszczególnymi rodzajami chmur. Chmura oferowana przez Google Application Engine, zapewnia wsparcie w zakresie architektury serwera, systemu plików, a tak¿e systemu bazodanowego. Dodatkowo GAE udostêpnia równie¿ mo¿liwoœæ korzystania z us³ug w tle oraz serwerów mailowych.
-
-\begin{figure}[hbtp]
+\begin{figure}[H]
 \caption{Zestawienie rodzajów chmury ze wzglêdu na udostêpniane zasoby}
 \includegraphics[scale=0.75]{chmura_model.pdf}
 \label{fig:chmury}
 \end{figure}
 
-Jak, wiêc wynika z zestawienia rodzajów chmur, oferuje ona du¿o wiêcej ponad standardow¹ infrastrukturê sprzêtow¹, jak np. Amazon EC2, który jako pierwszy oferowa³ us³ugi typu \textit{IAAS} (ang. \textit{Infrastructure as a Service}).\\
+Najogólniej chmury dziel¹ siê na \textit{prywatne} i \textit{publiczne}. Prywatne wchodz¹ w sk³ad czêœci organizacji, ale jednoczesne stanowi¹ autonomiczn¹ us³ugê. Publiczne natomiast udostêpniane s¹ przez zewnêtrznych dostawców us³ug.
 
-Polityka chmur typu \textit{PAAS} jest p³acenie tylko za aktualne zu¿ycie
-zasobów. Rozliczani jesteœmy wiec za iloœæ która faktycznie
-wykorzystujemy. Dodatkowo architektura dynamicznie zwiêksza
-iloœæ zasobów, jak równie¿ instancji serwerów aktualnie
+Rysunek \ref{fig:chmury} pokazuje zasadnicze ró¿nice miêdzy poszczególnymi rodzajami chmur. Chmura oferowana przez \textit{Google Application Engine}, zapewnia wsparcie w zakresie architektury serwera, systemu plików, a tak¿e systemu bazodanowego. Dodatkowo, \textit{GAE} udostêpnia równie¿ mo¿liwoœæ korzystania z us³ug w tle oraz serwerów mailowych, a tak¿e wiele mniejszych us³ug takich jak wykonywanie ¿¹dañ do zewnêtrznych us³ug. Nowoœci¹ w fazie testów jest tak¿e mo¿liwoœæ, rozdzielenie obci¹¿enia na kilka wersji aplikacji (\textit{traffic splitting}).\\
+
+Najprostszym i najstarszym rodzajem us³ug w "chmurze" jest \textit{Kolokacja}. Polega ona na dzier¿awieniu miejsca w serwerowni, pr¹du, klimatyzacji i po³¹czenia do Internetu. W gestii dzier¿awcy jest zaopatrzenie siê w sprzêt, zabezpieczenia, system operacyjny koñcz¹c na oprogramowaniu i aplikacjach.
+
+Bardziej rozbudowanym rodzajem chmury jest \textit{IaaS} (ang. Infrastructure as a Service), czyli rozszerzenie kolokacji o zapewnienie sprzêtu przez dostawcê. To dostawca udostêpnia sprzêt, niejednokrotnie równie¿ zabezpieczenia. Zadaniem odbiorcy jest dostarczenie systemu operacyjnego, oprogramowania i aplikacji. Pewn¹ grup¹ us³ug, kwalifikowan¹ do tego zbioru, mog¹ byæ serwery dedykowane, które u wielu dostawców mo¿na kupiæ od dawna. Obecnie jednak zakres mo¿liwoœci serwerów dedykowanych zosta³ poszerzony, dziêki wykorzystaniu technologii wirtualizacji. Za jej spraw¹, u¿ytkownik otrzymuje funkcjonaln¹ maszynê wirtualn¹, któr¹ mo¿e skonfigurowaæ w dowolny sposób wykorzystuj¹c zdalny dostêp.
+
+Jak wynika z zestawienia rodzajów chmur, us³uga \textit{PaaS}, a wraz z ni¹ równie¿ \textit{GAE} oferuje du¿o wiêcej ponad standardow¹ infrastrukturê sprzêtow¹. U¿ytkownik musi siê skupiæ jedynie na dostarczeniu oprogramowania pracuj¹cego w okreœlonym œrodowisku roboczym.
+
+Polityk¹ chmur typu \textit{PaaS} jest p³acenie tylko za aktualne zu¿ycie
+zasobów. Rozliczani jesteœmy wiec, za moc obliczeniow¹ serwerów i czas ich pracy, iloœæ zapytañ do bazy, a tak¿e za bie¿¹ce wykorzystanie dysku. Dodatkowo architektura dynamicznie zwiêksza iloœæ zasobów, jak równie¿ instancji serwerów aktualnie
 wykorzystywanych, by jak najbardziej zmniejszyæ czas odpowiedzi
-strony.
+strony (Rys. \ref{fig:komponentyCloud}). Ca³oœæ mo¿na dynamicznie kontrolowaæ balansuj¹c koszty do optymalnej szybkoœci dzia³ania aplikacji.
 
 \begin{figure}[htbp]
-\caption{Komponenty wchodz¹ce w sk³ad architektury w chmurze (Ÿród³o Wikipedia)}
+\caption{Komponenty wchodz¹ce w sk³ad architektury w chmurze}
 \includegraphics[scale=0.4]{Cloud_computing.pdf}
+\label{fig:komponentyCloud}
 \end{figure}
 
 
-W wypadku GAE w ramach darmowych limitów do dyspozycji dostajemy 28h instancji, oznacza to, ze w wypadku pojedynczej najwolniejszej instancji bêdziemy mogli z niej korzystaæ 28h (600Mhz), w wypadku szybszej instancji (1200Mhz) czas ten zostanie 2-krotnie zmniejszony. W wypadku najszybszej instancji (2400Mhz) czas ten ulega 4-krotnemu skróceniu. Do decyzji u¿ytkownika zostaje decyzja z jakiej instancji chce korzystaæ i oczywiœcie jak bardzo iloœæ serwerów bêdzie siê zwiêksza³a przy natê¿eniu ruchu. Jeœli darmowa oferta GAE jest niewystarczaj¹ca, w ka¿dej chwili mo¿na przejœæ na opcje p³atn¹, w której okreœlamy tygodniowe / miesiêczne limity p³atnoœci. Jedn¹ z wa¿nych zmian w porównaniu z normalnymi hostingami jest taryfikator operacji bazodanowych. Wyró¿niono ceny za odczyt i zapis do bazy, odpowiednio 0.10\$ za 100,0000 operacji zapisu i 0.07\$ za podobn¹ iloœæ operacji odczytu. Dodatkowo system liczenia operacji zapisu opera siê na dodatkowych operacjach zwi¹zanych z indeksowaniem danych. Przyk³adowo pobranie pojedynczego rekordu z bazy to koszt jednego odczytu, ale wykonanie zapytania zwracaj¹cego 20 rezultatów to koszt 21 operacji odczytu. W wypadku zapisu do bazy nowej encji, 2 operacji zapisu + 2 operacje zapisu na ka¿dy indeks dla pola + 1 zapis dla wartoœci indeksu z³o¿onego.
+W wypadku GAE w ramach darmowych limitów do dyspozycji dostajemy 28h instancji. Oznacza to, ¿e w wypadku pojedynczej najwolniejszej instancji bêdziemy mogli z niej korzystaæ 28h (600Mhz), w wypadku szybszej instancji (1200Mhz) czas ten zostanie 2-krotnie zmniejszony. W wypadku najszybszej instancji (2400Mhz) czas ten ulega 4-krotnemu skróceniu. Do oceny u¿ytkownika zostaje decyzja, z jakiej instancji chce korzystaæ i oczywiœcie, jak bardzo iloœæ serwerów bêdzie siê zwiêksza³a przy natê¿eniu ruchu. Jeœli darmowa oferta GAE jest niewystarczaj¹ca, w ka¿dej chwili mo¿na przejœæ na opcjê p³atn¹, w której okreœlamy tygodniowe / miesiêczne limity p³atnoœci. Jedn¹ z wa¿nych zmian w porównaniu z normalnymi hostingami jest taryfikator operacji bazodanowych. Wyró¿niono ceny za odczyt i zapis do bazy, odpowiednio 0.10\$ za 100,0000 operacji zapisu i 0.07\$ za podobn¹ iloœæ operacji odczytu. System liczenia operacji zapisu opera siê na dodatkowych operacjach, zwi¹zanych z indeksowaniem danych. Przyk³adowo pobranie pojedynczego rekordu z bazy to koszt jednego odczytu, ale wykonanie zapytania zwracaj¹cego 20 rezultatów to koszt 21 operacji odczytu. W wypadku zapisu do bazy nowej encji oznacza to 2 operacji zapisu + 2 operacje zapisu na ka¿dy indeks dla pola + 1 zapis dla wartoœci indeksu z³o¿onego.
 
-Rysunek \ref{fig:gae_dashboard} przedstawia pogl¹dowy widok bie¿¹cych statystyk aplikacji udostêpnianych przez GAE. U¿ytkownik ma dostêp do stanów bie¿¹cych limitów, a tak¿e szczegó³owych wykresów wydajnoœci aplikacji okreœlanych na podstawie ró¿nych czynników (zajêtoœæ pamiêci, iloœæ operacji na sekundê, wykorzystanie instancji serwerów). Bardzo przydatny jest równie¿ wykres bie¿¹cej aktywnoœci aplikacji. W ten sposób mo¿na szybko oceniæ, czy aplikacja jest obecnie pod du¿ym obci¹¿eniem, a tak¿e porównaæ, czy np. wdro¿one zmiany poprawi³y jej wydajnoœæ.
+Rysunek \ref{fig:gae_dashboard} przedstawia pogl¹dowy widok bie¿¹cych statystyk aplikacji, udostêpnianych przez GAE. U¿ytkownik ma dostêp do stanów bie¿¹cych limitów, a tak¿e szczegó³owych wykresów wydajnoœci aplikacji okreœlanych na podstawie ró¿nych czynników (zajêtoœæ pamiêci, iloœæ operacji na sekundê, wykorzystanie instancji serwerów). Bardzo przydatny jest równie¿ wykres bie¿¹cej aktywnoœci aplikacji. W ten sposób mo¿na szybko oceniæ, czy aplikacja jest obecnie pod du¿ym obci¹¿eniem, a tak¿e porównaæ, czy na przyk³ad wdro¿one zmiany poprawi³y jej wydajnoœæ.
 
 \begin{figure}[htbp]
 \caption{Wygl¹d panelu statystyk w ramach us³ugi GAE}
@@ -44,62 +47,62 @@ Rysunek \ref{fig:gae_dashboard} przedstawia pogl¹dowy widok bie¿¹cych statystyk 
 \end{figure}
 
 
-\section{Nie relacyjne bazy danych NoSQL.}
+\section{Nie relacyjne bazy danych \textit{NoSQL}}
 
-Od pocz¹tku ery informatyzacji informacja i jej przechowywanie by³o najwa¿niejszym zadaniem powierzanym komputerom. Bazy danych musz¹ zarówno przechowywaæ dane (Zapis), jak i udostêpniaæ interfejs s³u¿¹cy ich odczytowi, a nawet wyszukiwaniu w oparci o zadane kryteria. Dotychczas wykorzystywano g³ównie relacyjne bazy danych, które ³¹czy³y pojedyncze tabele w ró¿nego rodzaju asocjacje. Wczesnej jednak konieczne jest zdefiniowanie okreœlonego schematu bazy danych, który bêdzie obowi¹zywa³ i nak³ada³ ograniczenia na dane.
+Od pocz¹tku ery informatyzacji, informacja i jej przechowywanie by³o najwa¿niejszym zadaniem powierzanym komputerom. Bazy danych musz¹ zarówno przechowywaæ dane (zapis), jak i udostêpniaæ interfejs s³u¿¹cy ich odczytowi, a nawet wyszukiwaniu w oparci o zadane kryteria. Dotychczas wykorzystywano g³ównie relacyjne bazy danych, które ³¹czy³y pojedyncze tabele w ró¿nego rodzaju asocjacje. Wczeœniej jednak konieczne jest zdefiniowanie okreœlonego schematu bazy danych, który bêdzie obowi¹zywa³ i nak³ada³ ograniczenia na dane.
 
-Obecnie jednak bardzo popularne staja siê bazy bez okreœlonej
+Obecnie jednak bardzo popularne staj¹ siê bazy bez okreœlonej
 struktury, niesamowicie skalowalne, a przy tym dostêp do niech
 odbywa siê przy pomocy \textit{REST}owego API.
 Wyró¿niono kilka konwencji:
 \begin{itemize}
-\item{\textit{Key Value Stores} - HDOOP, BigData}
-\item{\textit{Graph Databases} - Neo’tj, AllegroGraph}
-\item{\textit{BigTables} - HBase, Cassandra}
+\item{\textit{Key Value Stores} - HDOOP, BigData},
+\item{\textit{Graph Databases} - Neo’tj, AllegroGraph},
+\item{\textit{BigTables} - HBase, Cassandra},
 \item{\textit{Document Database} - MongoDB, CoachDB, SimpleDB}
 \end{itemize}
 
-W projektach ecommerce najwiêkszym zastosowaniem ciesz¹ siê
-bazy dokumentowe skupiaj¹ce kolekcje obiektów - dokumentów.
+W projektach \textit{e-commerce} najwiêkszym zastosowaniem ciesz¹ siê
+bazy dokumentowe, skupiaj¹ce kolekcje obiektów - dokumentów.
 Ka¿dy z nich mo¿e zawieraæ odpowiednie metadane i s³owa
-kluczowe. Ka¿dy dokument posiada dowolna definicje i mo¿e byæ
-dowolnie zagnie¿d¿amy i ³¹czony z innymi dokumentami.\\
+kluczowe. Ka¿dy dokument posiada dowoln¹ definicjê i mo¿e byæ
+dowolnie zagnie¿d¿any i ³¹czony z innymi dokumentami.\\
 
-Wraz z wykorzystaniem nie relacyjnych baz danych, zmieni³ siê zupe³nie pomys³ na organizacjê danych. Si³¹ baz danych NoSQL jest brak œciœle okreœlonej struktury, przez co schemat danych mo¿e siê dowolnie zmieniaæ w trakcie rozwoju aplikacji. Innym wa¿nym powodem wykorzystania bazy Google Datastore oferowanej przez GAE jest szybkoœæ i skalowalnoœæ. W odró¿nieniu od zwyk³ego hostingu, baza danych w GAE mo¿e byæ rozproszona na dowoln¹ iloœæ instancji.\\
+Wraz z wykorzystaniem nie-relacyjnych baz danych, zmieni³ siê zupe³nie pomys³ na organizacjê danych. Si³¹ baz danych NoSQL jest brak œciœle okreœlonej struktury, przez co schemat danych mo¿e siê dowolnie zmieniaæ w trakcie rozwoju aplikacji. Innym wa¿nym powodem wykorzystania bazy \textit{Google Datastore}, oferowanej przez GAE jest szybkoœæ i skalowalnoœæ. W odró¿nieniu od zwyk³ego hostingu, baza danych w GAE mo¿e byæ rozproszona na dowoln¹ iloœæ instancji.\\
 
-Pocz¹tkowo osoby korzystaj¹ce z baz nierelacyjnych zarzuca³y takiemu rozwi¹zaniu nastêpuj¹ce wady.
+Pocz¹tkowo osoby korzystaj¹ce z baz nierelacyjnych zarzuca³y takiemu rozwi¹zaniu nastêpuj¹ce wady:
 
 \begin{itemize}
-\item{Problem z ponownym wykorzystaniem kodu dla innych rozwi¹zañ nie relacyjnym nawet kiedy implementacje s¹ podobne}
-\item{Nie mo¿na wykorzystaæ kodu dla relacyjnej bazy danych, nawet jeœli schemat pozosta³ by nietkniêty}
-\item{Koniecznoœæ zarz¹dzania indeksami, a tak¿e problem denormalizacji itd.}
+\item{problem z ponownym wykorzystaniem kodu dla innych rozwi¹zañ nie relacyjnym nawet kiedy implementacje s¹ podobne,}
+\item{nie mo¿na wykorzystaæ kodu dla relacyjnej bazy danych, nawet jeœli schemat pozosta³by nietkniêty,}
+\item{koniecznoœæ zarz¹dzania indeksami, a tak¿e problem denormalizacji,}
 
-\item{Koniecznoœæ samodzielnej implementacji ³¹czenia rezultatów wielu zapytañ}
+\item{koniecznoœæ samodzielnej implementacji ³¹czenia rezultatów wielu zapytañ,}
 
-\item{Niektóre z rozwi¹zañ s¹ zintegrowane ze specyficznym dostawc¹ (App Engine, SimpleDB), wiêc u¿ytkownik nie ma mo¿liwoœci migracji na inn¹ platformê bez du¿ego nak³adu pracy}
+\item{niektóre z rozwi¹zañ s¹ zintegrowane ze specyficznym dostawc¹ (\textit{App Engine}, \textit{SimpleDB}), wiêc u¿ytkownik nie ma mo¿liwoœci migracji na inn¹ platformê bez du¿ego nak³adu pracy.}
 \end{itemize}
 
-W projektowanej aplikacji wykorzystano framework \textit{Django-nonrel} dodaj¹cy obs³ugê baz NoSQL do frameworka \textit{Django}. W ten sposób mo¿liwe jest wykorzystanie abstrakcji bazodanowej i tworzenie rozwi¹zañ niezale¿nie od technologii bazy. Wszystko to mo¿liwe jest dziêki wbudowanemu narzêdziu \textit{ORM} (ang. Object-Relational Mapping), które udostêpnia obiektowy interfejs dostêpu do danych. W ten sposób pisana logika nie jest zale¿na od konkretnej platformy czy rozwi¹zania sk³aduj¹cego.\\
+W stworzonej aplikacji wykorzystano framework \textit{Django-nonrel} dodaj¹cy obs³ugê baz NoSQL do frameworka \textit{Django}. W ten sposób mo¿liwe jest wykorzystanie abstrakcji bazodanowej i tworzenie rozwi¹zañ niezale¿nie od technologii bazy. Wszystko to mo¿liwe jest dziêki wbudowanemu narzêdziu \textit{ORM} (ang. \textit{Object-Relational Mapping}), które udostêpnia obiektowy interfejs dostêpu do danych. W ten sposób pisana logika nie jest zale¿na od konkretnej platformy lub rozwi¹zania sk³aduj¹cego.\\
 
-\subsection{Specyfika \textit{Google Datastore}.}
+\subsection{Specyfika \textit{Google Datastore}}
 
-\textit{Google App Engine} posiada swoj¹ wewnêtrzn¹ bazê danych \textit{Datastore}, która przechowuje obiekty danych znane jako \textit{encje}. Ka¿da encja ma jedn¹ lub wiêcej pól ró¿nego typu podobnie jak w relacyjnych bazach. Ka¿da encja jest identyfikowana po jej typie, ma to na celu katalogowanie ich z wzglêdu na pe³nion¹ funkcjê logiczn¹. Jest to pewna analogia do tabel, ale raczej nale¿y to postrzegaæ jako kontenery na luŸno powi¹zane obiekty. Ka¿da encja ma klucz, który unikalne identyfikuje zasób niezale¿nie od typu.\\
+\textit{Google App Engine} posiada swoj¹ wewnêtrzn¹ bazê danych \textit{Datastore}, która przechowuje obiekty danych, znane jako \textit{encje}. Ka¿da encja ma jedn¹ lub wiêcej pól ró¿nego typu podobnie, jak w relacyjnych bazach. Ka¿da encja jest identyfikowana po jej typie, ma to na celu katalogowanie ich z wzglêdu na pe³nion¹ funkcjê logiczn¹. Jest to pewna analogia do tabel, ale raczej nale¿y to postrzegaæ jako kontenery na luŸno powi¹zane obiekty. Ka¿da encja ma klucz, który unikalne identyfikuje zasób niezale¿nie od typu \cite{book:gae}.\\
 
 \textit{Datastore} mo¿e wykonywaæ wiele operacji w pojedynczej transakcji. Z za³o¿enia transakcja nie mo¿e siê zakoñczyæ do czasu zakoñczenia ostatniej operacji w jej ramach. Oczywiœcie w wypadku niepowodzenia transakcja zosta³aby wycofana, co jest szczególnie przydatne w wypadku rozproszonych aplikacji webowych, gdzie wielu u¿ytkowników mo¿e mieæ dostêp lub wykonywaæ operacje na tym samym obiekcie.
 
-W GAE g³ównym miejscem sk³adowania jest HRD (\textit{High Replication Datastore}). W skrócie jest to miejsce gdzie dane s¹ replikowane do wielu centrów danych wykorzystuj¹c system oparty na algorytmie \textit{Paxos}. Taki zabieg zapewnia wysoki poziom dostêpnoœci dla operacji odczytu i zapisu. Jedyny problem mo¿e wystêpowaæ ze spójnoœci¹ danych ze wzglêdu na czas replikacji do poszczególnych wêz³ów.\\
+W GAE g³ównym miejscem sk³adowania jest HRD (\textit{High Replication Datastore}). W skrócie, jest to miejsce, gdzie dane s¹ replikowane do wielu centrów danych wykorzystuj¹c system oparty na algorytmie \textit{Paxos}. Taki zabieg zapewnia wysoki poziom dostêpnoœci dla operacji odczytu i zapisu. Jedyny problem mo¿e wystêpowaæ ze spójnoœci¹ danych ze wzglêdu na czas replikacji do poszczególnych wêz³ów.\\
 
-W odró¿nieniu od standardowych baz danych, GAE wykorzystuje architekturê rozproszon¹, aby zapewniæ automatyczne zarz¹dzanie skalowaniem nawet w wypadku bardzo obszernych zbiorów danych. Pomimo podobieñstw w mechanizmach dostêpu do danych miêdzy poszczególnymi bazami, istotn¹ ró¿nic¹ jest sposób opisywania relacji pomiêdzy obiektami. Np. encje tego samego typu mog¹ mieæ ró¿ne pola, z kolei ró¿ne encje mog¹ mieæ w³aœciwoœci tej samej nazwy, ale przechowywaæ wartoœci ró¿nego typu. Te unikalne cechy sprawiaj¹, ¿e projektowanie i zarz¹dzanie danymi ró¿ni siê znacz¹co w wypadku tej platformy. Poniewa¿ GAE jest stworzone do skalowania, w wypadku wzmo¿onego zapisu, \textit{Datastore} automatycznie rozproszy dane jeœli jest to konieczne na wiêcej instancji. Równie¿ operacje odczytu s¹ dostosowane do szybkiego dzia³ania, poniewa¿ jedyne dozwolone zapytania to takie, które dzia³aj¹ niezale¿nie od wielkoœci danych.
+W odró¿nieniu od standardowych baz danych, GAE wykorzystuje architekturê rozproszon¹, aby zapewniæ automatyczne zarz¹dzanie skalowaniem nawet w wypadku bardzo obszernych zbiorów danych. Pomimo podobieñstw w mechanizmach dostêpu do danych miêdzy poszczególnymi bazami, istotn¹ ró¿nic¹ jest sposób opisywania relacji pomiêdzy obiektami. Na przyk³ad encje tego samego typu mog¹ mieæ ró¿ne pola, z kolei ró¿ne encje mog¹ mieæ w³aœciwoœci tej samej nazwy, ale przechowywaæ wartoœci ró¿nego typu. Te unikalne cechy sprawiaj¹, ¿e projektowanie i zarz¹dzanie danymi ró¿ni siê znacz¹co w wypadku tej platformy. Poniewa¿ GAE jest stworzone do skalowania, w wypadku wzmo¿onego zapisu, \textit{Datastore} automatycznie rozproszy dane, jeœli jest to konieczne na wiêcej instancji. Równie¿ operacje odczytu s¹ dostosowane do szybkiego dzia³ania, poniewa¿ jedyne dozwolone zapytania to takie, które dzia³aj¹ niezale¿nie od wielkoœci danych.
 
-Oznacza to, ¿e wyszukiwanie w zbiorze 100 elementowym zajmie dok³adnie tyle samo czasu co w zbiorze zawieraj¹cym ich milion. \textit{Datastore} robi równie¿ du¿y u¿ytek z indeksów dla kolekcji danych. Istotn¹ cech¹ jest fakt, ¿e w procesie tworzenia aplikacji, biblioteka deweloperska bada, które zapytania wymagaj¹ dodania nowych indeksów i robi to za u¿ytkownika w specjalnym pliku \texttt{indexes.yaml}.
+Oznacza to, ¿e wyszukiwanie w zbiorze 100 elementowym zajmie dok³adnie tyle samo czasu, co w zbiorze zawieraj¹cym ich milion. \textit{Datastore} robi równie¿ du¿y u¿ytek z indeksów dla kolekcji danych. Istotn¹ cech¹ jest fakt, ¿e w procesie tworzenia aplikacji, biblioteka deweloperska bada, które zapytania wymagaj¹ dodania nowych indeksów i robi to za u¿ytkownika w specjalnym pliku definicji indeksów. W ten sposób najwa¿niejsze zapytania wykonywane przez aplikacjê posiadaj¹ dane uporz¹dkowane w odpowiednich indeksach. Jeœli w aplikacji wykonywane s¹ operacje sortowania danych po jakiejœ kolumnie to w GAE wyniki sortowania rosn¹cego i malej¹cego bêd¹ przechowywane w zupe³nie ró¿nych indeksach, nawet jeœli dotycz¹ tego samego pola. 
 
 \section{Aplikacja zorientowana na us³ugi}
 
-Inn¹ wa¿n¹ cech¹ tworzonej aplikacji, jest wyszczególnienie us³ug (\textit{webserviceów}), które pomog¹ w wykonywaniu operacji na modelu przy pomocy metod protoko³u HTTP. Bêd¹ to wiêc popularne w dzisiejszych czasach us³ugi REST. Ze wzglêdu na specyfikê aplikacji i du¿y udzia³ jêzyka JavaScript w tworzonej logice, w wiêkszoœci wypadków us³ugi te bêd¹ zwraca³y w notacji JSON.\\
+Inn¹ wa¿n¹ cech¹ tworzonej aplikacji jest wyszczególnienie us³ug (\textit{webserviceów}), które pomog¹ w wykonywaniu operacji na modelu przy pomocy metod protoko³u HTTP. Bêd¹ to wiêc popularne w dzisiejszych czasach us³ugi REST. Ze wzglêdu na specyfikê aplikacji i du¿y udzia³ jêzyka JavaScript w tworzonej logice, w wiêkszoœci wypadków us³ugi te bêd¹ zwraca³y dane w notacji \textit{JSON}.\\
 
-Kluczem i zalet¹ takiego podejœcia, okreœlanego póŸniej jako \textit{Service Oriented Architecture} jest wydzielenie pewnych us³ug zawieraj¹cych pewn¹ czêœæ / zakres funkcjonalny. W ten sposób aplikacja jest podzielona na grupê takich us³ug, z których ka¿da realizuje tylko i wy³¹cznie swoje zadanie. Dziêki takiej dekompozycji, mo¿liwym staje siê wykorzystanie wspomnianych us³ug, wszêdzie tam gdzie jest to potrzebne. Inn¹ zalet¹ jest ³atwoœæ testowania takich us³ug poniewa¿ nie jest konieczne zestawienie ca³ego zestawu wykonawczego, a jedynie test konkretnego dzia³ania, spe³niaj¹cego okreœlone cele.
+Zalet¹ takiego podejœcia, okreœlanego póŸniej jako \textit{Service Oriented Architecture} jest wydzielenie pewnych us³ug, zawieraj¹cych pewn¹ czêœæ / zakres funkcjonalny. W ten sposób aplikacja jest podzielona na grupê takich us³ug, z których ka¿da realizuje tylko i wy³¹cznie swoje zadanie. Dziêki takiej dekompozycji, mo¿liwym staje siê wykorzystanie wspomnianych us³ug, wszêdzie tam gdzie jest to potrzebne. Inn¹ zalet¹ jest ³atwoœæ testowania takich us³ug, poniewa¿ nie jest konieczne stworzenie ca³ego zestawu wykonawczego, a jedynie test konkretnego dzia³ania, spe³niaj¹cego okreœlone cele.
 
-Poniewa¿ komunikacja miêdzy frontendem aplikacji napisanym w jêzyki PHP, a zapleczem umiejscowionym na platformie GAE odbywa siê poprzez webservice'y, istotne by³o wyró¿nienie nastêpuj¹cych us³ug:
+Poniewa¿ komunikacja miêdzy \textit{front-endem} aplikacji, napisanym w jêzyku PHP, a zapleczem umiejscowionym na platformie GAE odbywa siê poprzez webserwisy, istotne by³o wyró¿nienie nastêpuj¹cych us³ug:
 
 \begin{itemize}
 \item{us³uga zwracaj¹ca dostêpne kategorie, a tak¿e kategorie dla danej podkategorii,}
@@ -111,25 +114,25 @@ Poniewa¿ komunikacja miêdzy frontendem aplikacji napisanym w jêzyki PHP, a zaple
 
 Ka¿da us³uga zwraca obiekt \textit{JSON}, który nastêpnie jest analizowany przez kod \textit{JavaScript}. Takie podejœcie czyni przetwarzanie strony niezwykle wydajnym, bo obci¹¿enie jest dzielone na dwie aplikacje.
 
-\subsection{AJAX problem same origin policy}
+\subsection{AJAX, a restrykcje bezpieczeñstwa kodu \textit{JavaScript}}
 
-Na pocz¹tku projektowania zaistnia³ jeden problem wynikaj¹cy z komunikacji przy u¿yciu technologii AJAX. Problem \textit{same origin policy} jest bardzo istotnym za³o¿eniem bezpieczeñstwa dotycz¹cym jêzyków interpretowanych po stronie przegl¹darki, takich jak \textit{JavaScript}. Polityka bezpieczeñstwa zezwala skryptom uruchamianym w ramach tej samej strony na dostêp do metod i w³aœciwoœci powi¹zanych obiektów JavaScript bez specjalnych restrykcji. Z drugiej strony polityka ta odmawia dostêpu do wiêkszoœci metod i w³asnoœci podczas takich prób na innych stronach (inna domena, subdomena itp.).
+Na pocz¹tku projektowania zaistnia³ jeden problem wynikaj¹cy z komunikacji przy u¿yciu technologii AJAX. Problem \textit{same origin policy} jest bardzo istotnym za³o¿eniem bezpieczeñstwa dotycz¹cym jêzyków interpretowanych po stronie przegl¹darki, takich jak \textit{JavaScript}. Polityka bezpieczeñstwa zezwala skryptom uruchamianym w ramach tej samej strony na dostêp do metod i w³aœciwoœci powi¹zanych obiektów \textit{JavaScript} bez specjalnych restrykcji. Z drugiej strony polityka ta odmawia dostêpu do wiêkszoœci metod i w³asnoœci podczas takich prób na innych stronach (inna domena, subdomena).
 
-Mechanizm ten odciska znacz¹ce piêtno dla nowoczesnych aplikacji internetowych, które w znacznym stopniu polegaj¹ np. na danych uwierzytelniaj¹cych zapisanych w sesji \textit{HTTP cookie}, jak równie¿ wykorzystuj¹cych technologiê AJAX do pobierania rezultatów dzia³ania us³ug.
+Mechanizm ten odciska znacz¹ce piêtno na nowoczesnych aplikacjach internetowych, które w znacznym stopniu polegaj¹ na przyk³ad na danych uwierzytelniaj¹cych, zapisanych w sesji \textit{HTTP cookie}, jak równie¿ wykorzystuj¹cych technologiê AJAX do pobierania rezultatów dzia³ania us³ug.
 
 \subsubsection{\textit{JSONP} (\textit{JSON with padding})}
 
-JSONP stanowi dope³nienie bazowego formatu danych \textit{JSON}. Jest sposobem na obejœcie problemu dostêpu do danych z ró¿nych domen zwi¹zanych z \textit{same origin policy}. Zgodnie z zasad¹, strona umieszcona pod adresem \texttt{server1.example.com} nie mo¿e normalnie po³¹czyæ siê lub komunikowaæ z serwerem innym ni¿ \texttt{server1.example.com}. Jedynym wyj¹tkiem od tej regu³y jest HTMLowy element \texttt{<script>}. 
+JSONP stanowi dope³nienie bazowego formatu danych \textit{JSON}. Jest sposobem na obejœcie problemu dostêpu do danych z ró¿nych domen zwi¹zanych z \textit{same origin policy}. Zgodnie z zasad¹, strona umieszcona pod adresem \texttt{server1.example.com} nie mo¿e normalnie po³¹czyæ siê lub komunikowaæ z serwerem innym ni¿ \texttt{server1.example.com}. Jedynym wyj¹tkiem od tej regu³y jest HTML-owy element \texttt{<script>}. 
 
-Obchodz¹c regu³ê bezpieczeñstwa, mo¿liwe jest pobranie zwracanego kodu \textit{JavaScript}, który operuje na dynamicznie wygenerowanych danych w formacie \textit{JSON}. Tak naprawdê takie ¿¹danie nie zwraca wcale obiektu \textit{JSON} tylko dynamicznie utworzony kod \textit{JavaScript}, odnosi siê do metod istniej¹cych na stronie wykonuj¹cej ¿¹danie.\\
+Obchodz¹c regu³ê bezpieczeñstwa, mo¿liwe jest pobranie zwracanego kodu \textit{JavaScript}, który operuje na dynamicznie wygenerowanych danych w formacie \textit{JSON}. Tak naprawdê takie ¿¹danie nie zwraca wcale obiektu \textit{JSON}, tylko dynamicznie utworzony kod \textit{JavaScript} i odnosi siê do metod istniej¹cych na stronie wykonuj¹cej ¿¹danie.\\
 
-Przyk³adowy kod obrazuj¹cy ten sposób widoczny jest na listingu \ref{listing:jsonp} oraz \ref{listing:jsonpserver}. Pierwszy skrypt pokazuje frontendow¹ czêœæ rozwi¹zania, drugie natomiast zwraca kod JavaScript, który wykona metodê \texttt{parseJSON} z przetworzonym obiektem JSON zawieraj¹cym wynik dzia³ania zapytania bazodanowego jako parametr funkcji. Nastêpnie metoda \texttt{parseJSON} iteruj¹c w pêtli po elementach obiektu JSON (w jêzyku \textit{JavaScript} obiekty s¹ równie¿ tablicami wiêc mo¿na stosowaæ iteratory tablicowe) wyœwietli po kolei wartoœæ dla ka¿dego klucza obiektu w ramach poszczególnych wierszy wyniku zapytania.
+Przyk³adowy kod obrazuj¹cy ten sposób widoczny jest na listingach \ref{listing:jsonp} oraz \ref{listing:jsonpserver}. Pierwszy skrypt pokazuje \textit{front-endow¹} czêœæ rozwi¹zania, drugi natomiast zwraca kod \textit{JavaScript}, który wykona metodê \texttt{parseJSON} z przetworzonym obiektem \textit{JSON}, zawieraj¹cym wynik dzia³ania zapytania bazodanowego jako parametr funkcji. Nastêpnie metoda \texttt{parseJSON} iteruj¹c w pêtli po elementach obiektu JSON (w jêzyku \textit{JavaScript} obiekty s¹ równie¿ tablicami, wiêc mo¿na stosowaæ iteratory tablicowe), wyœwietli po kolei wartoœæ dla ka¿dego klucza obiektu w ramach poszczególnych wierszy wyniku zapytania.
 
-Oczywiœcie omawiane zagadnienie sprawia troche problemów w praktyce, ale korzystaj¹c z wewnêtrznej implementacji oferowanej przez jQuery, ca³a praca wykonywana jest za nas. Dodatkowo oprócz standardowych requestów typu \texttt{GET}, mo¿na wykonywaæ równie¿ inne metody protoko³u \textit{HTTP}.\\
+Oczywiœcie omawiane zagadnienie sprawia trochê problemów w praktyce, ale korzystaj¹c z wewnêtrznej implementacji oferowanej przez \textit{jQuery}, ca³a praca wykonywana jest za programistê. Dodatkowo, oprócz standardowych zapytañ typu \texttt{GET}, mo¿na wykonywaæ równie¿ inne metody protoko³u \textit{HTTP}.\\
 
-W póŸniejszym etapie projektowania aplikacji okaza³o siê, ¿e \textit{JSONP}, pomimo wielu zalet ma równie¿ kilka wad, z za³o¿enia jest on umiejszczany przy pomocy znaczników HTML, przez co jedyna obs³ugiwana przez niego metoda to \textit{HTTP GET}. Jest to niewystarczaj¹ce do realizacji bardziej z³o¿onej logiki obs³ugi webserwiceów, dlatego zastosowano dodatkowo technologie \textit{CORS}.\\
+W póŸniejszym etapie projektowania aplikacji okaza³o siê, ¿e \textit{JSONP} pomimo wielu zalet, ma równie¿ kilka wad. Z za³o¿enia jest on umieszczany przy pomocy znaczników HTML, przez co jedyna obs³ugiwana przez niego metoda, to \textit{HTTP GET}. Jest to niewystarczaj¹ce do realizacji bardziej z³o¿onej logiki obs³ugi webserwisów, dlatego zastosowano dodatkowo technologie \textit{CORS} (ang. Cross-origin resource sharing).\\
 
-Dziêki wspólnej pracy WAWG (Web Applications Working Group), wspólnie z W3C, uda³o siê opracowaæ now¹ rekomendacjê standardu \textit{Cross-Origin Resource Sharing}. W ten sposób mo¿liwe jest kontrolowanie dostêpu do poszczególnych stron. Dziêki odpowiednim nag³ówk¹ HTTP mo¿liwe jest zezwolenie obiektowi \textit{XMLHTTPRequest} na dostêp do aplikacji udostêpniaj¹cych odpowiednie nag³ówki (\ref{listing:cors}). W ten sposób udostêpniaj¹c poprzez serwer www, poni¿sze nag³ówki, mo¿na zezwoliæ jednej aplikacji (dostêpnej pod adresem \textit{http://foo.example}) na dostêp do tej, która przy u¿yciu nag³ówków \texttt{Access-Control-Allow-Origin} oraz \texttt{Access-Control-Allow-Methods} deklaruje wspó³prace.
+Dziêki wspólnej pracy WAWG (\textit{Web Applications Working Group}), wspólnie z W3C (\textit{World Wide Web Consortium}), uda³o siê opracowaæ now¹ rekomendacjê standardu \textit{Cross-Origin Resource Sharing}. W ten sposób mo¿liwe jest kontrolowanie dostêpu do poszczególnych stron. Dziêki odpowiednim nag³ówkom HTTP mo¿liwe jest zezwolenie obiektowi \textit{XMLHTTPRequest} na dostêp do aplikacji, udostêpniaj¹cych odpowiednie nag³ówki (Listing \ref{listing:cors}). W ten sposób udostêpniaj¹c poprzez serwer WWW poni¿sze nag³ówki, mo¿na zezwoliæ jednej aplikacji (dostêpnej pod adresem \textit{http://foo.example}) na dostêp do tej, która przy u¿yciu nag³ówków \texttt{Access-Control-Allow-Origin} oraz \texttt{Access-Control-Allow-Methods} deklaruje wspó³pracê.
 
 \begin{lstlisting}[caption=Realizacja \textit{CORS} w praktyce, label=listing:cors]
 Access-Control-Allow-Origin: http://foo.example  
@@ -184,7 +187,7 @@ echo sprintf("parseJSON(%s);",  json_encode($results));
 
 \end{lstlisting}
 
-Podsumowuj¹c za³o¿eniem tworzonej aplikacji jest uzyskanie jak najwiêkszej separacji logiki na zbiór wyspecjalizowanych us³ug. Us³ugi te zostan¹ opakowane w webservice'y w architekturze \textit{REST}, co zapewni mo¿liwoœæ komunikacji z wykorzystaniem kodu \textit{JavaScript}. W ten sposób aplikacja zosta³a rozbita na czêœci, z których, ka¿da mo¿liwa ma zapewnion¹ skalowalnoœæ dziêki architekturze Google Application Engine.
+Podsumowuj¹c, za³o¿eniem tworzonej aplikacji jest uzyskanie jak najwiêkszej separacji logiki na zbiór wyspecjalizowanych us³ug. Us³ugi te zostan¹ opakowane w webservisy w architekturze \textit{REST}, co zapewni mo¿liwoœæ komunikacji z wykorzystaniem kodu \textit{JavaScript}. W ten sposób aplikacja zosta³a podzielona na czêœci, z których ka¿da ma zapewnion¹ skalowalnoœæ dziêki architekturze \textit{Google Application Engine}.
 
 
 

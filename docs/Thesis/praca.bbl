@@ -1,17 +1,36 @@
 \begin{thebibliography}{1}
 
-\bibitem{book:mysql}
+\bibitem{phpUsage}
+Historical trends in the usage of server-side programming languages for
+  websites.
+\newblock Dostêpny w internecie.
+\newblock
+  \url{http://w3techs.com/technologies/history_overview/programming_language}.
 
+\bibitem{book:mysql_explain}
+{\em MySQL 5.1 Reference Manual}.
+\newblock
+  \url{http://dev.mysql.com/doc/refman/5.1/en/explain-output.html#explain_id}.
+
+\bibitem{book:mysql}
+V.~Tkachenko J. D.~Zawodny B.~Schwartz, P.~Zaitsev.
+\newblock {\em High performance MySQL, Second Edition}.
+\newblock O'Reily, 2008.
+
+\bibitem{book:proPHPProg}
+M.~Gogal T.~Myer P.~MacIntyrem, B.~Danchilla.
+\newblock {\em Pro PHP Programming}.
+\newblock Apress, 2011.
 
 \bibitem{book:proPHP}
 A.~Padilla and T.~Hawkins.
 \newblock {\em Pro PHP Application Performance Tuning PHP Web Projects for
   Maximum Performance}.
-\newblock Apress.
+\newblock Apress, 2010.
 
 \bibitem{book:yahoo}
 S.~Souders.
 \newblock {\em High Performance Web Sites}.
-\newblock O'Reily.
+\newblock O'Reily, 2007.
 
 \end{thebibliography}

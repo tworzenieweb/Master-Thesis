@@ -2,24 +2,25 @@
 
 Nie sposób rozpocz¹æ implementacji rozwi¹zania, bez kompletnego opisu wymagañ i zaplanowania budowy aplikacji. Jest to jeszcze wa¿niejsze, kiedy celem jest stworzenie wydajnej aplikacji.
 
-Aplikacja powinna spe³niaæ wszystkie oczekiwane cele biznesowe, jak równie¿ zapewniaæ prawid³owe funkcjonowanie bez wzglêdu na aktualnie panuj¹ce obci¹¿enie. Aplikacja demonstracyjna bêdzie ksiêgarni¹ internetow¹ oferuj¹c¹ wiele typowych funkcji, charakterystycznych dla tej bran¿y.
+Aplikacja powinna spe³niaæ wszystkie oczekiwane cele biznesowe, jak równie¿ zapewniaæ prawid³owe funkcjonowanie bez wzglêdu na aktualnie panuj¹ce obci¹¿enie. Aplikacja demonstracyjna bêdzie ksiêgarni¹ internetow¹, oferuj¹c¹ wiele typowych funkcji, charakterystycznych dla tej bran¿y.
 
-G³ównym celem tworzonego oprogramowania jest odpowiednie wywa¿enie pracy wykonanej po stronie serwera, jak równie¿ po stronie przegl¹darki. Dlatego te¿ du¿y nacisk pracy zosta³ po³o¿ony na utworzenie us³ug udostêpniaj¹cych interfejs dostêpowy do bazy danych. W ten sposób wykorzystuj¹c architekturê REST kod JavaScript mo¿e dokonywaæ modyfikacji modelu, przy znikomym udziale serwera WWW.
+G³ównym celem tworzonego oprogramowania jest odpowiednie wywa¿enie pracy wykonanej po stronie serwera, jak równie¿ po stronie przegl¹darki. Dlatego te¿ du¿y nacisk pracy zosta³ po³o¿ony na utworzenie us³ug, udostêpniaj¹cych interfejs dostêpowy do bazy danych. W ten sposób wykorzystuj¹c architekturê REST kod JavaScript mo¿e dokonywaæ modyfikacji modelu, przy znikomym udziale serwera WWW.
 
 
 \section{Zakres funkcjonalny}
 
-Projektowana aplikacja stanowi wirtualn¹ ksiêgarniê, podobnie jak w wypadku jej realnego odpowiednika, zapewnia mo¿liwoœæ przegl¹dania zasobów, podzielonych na kategorie lub oznaczonych okreœlonymi s³owami kluczowymi. W odró¿nieniu od prawdziwej ksiêgarni, w internetowych aplikacjach konieczne jest zdefiniowanie pewnej to¿samoœci, która bêdzie póŸniej podstaw¹ do zakupu ksi¹¿ki, lub sprawdzenia stanu zamówienia.
+Projektowana aplikacja stanowi wirtualn¹ ksiêgarniê. Podobnie, jak w wypadku jej realnego odpowiednika, zapewnia mo¿liwoœæ przegl¹dania zasobów, podzielonych na kategorie lub oznaczonych okreœlonymi s³owami kluczowymi. W odró¿nieniu od prawdziwej ksiêgarni, w internetowych aplikacjach konieczne jest zdefiniowanie pewnej to¿samoœci, która bêdzie póŸniej podstaw¹ do zakupu ksi¹¿ki lub sprawdzenia stanu zamówienia.
 
 Dlatego te¿ istotne jest stworzenie spójnego systemu uwierzytelniania, zapewniaj¹cego zarówno bezpieczeñstwo, jak równie¿ ³atwoœæ ewentualnego przypomnienia zapomnianego has³a.
 
-Poniewa¿ oferta ksi¹¿kowa, ci¹gle siê zmienia, na rynek trafiaj¹ nowe ksi¹¿ki, a nawet tworz¹ siê nowe gatunki, istotn¹ rolê w tworzonej aplikacji stanowi wspó³istnienie zarówno czêœci przeznaczonej dla zwyk³ego u¿ytkownika, jak równie¿ czêœci administracyjnej (\textit{backend}). Sekcja ta powinna byæ równie¿ zabezpieczona przed potencjalnym w³amaniem lub z³oœliwym atakiem ze strony intruzów.
+Poniewa¿ oferta ksi¹¿kowa ci¹gle siê zmienia, na rynek trafiaj¹ nowe ksi¹¿ki, a nawet tworz¹ siê nowe gatunki, istotn¹ rolê w tworzonej aplikacji stanowi wspó³istnienie zarówno czêœci przeznaczonej dla zwyk³ego u¿ytkownika, jak równie¿ czêœci administracyjnej (\textit{back-end}). Sekcja ta powinna byæ równie¿ zabezpieczona przed potencjalnym w³amaniem lub z³oœliwym atakiem ze strony intruzów.
 
-Poniewa¿ obecnie w dobie ery WEB 2.0 strony oferuj¹ du¿o wiêksz¹ iterakcjê, ni¿ by³o to mo¿liwe na pocz¹tku ery Internetu. Dlatego te¿ projektowana aplikacja daje równie¿ mo¿liwoœæ oceny i komentowania istniej¹cych zbiorów. Jest to bardzo wa¿ne z punktu widzenia biznesu i sprzeda¿y, poniewa¿ popularnoœæ i przychylne noty, z pewnoœci¹ napêdz¹ chêtnych do kupna.
+Poniewa¿ obecnie w dobie ery WEB 2.0 strony oferuj¹ du¿o wiêksz¹ iterakcjê, ni¿ by³o to mo¿liwe na pocz¹tku ery Internetu, projektowana aplikacja daje równie¿ mo¿liwoœæ oceny i komentowania istniej¹cych zbiorów. Jest to bardzo wa¿ne z punktu widzenia biznesu i sprzeda¿y, poniewa¿ popularnoœæ i przychylne noty z pewnoœci¹ napêdz¹ chêtnych do kupna.
 
 Wymagania podzielono na czêœæ administracyjn¹ i czêœæ u¿ytkownika, natomiast zbiór funkcjonalnoœci przedstawiony jest w tabeli \ref{table:2_funkcje}.\\
 
 \begin{table*}\centering
+\caption{Tabela z wykazem funkcjonalnoœci stworzonej aplikacji ksiêgarni internetowej}
 \ra{1.3}
 \begin{tabular}{@{}rrrrcrrrcrrr@{}}\toprule
 Czêœæ Administracyjna & Sekcja u¿ytkownika  \\
@@ -34,64 +35,63 @@ Dodawanie plików do ksi¹¿ek & Pobieranie streszczeñ ksi¹¿ek\\
 Nadzorowanie kont u¿ytkowników & Wyszukiwanie ksi¹¿ek w wyszukiwarce\\
 
 \end{tabular}
-\caption{Tabela z wykazem funkcjonalnoœci}
 \label{table:2_funkcje}
 \end{table*}
 
 Rysunek \ref{fig:usecase} przedstawia przypadki u¿ycia wyszczególnione dla tworzonej aplikacji. Warto nadmieniæ, ¿e wiêkszoœæ akcji u¿ytkownika wymaga wczeœniejszego zalogowania, a na pocz¹tku rejestracji konta w wypadku u¿ytkownika ksiêgarni.
 
 \begin{figure}[htbp]
-\caption{Przypadki u¿ycia tworzonej aplikacji}
-\includegraphics[scale=0.5]{usecase.pdf}
+\caption{Przypadki u¿ycia stworzonej aplikacji}
+\includegraphics[scale=0.4]{usecase.pdf}
 \label{fig:usecase}
 \end{figure}
 
 
 
-Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ, w tym celu, akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu frontendu, dopiero w wypadku wy³¹czenia wykonywania skryptów, wys³ane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie np. podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
+Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ. W tym celu akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo, czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu \textit{front-endu}. Dopiero w wypadku wy³¹czenia wykonywania skryptów, wys³ane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie na przyk³ad podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
 
-Nale¿y jednak mieæ na uwadze bezpieczeñstwo oprogramowania, dlatego nie nale¿y polegaæ w 100\% na walidacji wykonywanej przez JavaScript, poniewa¿ u¿ytkownik mo¿e bez problemu wy³¹czyæ dzia³anie skryptów. Dlatego te¿ podczas tworzenia tego typu rozwi¹zañ walidacja po stronie klienta powinna iœæ zawsze w parze z walidacj¹ po stronie serwera.
+Nale¿y jednak mieæ na uwadze bezpieczeñstwo oprogramowania, dlatego nie nale¿y polegaæ w 100\% na walidacji wykonywanej przez JavaScript, poniewa¿ u¿ytkownik mo¿e bez problemu wy³¹czyæ dzia³anie skryptów. Dlatego te¿ podczas tworzenia tego typu rozwi¹zañ, walidacja po stronie klienta powinna iœæ zawsze w parze z walidacj¹ po stronie serwera.
 
-Ze wzglêdu na konserwacje i rozwój tworzonej aplikacji, jest ona zarz¹dzana przy pomocy systemu kontroli wersji git. W ten sposób tworzony kod jest pod œcis³¹ kontrol¹, mo¿e byæ potem rozwijany przez wiêcej ni¿ jednego programisty, eliminuj¹c konflikty podczas pracy na wspólnych zasobach.
+Ze wzglêdu na konserwacjê i rozwój tworzonej aplikacji, jest ona zarz¹dzana przy pomocy systemu kontroli wersji \textit{git} w ramach serwisu \textit{http://github.com}. W ten sposób tworzony kod jest pod œcis³¹ kontrol¹, mo¿e byæ potem rozwijany przez wiêcej ni¿ jednego programisty, eliminuj¹c konflikty podczas pracy na wspólnych zasobach.
 
-Aplikacja wykorzystuje jêzyk HTML5, który staje siê powoli standardem tworzenia kodu po stronie klienta. Zawiera bowiem wiele nowoczesnych mechanizmów i udogodnieñ w stosunku do poprzedniej wersji np. HTML4 oraz XHTML 1.0. Maj¹c na uwadze prawid³owe funkcjonowanie w poszczególnych przegl¹darkach i ró¿n¹ implementacje nowego standardu, aplikacja wykorzystuje dodatek \texttt{HTML5} \texttt{Boilerplate} oraz 
-\texttt{Twitter Bootstrap} jako metodê na otrzymanie podobnych rezultatów w szerokiej gamie urz¹dzeñ (w tym urz¹dzenia mobilne).\\
+Aplikacja wykorzystuje jêzyk HTML5, który staje siê powoli standardem tworzenia kodu po stronie klienta. Zawiera bowiem wiele nowoczesnych mechanizmów i udogodnieñ w stosunku do poprzedniej wersji na przyk³ad HTML4 oraz XHTML 1.0. Maj¹c na uwadze prawid³owe funkcjonowanie w poszczególnych przegl¹darkach i ró¿n¹ implementacjê nowego standardu, aplikacja wykorzystuje dodatek \texttt{HTML5} \texttt{Boilerplate} oraz 
+\texttt{Twitter Bootstrap} jako metodê na otrzymanie podobnych rezultatów w szerokiej gamie urz¹dzeñ (w tym urz¹dzenia mobilne). Jednoczeœnie komponenty wchodz¹ce w sk³ad \texttt{Twitter Bootstrap} umo¿liwiaj¹ ³atwe tworzenie komponentów interfejsu u¿ytkownika z ju¿ istniej¹cych elementów.\\
 
-Projektowana aplikacja wykorzystuje technologiê AJAX (ang. Asynchronous
-JavaScript and XML, asynchroniczny JavaScript i XML ), dziêki czemu mo¿liwa jest symulacja zachowania aplikacji desktopowej. Reakcja na akcje u¿ytkownika nastêpuje bez potrzeby prze³adowania strony. Pozwala to na du¿¹ oszczêdnoœæ przepustowoœci i czasu koniecznego do przetworzenia
-ca³ej strony. Dziêki zastosowaniu frameworka jQuery dla jêzyka JavaScript, mo¿liwe jest stosowanie bardziej przyjaznego interfejsu u¿ytkownika, przy jednoczesnym zapewnieniu kompatybilnoœci wstecz z istniej¹cymi wersjami przegl¹darek internetowych.
+Projektowana aplikacja wykorzystuje technologiê AJAX (ang. \textit{Asynchronous
+JavaScript and XML} - \textit{asynchroniczny JavaScript i XML} ), dziêki czemu mo¿liwa jest symulacja zachowania aplikacji desktopowej. Reakcja na akcje u¿ytkownika nastêpuje bez potrzeby prze³adowania strony. Pozwala to na du¿¹ oszczêdnoœæ przepustowoœci i czasu koniecznego do przetworzenia
+ca³ej strony. Dziêki zastosowaniu frameworka \textit{jQuery} dla jêzyka JavaScript, mo¿liwe jest stosowanie bardziej przyjaznego interfejsu u¿ytkownika, przy jednoczesnym zapewnieniu kompatybilnoœci wstecz z istniej¹cymi wersjami przegl¹darek internetowych.
 
 \section{Budowa aplikacji}
 
-Projektowana aplikacja sk³ada siê tak naprawdê z 2 podaplikacji, jedna z nich hostowana jest wykorzystuj¹c us³ugê \textit{Google Application Engine}, która zostanie omówiona w rozdziale \ref{cha:architektura}. Aplikacja ta bêdzie udostêpnia³a us³ugi oparte o architekturê \textit{REST} (ang. \textit{Representation State Transfer}). Aplikacja ta bêdzie zawiera³a równie¿ panel administracyjny do zarz¹dzania ksiêgarni¹. Jest ona napisana w jêzyku Python, wykorzystuj¹c framework Django, a tak¿e wtyczkê Piston umo¿liwiaj¹c¹ proste wystawienie webserwiceów na podstawie modelu bazy danych.
+Projektowana aplikacja sk³ada siê tak naprawdê z dwóch niezale¿nych podaplikacji, jedna z nich hostowana jest wykorzystuj¹c us³ugê \textit{Google Application Engine}, która zostanie omówiona w rozdziale \ref{cha:architektura}. Aplikacja ta bêdzie udostêpnia³a us³ugi oparte o architekturê \textit{REST} (ang. \textit{Representation State Transfer}). Aplikacja ta bêdzie zawiera³a równie¿ panel administracyjny do zarz¹dzania ksiêgarni¹. Jest ona napisana w jêzyku \textit{Python}, wykorzystuj¹c framework \textit{Django}, a tak¿e wtyczkê \textit{Piston}, umo¿liwiaj¹c¹ proste wystawienie webserwisów na podstawie modelu bazy danych.
 
-Druga aplikacja bêdzie zawiera³a zakres funkcjonalny zwyk³ego u¿ytkownika, natomiast wszystkie dane bêdzie pobiera³a przy u¿yciu udostêpnionych przez wczeœniej omawian¹ aplikacje \textit{webserviceów}. Aplikacja ta bêdzie napisana w jêzyku PHP z wykorzystaniem frameworka symfony.\\
+Druga aplikacja bêdzie zawiera³a zakres funkcjonalny zwyk³ego u¿ytkownika, natomiast wszystkie dane bêdzie pobiera³a przy u¿yciu udostêpnionych przez wczeœniej omawian¹ aplikacje \textit{webserwisów}. Aplikacja ta bêdzie napisana w jêzyku PHP z wykorzystaniem frameworka \textit{symfony}.\\
 
-Obydwie aplikacje wykorzystuj¹ wzorzec MVC do separacji warstw logiki, prezentacji i danych, dodatkowo, wykorzystane frameworki s¹ stworzone do szybkiego tworzenia oprogramowania, dziêki za³o¿eniom \textit{scaffoldingu} oraz konwencj¹ \textit{DRY} (ang. \textit{Don't repeat Yourself}) i \textit{KISS} (ang. \textit{Keep it simple stupid}).
+Obydwie aplikacje wykorzystuj¹ wzorzec MVC do separacji warstw logiki, prezentacji i danych. Dodatkowo, wykorzystane frameworki s¹ stworzone do szybkiego tworzenia oprogramowania, dziêki za³o¿eniom \textit{scaffoldingu} oraz konwencjom \textit{DRY} (ang. \textit{Don't repeat Yourself}) i \textit{KISS} (ang. \textit{Keep it simple stupid}).
 
 Schemat budowy aplikacji przedstawia rysunek \ref{fig:budowa_aplikacji}. 
 Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³anie poci¹ga wiele daleko id¹cych konsekwencji. Dlatego istotne jest, by kod aplikacji by³ spójny i posiada³ modularn¹ budowê. Umo¿liwi to ³atwiejsze wykrywanie problematycznych aspektów aplikacji, istotnych dla prawid³owego dzia³ania ca³ego projektu. 
 
 \begin{figure}[htbp]
 \center
-\caption{Diagram budowy aplikacji}
-\includegraphics[scale=0.65]{diagram_aplikacji.pdf}
+\caption{Diagram budowy aplikacji ksiêgarni internetowej}
+\includegraphics[scale=0.5]{diagram_aplikacji.pdf}
 \label{fig:budowa_aplikacji}
 \end{figure}
 
 
 \section{Projekt bazy danych}
 
-Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej przy okazji projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL, oraz proces de-normalizacji, który musia³ zostaæ dokonany. Na szczêœcie dziêki wspomnianemu w nastêpnym rozdziale frameworkowi \textit{Django-norel}, mo¿liwe jest ³atwe przechodzenie miêdzy istniej¹cymi implementacjami baz danych.
+Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej w ramach projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL oraz proces de-normalizacji, który musia³ zostaæ dokonany. Na szczêœcie dziêki opisanemu w nastêpnym rozdziale frameworkowi \textit{Django-norel}, mo¿liwe jest ³atwe przechodzenie miêdzy istniej¹cymi implementacjami baz danych.
 
-Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Np. ocena w komentarzu ma wartoœci miêdzy 1-5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)} poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.
+Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo, u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Na przyk³ad ocena w komentarzu ma wartoœci miêdzy 1 a 5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)}, poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.
 
-Podczas projektowania nale¿y mieæ na uwadze specyfikê u¿ycia poszczególnych tabel. Dla tabel kategorii i ksi¹¿ek, dominowaæ bêd¹ operacje odczytu, natomiast dla tabeli komentarzy operacje zapisu.
+Podczas projektowania nale¿y mieæ na uwadze specyfikê u¿ycia poszczególnych tabel. Dla tabel \texttt{kategorii} i \texttt{ksi¹¿ek} dominowaæ bêd¹ operacje odczytu, natomiast dla tabeli komentarzy operacje zapisu.
 
 Poniewa¿ z za³o¿enia dostêp do danych bêdzie realizowany poprzez udostêpnione us³ugi, rysunek \ref{fig:uslugi} przedstawia ich definicje, a tak¿e metody komunikacji. W ten sposób tylko za pomoc¹ odpowiednich metod HTTP (PUT - tworzenie, POST - tworzenie / aktualizacja, GET - pobieranie), mo¿liwe jest wykonywanie odpowiedniej logiki.
 
 \begin{figure}[htbp]
-\caption{Udostêpnione na platformie GAE us³ugi}
+\caption{Us³ugi udostêpnione na platformie \textit{GAE} (\textit{Google Application Engine}) }
 \includegraphics[scale=0.5]{serwice.pdf}
 \label{fig:uslugi}
 \end{figure}
@@ -100,6 +100,6 @@ Poniewa¿ z za³o¿enia dostêp do danych bêdzie realizowany poprzez udostêpnione us
 \begin{sidewaysfigure}
 \centering%
 \includegraphics[scale=1]{db.pdf}
-\caption{Projekt bazy danych}
+\caption{Projekt bazy danych aplikacji ksiêgarni internetowej}
 \label{fig:baza_danych}
 \end{sidewaysfigure}

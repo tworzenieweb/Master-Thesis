@@ -1,22 +1,26 @@
 \chapter{Optymalizacja aplikacji}
 \label{cha:optymalizacja_aplikacji}
 
-Na przestrzeni poprzednich rozdzia³ów przeœledzono szczegó³owo wszystkie istotne kwestie zwi¹zane z optymalizacj¹ aplikacji webowych. Czas, wiêc rozpocz¹æ praktyczn¹ implementacjê oprogramowania.
+W ramach poprzednich rozdzia³ów przeœledzono szczegó³owo wszystkie istotne kwestie zwi¹zane z optymalizacj¹ aplikacji webowych. Czas wiêc rozpocz¹æ praktyczn¹ implementacjê oprogramowania.
 
 \section{Framework Django}
 \label{section:django}
 
-Framework \textit{Django} powsta³ na bazie jêzyka python i w nied³ugim czasie zrewolucjonizowa³ proces tworzenia aplikacji internetowym w tym¿e jêzyku.\textit{Django} posiada wszystkie cechy, które charakteryzuj¹ narzêdzia do szybkiego tworzenia oprogramowania (\textit{ang. Rapid Application Development}). Podobnie jak \textit{Ruby on Rails} czy \textit{Symfony}, posiada bibliotekê do mapowania obiektowo - relacyjnego, w ten sposób definiuj¹c obiektowe modele i ich metody, mo¿na bez wiedzy z dziedziny baz danych, wykonywaæ na nich operacje. Oczywiœcie w niniejszej publikacji, istotna jest kompleksowa znajomoœæ zagadnieñ bazodanowych, dlatego te¿ z jednej strony wykorzystano to narzêdzie w celu przyspieszenia procesu implementacji tworzonej aplikacji, z drugiej trzeba mieæ na uwadze wszystkie omówione w poprzednich rozdzia³ach optymalizacje po stronie silnika bazodanowego.\\
+Framework \textit{Django} powsta³ na bazie jêzyka Python i w nied³ugim czasie zrewolucjonizowa³ proces tworzenia aplikacji internetowych w tym¿e jêzyku. 
 
-Frameworki pokroju Ruby on Rails posiada³y atut w postaci \textit{scaffoldingu} czyli zdolnoœci do generowania podstaw aplikacji przy u¿yciu odpowiednich narzêdzi linii komend. \textit{Django} nie jest pod tym wzglêdem wyj¹tkiem, poniewa¿ umo¿liwia generowanie zarówno bazy aplikacji, jak równie¿ kompletnego panelu administracyjnego, oferuj¹cego zaawansowane funkcje, przydatne np. do redagowania strony przez u¿ytkownika koñcowego bez znajomoœci technologii.
+\textit{Django} posiada wszystkie cechy, które charakteryzuj¹ narzêdzia do szybkiego tworzenia oprogramowania (\textit{ang. Rapid Application Development}). Podobnie, jak \textit{Ruby on Rails} lub \textit{Symfony}, posiada bibliotekê do mapowania obiektowo - relacyjnego. W ten sposób definiuj¹c obiektowe modele i ich metody, mo¿na bez wiedzy z dziedziny baz danych wykonywaæ na nich operacje. Oczywiœcie w niniejszej pracy, istotna jest kompleksowa znajomoœæ zagadnieñ bazodanowych, dlatego te¿ z jednej strony wykorzystano to narzêdzie w celu przyspieszenia procesu implementacji tworzonej aplikacji, a z drugiej strony trzeba mieæ na uwadze wszystkie omówione w poprzednich rozdzia³ach optymalizacje po stronie silnika bazodanowego.\\
 
-W przypadku projektowanej ksiêgarni, za pomoc¹ generatorów Django umo¿liwi prosty sposób zarz¹dzania aplikacj¹ oparty na wczeœniej zdefiniowanych modelach. Oczywiœcie omówione w poprzednim rozdziale rozszerzenie \textit{Django-Norel} umo¿liwi rozszerzenie zakresu dostêpnych baz danych o bazy nierelacyjne. 
+Frameworki pokroju \textit{Ruby on Rails} posiadaj¹ atut w postaci \textit{scaffoldingu}, czyli zdolnoœci do generowania podstaw aplikacji przy u¿yciu odpowiednich narzêdzi linii komend. \textit{Django} nie jest pod tym wzglêdem wyj¹tkiem, poniewa¿ umo¿liwia generowanie zarówno bazy aplikacji, jak równie¿ kompletnego panelu administracyjnego, oferuj¹cego zaawansowane funkcje, przydatne na przyk³ad do redagowania strony przez u¿ytkownika koñcowego bez znajomoœci technologii.
 
-Django-Norel zapewnia równie¿ narzêdzia umo¿liwiaj¹ce ³atwe wdro¿enie tworzonego oprogramowania na platformê Google Application Engine. Aby jednak by³o mo¿liwe umieszczenie projektu na tej platformie nale¿y zarejestrowaæ darmowe konto. Po zweryfikowaniu jego poprawnoœci mo¿liwe jest utworzenie do \textbf{10} darmowych aplikacji, ka¿dej z w³asn¹ baz¹ \textit{Google Datastore} i zbiorem powi¹zanych us³ug.
+W przypadku projektowanej ksiêgarni, za pomoc¹ generatorów \textit{Django} mo¿na w prosty sposób zarz¹dzaæ aplikacj¹ w oparciu o wczeœniej zdefiniowane modele. Oczywiœcie omówione w poprzednim rozdziale rozszerzenie \textit{Django-Norel} umo¿liwi¹ rozszerzenie zakresu dostêpnych baz danych o bazy nierelacyjne. 
 
-\section{Wystawienie us³ug jako webservice'y}
+\textit{Django-Norel} zapewnia równie¿ narzêdzia, umo¿liwiaj¹ce ³atwe wdro¿enie tworzonego oprogramowania na platformê \textit{Google Application Engine}. Aby jednak mo¿liwe by³o umieszczenie projektu na tej platformie nale¿y zarejestrowaæ darmowe konto. Po zweryfikowaniu jego poprawnoœci mo¿liwe jest utworzenie do \textbf{10} darmowych aplikacji, ka¿dej z w³asn¹ baz¹ \textit{Google Datastore} i zbiorem powi¹zanych us³ug.
 
-Jednym z powodów wyboru frameworka \textit{Django} jest ³atwa mo¿liwoœæ tworzenia \textit{REST}owych us³ug w oparciu o istniej¹ce modele. Zapewnia to wtyczka \textit{Django-Piston}, która dokonuje \textit{serializacji} do kilku popularnych formatów, w tym do notacji \textit{JSON}. Listing \ref{listing:webservice_handler} przedstawia implementacje jednej z  us³ug (Komentarzy). Jak widaæ implementacja takiej us³ugi jest dosyæ prosta z wykorzystaniem wspomnianej wczeœniej wtyczki. Wystarczy stworzyæ now¹ klasê, która dziedziczy po bazowej \texttt{BaseHandler}. Nastêpnie okreœlono dozwolone metody HTTP, odpowiedzialne za pobieranie danych, ich tworzenie, aktualizacje, koñcz¹c na usuwaniu. Piston oferuje mo¿liwoœæ zabezpieczania dostêpu do konkretnych zasobów. W ten sposób tylko osoba znaj¹ca has³o mo¿e dodaæ komentarz czy ocenê. Z drugiej strony mo¿liwe jest stworzenie osobnej wersji us³ugi udostêpniaj¹cej tylko okreœlone operacje. Jak widaæ na listingu odpowiedzialna jest za to klasa \texttt{AnonymousCommentHandler}. Wymieniona us³uga pozwala na dodanie komentarza lub ich podgl¹d. Ostatnia czynnoœæ konieczna do wystawienia us³ugi, jest jej zmapowania na okreœlony adres zasobu. Odpowiedzialny jest za to kod z listingu \ref{listing:webservice_url}. Po wdro¿eniu aplikacji mo¿liwe jest sprawdzenie dzia³ania us³ugi np. pod adresem \texttt{http://tworzenieweb.appspot.com/api/categories/}. Podany adres zasobu zwraca listê wszystkich kategorii, ³¹cznie z iloœci¹ przypisanych ksi¹¿ek. Listing \ref{listing:webservice_response} przedstawia zwrócony kod w notacji \textit{JSON}.
+\section{Wystawienie us³ug jako webserwisów}
+
+Jednym z powodów wyboru frameworka \textit{Django} jest ³atwa mo¿liwoœæ tworzenia \textit{REST}owych us³ug w oparciu o istniej¹ce modele. Zapewnia to wtyczka \textit{Django-Piston}, która dokonuje \textit{serializacji} do kilku popularnych formatów, w tym do notacji \textit{JSON}. Listing \ref{listing:webservice_handler} przedstawia implementacjê jednej z  us³ug (Komentarzy). Jak widaæ implementacja takiej us³ugi jest dosyæ prosta z wykorzystaniem wspomnianej wczeœniej wtyczki. Wystarczy stworzyæ now¹ klasê, która dziedziczy po bazowej \texttt{BaseHandler}. Nastêpnie okreœlono dozwolone metody HTTP, odpowiedzialne za pobieranie danych, ich tworzenie, aktualizacjê, a koñcz¹c na usuwaniu. 
+
+Piston oferuje mo¿liwoœæ zabezpieczania dostêpu do konkretnych zasobów. W ten sposób tylko osoba znaj¹ca has³o mo¿e dodaæ komentarz lub ocenê. Z drugiej strony mo¿liwe jest stworzenie osobnej wersji us³ugi udostêpniaj¹cej tylko okreœlone operacje. Jak widaæ na listingu \ref{listing:webservice_handler}, odpowiedzialna jest za to klasa \texttt{AnonymousCommentHandler}. Wymieniona us³uga pozwala na dodanie komentarza lub ich podgl¹d. Ostatnia czynnoœæ konieczna do wystawienia us³ugi, to jej zmapowanie na okreœlony adres zasobu. Odpowiedzialny jest za to kod z listingu \ref{listing:webservice_url}. Po wdro¿eniu aplikacji mo¿liwe jest sprawdzenie dzia³ania us³ugi na przyk³ad pod adresem \texttt{http://tworzenieweb.appspot.com\\/api/categories/}. Podany adres zasobu zwraca listê wszystkich kategorii, ³¹cznie z iloœci¹ przypisanych ksi¹¿ek. Listing \ref{listing:webservice_response} przedstawia zwrócony kod w notacji \textit{JSON}.
 
 \begin{lstlisting}[language=python, caption=Implementacja us³ugi odpowiedzialnej za komentarze, label=listing:webservice_handler]
 class AnonymousCommentHandler(AnonymousBaseHandler):
@@ -93,24 +97,24 @@ urlpatterns = patterns('',
 
 \section{Uruchomienie panelu administracyjnego aplikacji}
 
-Zgodnie z omawianymi w podrozdziale \ref{section:django} mo¿liwoœciami frameworka \textit{Django}, po utworzeniu odpowiednich modeli, mo¿liwe jest dodanie opcji administracyjnych. Rysunek \ref{fig:django_backend} pokazuje wygl¹d zaplecza administracyjnego. Natomiast rysunek \ref{fig:django_backend2} pokazuje przyk³adowy formularz dodawania ksi¹¿ki. Ciekawym udogodnieniem jest wykorzystanie biblioteki \textit{SelectMultiple} napisanej dla JavaScriptowego frameworka jQuery w celu wygodniejszej pracy z polami selectbox wielokrotnego wyboru. W ten sposób po lewej stronie s¹ kategorie, autorzy nie wybrani, natomiast po prawej aktualnie zaznaczeni.
+Zgodnie z omówionymi w podrozdziale \ref{section:django} mo¿liwoœciami frameworka \textit{Django}, po utworzeniu odpowiednich modeli, mo¿liwe jest dodanie opcji administracyjnych. Rysunek \ref{fig:django_backend} pokazuje wygl¹d zaplecza administracyjnego. Natomiast rysunek \ref{fig:django_backend2} pokazuje przyk³adowy formularz dodawania ksi¹¿ki. Ciekawym udogodnieniem jest wykorzystanie biblioteki \textit{SelectMultiple} napisanej dla frameworka \textit{jQuery}, w celu wygodniejszej pracy z polami list wielokrotnego wyboru. W ten sposób po lewej stronie umieszczone s¹ kategorie, autorzy niewybrani, natomiast po prawej autorzy aktualnie zaznaczeni.
 
 \begin{figure}[htbp]
-\caption{Wygl¹d zaplecza administracyjnego}
+\caption{Wygl¹d zaplecza administracyjnego stworzonej aplikacji}
 \includegraphics[scale=0.6]{django_backend.pdf}
 \label{fig:django_backend}
 \end{figure}
 
 \begin{figure}[htbp]
-\caption{Wygl¹d zaplecza administracyjnego}
+\caption{Wygl¹d zaplecza administracyjnego stworzonej ksiêgarni internetowej}
 \includegraphics[scale=0.6]{django_backend2.pdf}
 \label{fig:django_backend2}
 \end{figure}
 
-Jak zosta³o wykazane, framework Django w du¿ym stopniu przyspieszy³ proces implementacji docelowej aplikacji na platformie Google Application Engine. Jednym z ciekawych udogodnieñ oferowanych przez GAE jest system numeracji wersji. Przyk³adowo dodano do aplikacji now¹ funkcjonalnoœæ, która wymaga testów akceptacyjnych, edytuj¹c specjalny plik \texttt{app.yaml}. Parametr \texttt{version} pozwala np. na wdro¿enie aplikacji pod specjaln¹ subdomenê testow¹. Przyk³adowo \texttt{version: staging} spowoduje, ¿e osobna wersja aplikacji dostêpna bêdzie pod adresem \texttt{staging.tworzenieweb.appspot.com}. Dodatkowo w panelu administracyjnym mo¿liwe jest ustawienie, która z wdro¿onych aplikacji jest aplikacj¹ domyœln¹ (rysunek \ref{fig:gae}). 
+Jak zosta³o wykazane, framework \textit{Django} w du¿ym stopniu przyspieszy³ proces implementacji docelowej aplikacji na platformie \textit{Google Application Engine}. Jednym z ciekawych udogodnieñ oferowanych przez GAE jest system numeracji wersji. Przyk³adowo dodano do aplikacji now¹ funkcjonalnoœæ, która wymaga testów akceptacyjnych, edytuj¹c specjalny plik \texttt{app.yaml}. Parametr \texttt{version} pozwala na przyk³ad na wdro¿enie aplikacji pod specjaln¹ subdomenê testow¹. Przyk³adowo \texttt{version: staging} spowoduje, ¿e osobna wersja aplikacji dostêpna bêdzie pod adresem \texttt{staging.tworzenieweb.appspot.com}. Dodatkowo, w panelu administracyjnym mo¿liwe jest ustawienie, która z wdro¿onych aplikacji jest aplikacj¹ domyœln¹ (Rys. \ref{fig:gae}). 
 
 \begin{figure}[htbp]
-\caption{Zarz¹dzanie wersjami wdro¿onego na platformê oprogramowania}
+\caption{Zarz¹dzanie wersjami oprogramowania wdro¿onego na platformê \textit{Google Application Engine}}
 \includegraphics[scale=0.6]{gae.pdf}
 \label{fig:gae}
 \end{figure}
@@ -118,13 +122,13 @@ Jak zosta³o wykazane, framework Django w du¿ym stopniu przyspieszy³ proces imple
 
 \section{Framework Symfony}
 
-Frontend aplikacji zosta³ napisany wykorzystuj¹c framework Symfony w wersji 1.4. Powodem wyboru tej technologii jest mo¿liwoœæ szybkiego tworzenia oprogramowania równie¿ z wykorzystaniem generatorów i za³o¿eñ \textit{scaffoldingu}. Obecnie bardzo czêsto daje siê zaobserwowaæ ³¹czenie technologii podobne do przedstawionego, czyli np. zaplecze aplikacji i interfejs bazodanowy tworzony jest w jednej technologii np. Django albo Ruby on Rails, natomiast prezentacja treœci jest wykonana wykorzystuj¹c jêzyk PHP. Dzieje siê tak, poniewa¿ PHP jest doskonale dostosowane do tworzenia dokumentów koñcowych w jêzyku HTML.
+Front-end aplikacji zosta³ napisany przy wykorzystaniu frameworka Symfony w wersji 1.4. Powodem wyboru tej technologii jest mo¿liwoœæ szybkiego tworzenia oprogramowania równie¿ z wykorzystaniem generatorów i za³o¿eñ \textit{scaffoldingu}. Obecnie bardzo czêsto daje siê zaobserwowaæ ³¹czenie technologii w sposób podobny do przedstawionego, czyli przyk³adowo zaplecze aplikacji i interfejs bazodanowy tworzony jest w jednej technologii na przyk³ad \textit{Django} albo \textit{Ruby on Rails}, natomiast prezentacja treœci jest wykonana przy u¿yciu jêzyka \textit{PHP}. Dzieje siê tak, poniewa¿ PHP jest doskonale dostosowane do tworzenia dokumentów koñcowych w jêzyku HTML.
 
-Dla przyspieszenia tworzenia czêœci przegl¹dowej aplikacji, utworzono wykorzystuj¹c ORM Doctrine, to¿samy schemat bazy danych, z obecnym w backendzie. Tak naprawdê jest on potrzebny wy³¹cznie do wygenerowania formularzy danych, poniewa¿ jak zosta³o wspomniane, operacje bazodanowe s¹ wykonywane wykorzystuj¹c webservice'y.
+Dla przyspieszenia tworzenia czêœci przegl¹dowej aplikacji, utworzono wykorzystuj¹c \textit{Doctrine ORM}, schemat bazy danych to¿samy z tym który znajduje siê w \textit{back-endzie}. Tak naprawdê jest on potrzebny wy³¹cznie do wygenerowania formularzy danych, poniewa¿ jak zosta³o wspomniane, operacje bazodanowe s¹ wykonywane wykorzystuj¹c webserwisy.
 
-Istotnym udogodnieniem w interfejsie u¿ytkownika jest wykorzystanie wtyczki \textit{jQuery Validation}. Wykorzystuj¹c t¹ bibliotekê, mo¿liwe jest wykonanie sprawdzania poprawnoœci danych wprowadzonych do poszczególnych pól.  Ca³oœæ jest zintegrowana z klasami formularzy Symfony, wiêc w momencie ustalenia przez aplikacje rodzaju formularza, tworzony jest automatyczny plik regu³ walidacji (\ref{listing:reguly}), który jest nastêpnie do³¹czany do Ÿród³a strony. Jeœli kod \textit{JavaScript} jest w³¹czony w przegl¹darce, skrypt nie pozwoli na wys³anie formularza i bêdzie pokazywa³ odpowiednie b³êdy na stronie.
+Istotnym udogodnieniem w interfejsie u¿ytkownika jest wykorzystanie wtyczki \textit{jQuery Validation}. Wykorzystuj¹c t¹ bibliotekê, mo¿liwe jest wykonanie sprawdzania poprawnoœci danych, wprowadzonych do poszczególnych pól.  Ca³oœæ jest zintegrowana z klasami formularzy \textit{Symfony}, wiêc w momencie ustalenia przez aplikacjê rodzaju formularza, tworzony jest automatyczny plik regu³ walidacji (Listing \ref{listing:reguly}), który jest nastêpnie do³¹czany do Ÿród³a strony. Jeœli kod \textit{JavaScript} jest w³¹czony w przegl¹darce, to skrypt nie pozwoli na wys³anie formularza i bêdzie pokazywa³ odpowiednie b³êdy na stronie.
 
-\begin{lstlisting}[language=java, caption=Przyk³adowy zbiór regu³ po stronie klienta, label=listing:reguly]
+\begin{lstlisting}[language=java, caption=Przyk³adowy zbiór regu³ sprawdzania danych formularzy po stronie klienta, label=listing:reguly]
 processForm = function(form) {
     form.submit();
 }
@@ -178,26 +182,27 @@ jQuery.validator.addMethod(
 );
 \end{lstlisting}
 
-Rysunek \ref{fig:register_validation} pokazuje rezultat dzia³ania walidacji formularza, dopiero kiedy wszystkie b³êdy zostan¹ poprawione, skrypt pozwoli na wys³anie ¿¹dania typu POST do docelowej us³ugi. Takie podejœcie w du¿ym stopniu ogranicza ruch sieciowy w aplikacji. Oczywiœcie oprócz walidacji danych po stronie klienta, nale¿y równie¿ bezwzglêdnie sprawdzaæ dane po stronie serwera, poniewa¿ mo¿e to prowadziæ do znacznych uchybieñ w bezpieczeñstwie aplikacji.\\
+Rysunek \ref{fig:register_validation} pokazuje rezultat dzia³ania walidacji formularza Dopiero kiedy wszystkie b³êdy zostan¹ poprawione, skrypt pozwoli na wys³anie ¿¹dania typu POST do docelowej us³ugi. Takie podejœcie w du¿ym stopniu ogranicza ruch sieciowy w aplikacji. Oczywiœcie oprócz walidacji danych po stronie klienta, nale¿y równie¿ bezwzglêdnie sprawdzaæ dane po stronie serwera, poniewa¿ mo¿e to prowadziæ do znacznych uchybieñ w bezpieczeñstwie aplikacji.\\
 
-Innym wa¿nym udogodnieniem jest modyfikacja istniej¹cej wtyczki odpowiedzialnej za ochronê dostêpu do aplikacji. Wtyczka \textit{sfDoctrineGuardPlugin} z za³o¿enia dzia³a³a z baz¹ danych, wiêc w punktach odpowiedzialnych za logowanie do aplikacji, pobieranie obiektu u¿ytkownika czy tworzenie nowego profilu, nale¿a³o zmodyfikowaæ kod. W ten sposób zamiast wykonywaæ zapytania do bazy, serwer lub obiekt \textit{XMLHttpRequest} wysy³a ¿¹danie do aplikacji na platformie GAE i przetwarza zwrócony rezultat. W wypadku uwierzytelnienia konieczne jest zapisanie danych u¿ytkownika do sesji, wiêc od tej pory aplikacja zapamiêta skojarzony obiekt u¿ytkownika.
+Innym wa¿nym udogodnieniem jest modyfikacja istniej¹cej wtyczki, odpowiedzialnej za ochronê dostêpu do aplikacji. Wtyczka \textit{sfDoctrineGuardPlugin} z za³o¿enia dzia³a³a z baz¹ danych, wiêc w punktach odpowiedzialnych za logowanie do aplikacji, pobieranie obiektu u¿ytkownika lub tworzenie nowego profilu, nale¿a³o zmodyfikowaæ kod. W ten sposób zamiast wykonywaæ zapytania do bazy, serwer lub obiekt \textit{XMLHttpRequest} wysy³a ¿¹danie do aplikacji na platformie GAE i przetwarza zwrócony rezultat. W wypadku uwierzytelnienia konieczne jest zapisanie danych u¿ytkownika do sesji, wiêc od tej pory aplikacja zapamiêta skojarzony obiekt u¿ytkownika.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \caption{Wynik dzia³ania wtyczki \textit{jQuery validation}}
-\includegraphics[scale=0.75]{register_validation.pdf}
+\includegraphics[scale=0.7]{register_validation.pdf}
 \label{fig:register_validation}
 \end{figure}
 
-\section{Test wydajnoœci \textit{webservice}'ów}
 
-W celu sprawdzenia faktycznej wydajnoœci us³ug wykonano kilka testów sprawdzaj¹cych zarówno dzia³anie operacji odczytu jak równie¿ zapisu.
-Jak widaæ na listingu \ref{listing:testgae}, test poszed³ bardzo sprawnie osi¹gaj¹c liczbê prawie 60 ¿¹dañ na sekundê. Test by³ przeprowadzany dla \textbf{100} u¿ytkowników jednoczeœnie. Nastêpnie zosta³a sprawdzona us³uga komentarzy \ref{listing:testkoment}. W wypadku komentarzy test wypad³ trochê gorzej, ale zwi¹zane jest to z wiêkszym skomplikowaniem tej us³ugi i wiêksz¹ iloœci¹ danych do pobrania. Wynik \textbf{37.6} ¿¹dania na sekundê jest bardzo wysok¹ wartoœci¹ i z pewnoœci¹ gwarantuje szybkie dzia³anie aplikacji.\\
+\section{Test wydajnoœci \textit{webserwisów}}
 
-Dodatkowo w celu przyspieszenia operacji odczytu w encjach kategorii oraz ksi¹¿ek przechowywane s¹ informacje o œredniej pochodz¹ce z komentarzy, jak równie¿ iloœæ ksi¹¿ek przechowywana w danej kategorii. Oznacza to pewn¹ nadmiarowoœæ, ale jest ona konieczna w tego typu rozwi¹zaniach i powszechnie stosowana.\\
+W celu sprawdzenia faktycznej wydajnoœci us³ug, wykonano kilka testów sprawdzaj¹cych zarówno dzia³anie operacji odczytu, jak równie¿ zapisu.
+Jak widaæ na listingu \ref{listing:testgae}, test przeszed³ bardzo sprawnie, osi¹gaj¹c liczbê prawie 60 ¿¹dañ na sekundê. Test by³ przeprowadzany dla \textbf{100} u¿ytkowników jednoczeœnie. Nastêpnie zosta³a sprawdzona us³uga komentarzy (Listing \ref{listing:testkoment}). W wypadku komentarzy test wypad³ trochê gorzej, ale zwi¹zane jest to z wiêkszym skomplikowaniem tej us³ugi i wiêksz¹ iloœci¹ danych do pobrania. Wynik \textbf{37.6} ¿¹dania na sekundê jest bardzo wysok¹ wartoœci¹ i z pewnoœci¹ gwarantuje szybkie dzia³anie aplikacji.\\
 
-Jak widaæ na listingu \ref{listing:testfrontend} odci¹¿enie frontendu testowane na lokalnym komputerze równie skutecznie radzi sobie z obs³u¿eniem skokowym 100 u¿ytkowników. W przysz³oœci mo¿na przenieœæ kod frontendu równie¿ na jedno z rozwi¹zañ opartych na chmurze dla jêzyka \textit{PHP}. Oferuje to np. hosting pagoda box (\texttt{https://pagodabox.com/}). Na lokalnym œrodowisku testowym wykorzystano serwer Ngnix, który cechuje siê du¿o mniejszym narzutem pamiêci ni¿ np. serwer \textit{Http Apache}.
+Dodatkowo, w celu przyspieszenia operacji odczytu w encjach \textit{kategorii} oraz \textit{ksi¹¿ek} przechowywane s¹ informacje o œredniej ocen pochodz¹ce z komentarzy, jak równie¿ iloœæ ksi¹¿ek przechowywana w danej kategorii. Oznacza to pewn¹ nadmiarowoœæ, ale jest ona konieczna w tego typu rozwi¹zaniach i powszechnie stosowana.\\
 
-\begin{lstlisting}[label=listing:testgae, caption=Test wydajnoœci us³ugi pobierania kategorii]
+Jak widaæ na listingu \ref{listing:testfrontend}, odci¹¿enie \textit{front-endu} testowane na lokalnym komputerze równie skutecznie radzi sobie z obs³u¿eniem skokowym 100 u¿ytkowników. W przysz³oœci mo¿na przenieœæ kod \textit{front-endu} równie¿ na jedno z rozwi¹zañ opartych na chmurze dla jêzyka \textit{PHP}. Oferuje to na przyk³ad hosting \textit{pagoda box} (\texttt{https://pagodabox.com/}). Na lokalnym œrodowisku testowym wykorzystano serwer \textit{Ngnix}, który cechuje siê du¿o mniejszym narzutem pamiêci ni¿ np. serwer \textit{Http Apache}.
+
+\begin{lstlisting}[label=listing:testgae, caption=Test wydajnoœci us³ugi pobierania kategorii w ramach stworzonej aplikacji]
 Server Software:        Google
 Server Hostname:        tworzenieweb2.appspot.com
 
@@ -253,7 +258,7 @@ Total:        339 1014 3563.3    847   16173
 
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Test frontendu aplikacji na lokalnym komputerze, label=listing:testfrontend]
+\begin{lstlisting}[caption=Test \textit{front-endu} aplikacji na lokalnym komputerze, label=listing:testfrontend]
 Server Software:        nginx/1.1.19
 Server Hostname:        thesis.web.dev
 Server Port:            80
@@ -282,3 +287,9 @@ Total:         82 1499 801.7   1512    2746
 
 
 \end{lstlisting}
+
+Potencja³ aplikacji wynikaj¹cy z uzyskanych wyników, pokazuje, ¿e rozproszenie us³ug ma g³êboki sens i przynosi wymierne rezultaty. Celem pracy nie by³o pokazanie wy³¹cznie korzyœci zwi¹zanych z wydajnoœci¹ aplikacji. Dziêki dekompozycji aplikacji na warstwê us³ugow¹ (webserwisy) i warstwê prezentacyjn¹ zyskujemy du¿¹ elastycznoœæ. W ka¿dej chwili mo¿na podmieniæ platformê \textit{GAE} na zupe³nie inne rozwi¹zanie, maj¹c na uwadze zachowanie struktury obiektów zwracanych przez webserwisy. Nie wp³ynie to w ¿adnym stopniu na dzia³anie czêœci prezentacyjnej. Wa¿ne jest jednak by obiekty \textit{JSON} pasowa³y do wczeœniej ustalonej struktury.
+
+Oprócz optymalizacji \textit{back-endu} aplikacji, nie bez znaczenia jest równie¿ praca wykonana po stronie \textit{front-endu}. Implementacja pocz¹tkowej walidacji danych z wykorzystaniem \textit{JavaScriptu}, pozwoli na szybsz¹ detekcje b³êdów w formularzach, co z pewnoœci¹ doceni¹ u¿ytkownicy. Z drugiej strony moment wys³ania ¿¹dania do serwera zostaje opóŸniony do momentu kiedy jest ju¿ du¿a pewnoœæ prawid³owoœci danych.
+
+Asynchroniczne pobieranie komentarzy to kolejny krok poprawiaj¹cy jakoœæ stworzonej aplikacji. W podejœciu synchronicznym, na pocz¹tku pobrano by z bazy dane o ksi¹¿ce, nastêpnie dane o komentarzach powi¹zanych ze stron¹. Dziêki technologii \textit{AJAX}, te dwa zadania mog¹ byæ wykonywane jednoczeœnie. Serwer WWW generuje tylko absolutn¹ podstawê strony, pozosta³e komponenty s¹ do³¹czane w miêdzyczasie. Przek³adaj¹c omówione zagadnienie na bardziej ¿yciowe porównanie - o ile szybciej mo¿liwe jest wybudowanie domu, jeœli jednoczeœnie kopane s¹ fundamenty, stawiane mury domu i k³adziony dach.

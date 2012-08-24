@@ -1,34 +1,35 @@
-\contentsline {chapter}{Wst\k ep}{1}
-\contentsline {chapter}{\numberline {1}Analiza jako\'sciowa i wydajno\'sciowa aplikacji}{5}
-\contentsline {section}{\numberline {1.1}Analiza wydajno\'sci serwera WWW}{6}
-\contentsline {section}{\numberline {1.2}Analiza wydajno\'sci frontendu}{12}
-\contentsline {section}{\numberline {1.3}Analiza wydajno\'sci bazy danych}{15}
-\contentsline {subsubsection}{Czym jest indeks?}{18}
-\contentsline {subsection}{\numberline {1.3.1}Optymalizacja table przy u\.zyciu indeks\'ow}{18}
-\contentsline {subsubsection}{Kolejno\'s\'c z\IeC {\l }\k acze\'n}{19}
-\contentsline {subsection}{\numberline {1.3.2}Wykorzystanie polecenia \texttt {EXPLAIN} do optymalizacji zapyta\'n.}{20}
-\contentsline {subsubsection}{Opis p\'ol wynikowych polecenia \texttt {EXPLAIN}.}{22}
-\contentsline {subsection}{\numberline {1.3.3}Optymalizacja definicji table.}{23}
-\contentsline {section}{\numberline {1.4}Podsumowanie}{25}
-\contentsline {chapter}{\numberline {2}Wymagania i budowa aplikacji}{27}
-\contentsline {section}{\numberline {2.1}Zakres funkcjonalny}{27}
-\contentsline {section}{\numberline {2.2}Budowa aplikacji}{30}
-\contentsline {section}{\numberline {2.3}Projekt bazy danych}{31}
-\contentsline {chapter}{\numberline {3}Architektura aplikacji}{35}
-\contentsline {section}{\numberline {3.1}Rodzaje chmur}{35}
-\contentsline {section}{\numberline {3.2}Nie relacyjne bazy danych NoSQL.}{38}
-\contentsline {subsection}{\numberline {3.2.1}Specyfika \textit {Google Datastore}.}{40}
-\contentsline {section}{\numberline {3.3}Aplikacja zorientowana na us\IeC {\l }ugi}{41}
-\contentsline {subsection}{\numberline {3.3.1}AJAX problem same origin policy}{42}
-\contentsline {subsubsection}{\textit {JSONP} (\textit {JSON with padding})}{43}
-\contentsline {chapter}{\numberline {4}Optymalizacja kodu klienta}{46}
-\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{51}
-\contentsline {section}{\numberline {5.1}Framework Django}{51}
-\contentsline {section}{\numberline {5.2}Wystawienie us\IeC {\l }ug jako webservice'y}{52}
-\contentsline {section}{\numberline {5.3}Uruchomienie panelu administracyjnego aplikacji}{54}
-\contentsline {section}{\numberline {5.4}Framework Symfony}{54}
-\contentsline {section}{\numberline {5.5}Test wydajno\'sci \textit {webservice}'\'ow}{59}
-\contentsline {chapter}{Bibliografia}{62}
-\contentsline {chapter}{Spis rysunk\'ow}{63}
-\contentsline {chapter}{Spis listing\'ow}{64}
-\contentsline {chapter}{P\IeC {\l }yta CD}{65}
+\contentsline {chapter}{Wst\k ep}{3}
+\contentsline {chapter}{\numberline {1}Analiza jako\'sciowa i wydajno\'sciowa aplikacji}{10}
+\contentsline {section}{\numberline {1.1}Analiza wydajno\'sci serwera WWW}{11}
+\contentsline {section}{\numberline {1.2}Analiza wydajno\'sci \textit {front-endu}}{19}
+\contentsline {section}{\numberline {1.3}Analiza wydajno\'sci bazy danych}{23}
+\contentsline {subsubsection}{Czym jest indeks?}{27}
+\contentsline {subsection}{\numberline {1.3.1}Optymalizacja tabel przy u\.zyciu indeks\'ow}{27}
+\contentsline {subsubsection}{Kolejno\'s\'c z\IeC {\l }\k acze\'n}{28}
+\contentsline {subsection}{\numberline {1.3.2}Wykorzystanie polecenia \texttt {EXPLAIN} do optymalizacji zapyta\'n.}{30}
+\contentsline {subsubsection}{Opis p\'ol wynikowych polecenia \texttt {EXPLAIN}.}{33}
+\contentsline {subsection}{\numberline {1.3.3}Optymalizacja definicji tabel}{35}
+\contentsline {section}{\numberline {1.4}Podsumowanie}{38}
+\contentsline {chapter}{\numberline {2}Wymagania i budowa aplikacji}{39}
+\contentsline {section}{\numberline {2.1}Zakres funkcjonalny}{39}
+\contentsline {section}{\numberline {2.2}Budowa aplikacji}{43}
+\contentsline {section}{\numberline {2.3}Projekt bazy danych}{45}
+\contentsline {chapter}{\numberline {3}Architektura aplikacji}{48}
+\contentsline {section}{\numberline {3.1}Rodzaje chmur}{49}
+\contentsline {section}{\numberline {3.2}Nie relacyjne bazy danych \textit {NoSQL}}{52}
+\contentsline {subsection}{\numberline {3.2.1}Specyfika \textit {Google Datastore}}{55}
+\contentsline {section}{\numberline {3.3}Aplikacja zorientowana na us\IeC {\l }ugi}{57}
+\contentsline {subsection}{\numberline {3.3.1}AJAX, a restrykcje bezpiecze\'nstwa kodu \textit {JavaScript}}{58}
+\contentsline {subsubsection}{\textit {JSONP} (\textit {JSON with padding})}{58}
+\contentsline {chapter}{\numberline {4}Optymalizacja kodu klienta}{62}
+\contentsline {section}{\numberline {4.1}Optymalizacja szablon\'ow}{68}
+\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{70}
+\contentsline {section}{\numberline {5.1}Framework Django}{70}
+\contentsline {section}{\numberline {5.2}Wystawienie us\IeC {\l }ug jako webserwis\'ow}{71}
+\contentsline {section}{\numberline {5.3}Uruchomienie panelu administracyjnego aplikacji}{74}
+\contentsline {section}{\numberline {5.4}Framework Symfony}{76}
+\contentsline {section}{\numberline {5.5}Test wydajno\'sci \textit {webserwis\'ow}}{80}
+\contentsline {chapter}{Bibliografia}{86}
+\contentsline {chapter}{Spis rysunk\'ow}{87}
+\contentsline {chapter}{Spis listing\'ow}{89}
+\contentsline {chapter}{Abstract}{90}
