@@ -15,6 +15,11 @@ Historical trends in the usage of server-side programming languages for
 \newblock
   \url{http://w3techs.com/technologies/history_overview/programming_language}.
 
+\bibitem{book:mapreduce}
+{\em Introduction to Parallel Programming and MapReduce}.
+\newblock
+  \url{http://code.google.com/intl/pl/edu/parallel/mapreduce-tutorial.html}.
+
 \bibitem{book:mysql_explain}
 {\em MySQL 5.1 Reference Manual}.
 \newblock
@@ -34,6 +39,11 @@ M.~Lutz.
 P.~MacIntyrem, B.~Danchilla, M.~Gogal, T.~Myer.
 \newblock {\em Pro PHP Programming}.
 \newblock Apress, 2011.
+
+\bibitem{book:piston}
+J.~Noehr.
+\newblock {\em Piston Dokumentacja}.
+\newblock \url{https://bitbucket.org/jespern/django-piston/wiki/Documentation}.
 
 \bibitem{book:proPHP}
 A.~Padilla,  T.~Hawkins.

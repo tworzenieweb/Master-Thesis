@@ -3,34 +3,33 @@
 \author{£ukasz Adamczewski}
 \begin{document}
 
-%    %podziêkowania
-%    \newpage
-%    ~   %potrzebne dla \vfill
-%    \vfill
-%    {\sffamily
-%    \begin{flushright}
-%        \begin{tabular}{l}
-%        Chcia³bym w~tym miejscu podziêkowaæ:\\
-%        \\
-%        Narzeczonej Oliwii\\
-%        za wsparcie i wyrozumia³oœæ podczas pisania pracy\\
-%        \\
-%        Rodzicom\\
-%        za pomoc w rozwijaniu pasji,\\dbaj¹c o kondycje zdrowia psychicznego\\
-%			\\
-%        Pani promotor dr in¿. Anecie Poniszewskiej - Marañdzie\\
-%        za wnikliw¹ analizê i pomoc podczas pisania pracy.\\
-%        \end{tabular}
-%    \end{flushright}
-%    }
-%    \vskip0.5in
-%    \thispagestyle{empty}
-%    \newpage
-%    %koniec podziêkowañ
-
-
 
 \includepdf[pages={1}]{tytul.pdf}
+
+    %podziêkowania
+    \newpage
+    ~   %potrzebne dla \vfill
+    \vfill
+    {\sffamily
+    \begin{flushright}
+        \begin{tabular}{l}
+        Chcia³bym w~tym miejscu podziêkowaæ:\\
+        \\
+        Narzeczonej Oliwii\\
+        za wsparcie i wyrozumia³oœæ podczas pisania pracy\\
+        \\
+        Rodzicom\\
+        za pomoc w rozwijaniu pasji,\\dbaj¹c o kondycje zdrowia psychicznego\\
+			\\
+        Pani promotor dr in¿. Anecie Poniszewskiej - Marañdzie\\
+        za wnikliw¹ analizê i pomoc podczas pisania pracy.\\
+        \end{tabular}
+    \end{flushright}
+    }
+    \vskip0.5in
+    \thispagestyle{empty}
+    \newpage
+    %koniec podziêkowañ
 
 \tableofcontents
 
@@ -43,15 +42,14 @@
 \input{4-optymalizacja-aplikacji}
 \input{7-podsumowanie}
 
-
-\addcontentsline{toc}{chapter}{Bibliografia}
-\bibliographystyle{plabbrv}
-\bibliography{bibliography.bib}
-
 \addcontentsline{toc}{chapter}{Spis rysunków}
 \listoffigures
 \addcontentsline{toc}{chapter}{Spis listingów}
 \lstlistoflistings
+
+\addcontentsline{toc}{chapter}{Bibliografia}
+\bibliographystyle{plabbrv}
+\bibliography{bibliography.bib}
 
 \addcontentsline{toc}{chapter}{Abstract}
 
@@ -65,8 +63,10 @@ This master thesis will cover the topic of efficiency optimization of web applic
 
 \chapter*{P³yta CD}
 \label{cha:plyta}
+\thispagestyle{empty}
+\pagestyle{empty}
 
-Wraz z treœci¹ pracy dyplomowej do³¹czono równie¿ p³ytê CD z kompletnym kodem Ÿród³owym aplikacji. Dodatkowo kod mo¿na pobraæ z poni¿szego repozytorium SVN:
+Wraz z treœci¹ pracy dyplomowej do³¹czono równie¿ p³ytê CD z kompletnym kodem Ÿród³owym aplikacji. Dodatkowo kod mo¿na pobraæ z poni¿szego repozytorium GIT: \texttt{https://github.com/tworzenieweb/Master-Thesis.git}
 
 
 \end{document}

@@ -53,13 +53,23 @@ Rysunek \ref{fig:gae_dashboard} przedstawia pogl¹dowy widok bie¿¹cych statystyk 
 
 Jak zosta³o omówione we wstêpie w podrozdziale \ref{sec:rodzaje_chmur},  olbrzymi¹ zalet¹ rozwi¹zañ \textit{PaaS} jest mo¿liwoœæ kompleksowego zarz¹dzania aplikacj¹ z poziomu przegl¹darki i udostêpnionego interfejsu klienta. Rysunek \ref{fig:performance} pokazuje jak to wygl¹da w praktyce. Za pomoc¹ listy dostêpnej w sekcji \textit{Frontend Instance Class} okreœlamy jak bardzo wydajnej instancji chcemy u¿yæ dla naszej aplikacji. Ka¿da z instancji jest opisana za pomoc¹ umownego symbolu, czêstotliwoœci pracy procesora oraz maksymalnej dostêpnej pamiêci. Przy obecnym ustawieniu ka¿da utworzona instancja serwera posiadaæ bêdzie parametry instancji \textit{F1}.
 
-W celu zapewnienia aplikacji bazowej wydajnoœci na okreœlonym poziomie, wa¿ne jest zbalansowanie ustawieñ dwóch suwaków, odpowiednio \textit{Max Idle Instances} oraz \textit{Min Pending Latency}. Pierwszy suwak okreœla pocz¹tkow¹ iloœæ instancji dostêpn¹ zawsze (tak zwani \textit{rezydenci}). W wypadku kolejnych instancji, ich iloœæ jest warunkowana parametrami okreœlonymi przez  punkty brzegowe drugiego suwaka. Okreœla on jak d³ugo \textit{dyspozytor} ¿¹dañ poczeka, nim zadecyduje o odes³aniu ¿¹dania do innej instancji serwera. Jest to bardzo logiczne za³o¿enie, ¿e jeœli ¿¹danie wykonuje siê d³ugo, prawdopodobnie strona jest obci¹¿ona, dlatego trzeba odci¹¿yæ serwery i roz³o¿yæ ruch na nowo dodane. 
+W celu zapewnienia wydajnoœci aplikacji na okreœlonym poziomie, wa¿ne jest wywa¿enie ustawieñ dwóch suwaków, odpowiednio \textit{Max Idle Instances} oraz \textit{Min Pending Latency}. Pierwszy suwak okreœla pocz¹tkow¹ iloœæ instancji dostêpn¹ zawsze (tak zwani \textit{rezydenci}). W wypadku kolejnych instancji, ich iloœæ jest warunkowana parametrami okreœlonymi przez  punkty brzegowe drugiego suwaka. Okreœla on jak d³ugo \textit{dyspozytor} ¿¹dañ poczeka, nim zadecyduje o odes³aniu ¿¹dania do innej instancji serwera. Jest to bardzo logiczne za³o¿enie, ¿e jeœli ¿¹danie wykonuje siê d³ugo, prawdopodobnie strona jest obci¹¿ona, dlatego trzeba odci¹¿yæ serwery i roz³o¿yæ ruch na nowo dodane. 
 
 \begin{figure}[htbp]
 \caption{Kontrola wydajnoœci aplikacji w  \textit{GAE}}
 \includegraphics[scale=0.6]{performance.pdf}
 \label{fig:performance}
 \end{figure}
+
+Jeœli skonfigurowano serwer zgodnie z rysunkiem \ref{fig:performance}, w zak³adce \textit{Instances} powinny zostaæ wyœwietlone wszystkie aktualnie wykorzystywane instancje serwerów. Dwie z nich to instancje sta³e - rezydencji, wiêc ich czas pracy jest równy dobie. Dodatkowo widoczne s¹ równie¿ instancje dynamiczne (Rys. \ref{fig:performance2}), czyli takie, które u¿ywane s¹ doraŸnie. Zgodnie z ustawieniami, ³¹czna iloœæ instancji nie przekroczy górnego maksimum czyli czterech serwerów. W wypadki instancji dynamicznych nale¿y mieæ na uwadze, ¿e na op³atê sk³ada siê sumaryczny czas pracy oraz 15-minutowy czas op³aty rozruchowej. Dla przyk³adu jeœli dynamiczna instancja pracuje przez piêæ minut to koszt wynosi $0.08 / 60 \times  (15 + 5) = 2.6\cent$.
+
+\begin{figure}[htbp]
+\caption{Nadzór i zarz¹dzanie instancjami serwerów w \textit{GAE}}
+\includegraphics[scale=0.62]{performance2.pdf}
+\label{fig:performance2}
+\end{figure}
+
+W zak³adce \textit{Instances} mo¿na równie¿ zobaczyæ takie statystyki jak iloœæ operacji na minutê (\textit{Average QPS}), œrednie zu¿ycie pamiêci (\textit{Average Memory}) czy œredni czas przetwarzania ¿¹dania (\textit{Average Latency}). Dodatkowo jeœli któraœ z instancji uleg³a przeci¹¿eniu, w skutek czego nie reaguje, mo¿na j¹ zamkn¹æ rêcznie, klikaj¹c przycisk \textit{Shutdown}.
 
 \section{Nierelacyjne bazy danych \textit{NoSQL}}
 
@@ -116,7 +126,7 @@ Inn¹ wa¿n¹ cech¹ tworzonej aplikacji jest wyszczególnienie us³ug (\textit{webser
 
 Zalet¹ takiego podejœcia, okreœlanego póŸniej jako \textit{Service Oriented Architecture} jest wydzielenie pewnych us³ug, zawieraj¹cych pewn¹ czêœæ / zakres funkcjonalny. W ten sposób aplikacja jest podzielona na grupê takich us³ug, z których ka¿da realizuje tylko i wy³¹cznie swoje zadanie. Dziêki takiej dekompozycji, mo¿liwym staje siê wykorzystanie wspomnianych us³ug, wszêdzie tam gdzie jest to potrzebne. Inn¹ zalet¹ jest ³atwoœæ testowania takich us³ug, poniewa¿ nie jest konieczne stworzenie ca³ego zestawu wykonawczego, a jedynie test konkretnego dzia³ania, spe³niaj¹cego okreœlone cele.
 
-Poniewa¿ komunikacja miêdzy \textit{front-endem} aplikacji, napisanym w jêzyku PHP, a zapleczem umiejscowionym na platformie GAE odbywa siê poprzez webserwisy, istotne by³o wyró¿nienie nastêpuj¹cych us³ug:
+Poniewa¿ komunikacja miêdzy \textit{front-endem} aplikacji, napisanym w jêzyku \textit{PHP}, a zapleczem umiejscowionym na platformie GAE odbywa siê poprzez webserwisy, istotne by³o wyró¿nienie nastêpuj¹cych us³ug:
 
 \begin{itemize}
 \item{us³uga zwracaj¹ca dostêpne kategorie, a tak¿e kategorie dla danej podkategorii,}

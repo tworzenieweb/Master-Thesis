@@ -15,7 +15,7 @@ Dlatego te¿ istotne jest stworzenie spójnego systemu uwierzytelniania, zapewniaj
 
 Poniewa¿ oferta ksi¹¿kowa ci¹gle siê zmienia, na rynek trafiaj¹ nowe ksi¹¿ki, a nawet tworz¹ siê nowe gatunki, istotn¹ rolê w tworzonej aplikacji stanowi wspó³istnienie zarówno czêœci przeznaczonej dla zwyk³ego u¿ytkownika, jak równie¿ czêœci administracyjnej (\textit{back-end}). Sekcja ta powinna byæ równie¿ zabezpieczona przed potencjalnym w³amaniem lub z³oœliwym atakiem ze strony intruzów.
 
-Poniewa¿ obecnie w dobie ery WEB 2.0 strony oferuj¹ du¿o wiêksz¹ iterakcjê, ni¿ by³o to mo¿liwe na pocz¹tku ery Internetu, projektowana aplikacja daje równie¿ mo¿liwoœæ oceny i komentowania istniej¹cych zbiorów. Jest to bardzo wa¿ne z punktu widzenia biznesu i sprzeda¿y, poniewa¿ popularnoœæ i przychylne noty z pewnoœci¹ napêdz¹ chêtnych do kupna.
+Poniewa¿ obecnie w dobie ery WEB 2.0 strony oferuj¹ du¿o wiêksz¹ interakcjê, ni¿ by³o to mo¿liwe na pocz¹tku ery Internetu, projektowana aplikacja daje równie¿ mo¿liwoœæ oceny i komentowania istniej¹cych zbiorów. Jest to bardzo wa¿ne z punktu widzenia biznesu i sprzeda¿y, poniewa¿ popularnoœæ i przychylne noty z pewnoœci¹ napêdz¹ chêtnych do kupna.
 
 Wymagania podzielono na czêœæ administracyjn¹ i czêœæ u¿ytkownika, natomiast zbiór funkcjonalnoœci przedstawiony jest w tabeli \ref{table:2_funkcje}.\\
 
@@ -47,23 +47,24 @@ Rysunek \ref{fig:usecase} przedstawia przypadki u¿ycia wyszczególnione dla tworz
 \end{figure}
 
 
-
 Aplikacja powinna w jak najwiêkszym stopniu odci¹¿aæ serwer WWW od niepotrzebnych zapytañ. W tym celu akcje usuwania, oceniania i komentowania ksi¹¿ek bêd¹ realizowane przez kod JavaScript. Dodatkowo, czêœæ walidacji danych bêdzie w pierwszej fazie wykonywana równie¿ przy u¿yciu \textit{front-endu}. Dopiero w wypadku wy³¹czenia wykonywania skryptów, wys³ane zostanie ¿¹danie do sprawdzenia przez serwer. Takie podejœcie powinno znacznie zredukowaæ obci¹¿enie na przyk³ad podczas rejestracji u¿ytkowników, poniewa¿ serwer wykonuje tylko minimum swojej pracy (\textit{Lazy Loading}).
 
 Nale¿y jednak mieæ na uwadze bezpieczeñstwo oprogramowania, dlatego nie nale¿y polegaæ w 100\% na walidacji wykonywanej przez JavaScript, poniewa¿ u¿ytkownik mo¿e bez problemu wy³¹czyæ dzia³anie skryptów. Dlatego te¿ podczas tworzenia tego typu rozwi¹zañ, walidacja po stronie klienta powinna iœæ zawsze w parze z walidacj¹ po stronie serwera.
 
 Ze wzglêdu na konserwacjê i rozwój tworzonej aplikacji, jest ona zarz¹dzana przy pomocy systemu kontroli wersji \textit{git} w ramach serwisu \textit{http://github.com}. W ten sposób tworzony kod jest pod œcis³¹ kontrol¹, mo¿e byæ potem rozwijany przez wiêcej ni¿ jednego programisty, eliminuj¹c konflikty podczas pracy na wspólnych zasobach.
 
-Aplikacja wykorzystuje jêzyk HTML5, który staje siê powoli standardem tworzenia kodu po stronie klienta. Zawiera bowiem wiele nowoczesnych mechanizmów i udogodnieñ w stosunku do poprzedniej wersji na przyk³ad HTML4 oraz XHTML 1.0. Maj¹c na uwadze prawid³owe funkcjonowanie w poszczególnych przegl¹darkach i ró¿n¹ implementacjê nowego standardu, aplikacja wykorzystuje dodatek \texttt{HTML5} \texttt{Boilerplate} oraz 
+Aplikacja wykorzystuje jêzyk HTML5, który staje siê powoli standardem tworzenia kodu po stronie klienta. Zawiera bowiem wiele nowoczesnych mechanizmów i udogodnieñ w stosunku do poprzedniej wersji na przyk³ad \textit{HTML4} oraz \textit{XHTML 1.0}. Maj¹c na uwadze prawid³owe funkcjonowanie w poszczególnych przegl¹darkach i ró¿n¹ implementacjê nowego standardu, aplikacja wykorzystuje dodatek \texttt{HTML5} \texttt{Boilerplate} oraz 
 \texttt{Twitter Bootstrap} jako metodê na otrzymanie podobnych rezultatów w szerokiej gamie urz¹dzeñ (w tym urz¹dzenia mobilne). Jednoczeœnie komponenty wchodz¹ce w sk³ad \texttt{Twitter Bootstrap} umo¿liwiaj¹ ³atwe tworzenie komponentów interfejsu u¿ytkownika z ju¿ istniej¹cych elementów.\\
+
+Dostêp do danych w aplikacji mo¿liwy jest dziêki \textit{webserwisom} udostêpniaj¹cych pewien interfejs dostêpowy. W ten sposób szczegó³y implementacyjne s¹ ukryte, a u¿ytkownik wykorzystuje tylko te funkcjonalnoœci, które s¹ mu faktycznie potrzebne. W celu uproszczenia implementacji \textit{webserwisów} wykorzystano rozszerzenie Piston dla frameworka \textit{Django}.
 
 Projektowana aplikacja wykorzystuje technologiê AJAX (ang. \textit{Asynchronous
 JavaScript and XML} - \textit{asynchroniczny JavaScript i XML} ), dziêki czemu mo¿liwa jest symulacja zachowania aplikacji desktopowej. Reakcja na akcje u¿ytkownika nastêpuje bez potrzeby prze³adowania strony. Pozwala to na du¿¹ oszczêdnoœæ przepustowoœci i czasu koniecznego do przetworzenia
-ca³ej strony. Dziêki zastosowaniu frameworka \textit{jQuery} dla jêzyka JavaScript, mo¿liwe jest stosowanie bardziej przyjaznego interfejsu u¿ytkownika, przy jednoczesnym zapewnieniu kompatybilnoœci wstecz z istniej¹cymi wersjami przegl¹darek internetowych.
+ca³ej strony. Dziêki zastosowaniu frameworka \textit{jQuery} dla jêzyka JavaScript, mo¿liwe jest stosowanie bardziej przyjaznego interfejsu u¿ytkownika, przy jednoczesnym zapewnieniu kompatybilnoœci wstecz z istniej¹cymi wersjami przegl¹darek internetowych. Dziêki zaimplementowanym \textit{webserwisom}, zwracaj¹cym dane w formacie \textit{JSON}, przetwarzanie i wyœwietlanie danych mo¿e byæ wykonane w³aœnie po stronie klienta z u¿yciem \textit{JavaScript} i wbudowanych mechanizmów przetwarzania ¿¹dañ.
 
 \section{Budowa aplikacji}
 
-Projektowana aplikacja sk³ada siê tak naprawdê z dwóch niezale¿nych podaplikacji, jedna z nich hostowana jest wykorzystuj¹c us³ugê \textit{Google Application Engine}, która zostanie omówiona w rozdziale \ref{cha:architektura}. Aplikacja ta bêdzie udostêpnia³a us³ugi oparte o architekturê \textit{REST} (ang. \textit{Representation State Transfer}). Aplikacja ta bêdzie zawiera³a równie¿ panel administracyjny do zarz¹dzania ksiêgarni¹. Jest ona napisana w jêzyku \textit{Python}, wykorzystuj¹c framework \textit{Django}, a tak¿e wtyczkê \textit{Piston}, umo¿liwiaj¹c¹ proste wystawienie webserwisów na podstawie modelu bazy danych.
+Zaprojektowana aplikacja sk³ada siê tak naprawdê z dwóch niezale¿nych podaplikacji, jedna z nich hostowana jest wykorzystuj¹c us³ugê \textit{Google Application Engine}, która zostanie omówiona w rozdziale \ref{cha:architektura}. Aplikacja ta bêdzie udostêpnia³a us³ugi oparte o architekturê \textit{REST} (ang. \textit{Representation State Transfer}). Bêdzie zawiera³a równie¿ panel administracyjny do zarz¹dzania ksiêgarni¹. Jest ona napisana w jêzyku \textit{Python}, wykorzystuj¹c framework \textit{Django}, a tak¿e wtyczkê \textit{Piston}, umo¿liwiaj¹c¹ proste wystawienie webserwisów na podstawie modelu bazy danych.
 
 Druga aplikacja bêdzie zawiera³a zakres funkcjonalny zwyk³ego u¿ytkownika, natomiast wszystkie dane bêdzie pobiera³a przy u¿yciu udostêpnionych przez wczeœniej omawian¹ aplikacje \textit{webserwisów}. Aplikacja ta bêdzie napisana w jêzyku PHP z wykorzystaniem frameworka \textit{symfony}.\\
 
@@ -84,7 +85,41 @@ Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³a
 
 Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej w ramach projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL oraz proces de-normalizacji, który musia³ zostaæ dokonany. Na szczêœcie dziêki opisanemu w nastêpnym rozdziale frameworkowi \textit{Django-norel}, mo¿liwe jest ³atwe przechodzenie miêdzy istniej¹cymi implementacjami baz danych.
 
-Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo, u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Na przyk³ad ocena w komentarzu ma wartoœci miêdzy 1 a 5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)}, poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.
+Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo, u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Na przyk³ad ocena w komentarzu ma wartoœci miêdzy 1 a 5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)}, poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.\\
+
+Ze wzglêdu na pewne ograniczenia bazy \textit{Google Datastore}, konieczne by³o stworzenie pewnej nadmiarowoœci w schemacie \texttt{book} oraz \texttt{category}. Poniewa¿ w \textit{GAE} nie funkcjonuj¹ \textit{z³¹czenia}, tabela \texttt{book} przechowuje listê identyfikatorów kategorii (\texttt{categories}) w celu imitacji zachowania dla relacji \textit{wiele do wielu}. Nale¿y dodaæ, ¿e \textit{GAE}, posiada tym danych zdolny do przechowywania list wskaŸników do poszczególnych encji, jak równie¿ liczb ca³kowitych i ³añcuchów znakowych. Dodatkowo posiada metody do sprawdzania przynale¿noœci zadanych wartoœci do zbiorów opisanych przez te listy. Kolejnym elementem specyficznym dla tej platform s¹ pola zliczaj¹ce - imituj¹ce dzia³anie funkcji grupuj¹cych. Pole \texttt{count} zawiera, wiêc informacjê o iloœci ksi¹¿ek w danej kategorii. Podobne zastosowanie ma pole \texttt{average} tabeli \texttt{book}. Zawiera ono œredni¹ g³osów wystawionych w komentarzach.
+
+W celu osi¹gniêcia zachowania funkcji grupuj¹cych konieczne jest \textit{przeci¹¿enie} metod zapisu dla obiektów reprezentuj¹cych bazodanowe encje (Listing \ref{listing:model_overload}). 
+
+\begin{lstlisting}[language=python, caption=Przeci¹¿enie metody zapisu dla klas reprezentuj¹cych encje \texttt{book} oraz \texttt{comment}, label=listing:model_overload]
+class Comment(models.Model):
+    
+    def save(self, force_insert=False, force_update=False, using=None):
+        
+        comments = Comment.objects.filter(book = self.book)
+        average = 0.00
+         
+        for comment in comments:
+            average += comment.grade
+
+        self.book.average = self.grade if not average else (average + float(self.grade)) / (comments.count() + 1)
+        self.book.save()
+        
+        super(Comment, self).save()
+
+
+class Book(models.Model):
+    def save(self):
+        
+        if self.id is None:
+            for category in self.categories:
+                c = Category.objects.get(id = category)
+                c.count = 1 if not c.count else c.count + 1
+                c.save()
+            
+        super(Book, self).save()
+
+\end{lstlisting}
 
 Podczas projektowania nale¿y mieæ na uwadze specyfikê u¿ycia poszczególnych tabel. Dla tabel \texttt{kategorii} i \texttt{ksi¹¿ek} dominowaæ bêd¹ operacje odczytu, natomiast dla tabeli komentarzy operacje zapisu.
 
