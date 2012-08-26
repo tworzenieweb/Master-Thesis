@@ -1,0 +1,94 @@
+options:
+  collate: utf8_unicode_ci
+  charset: utf8
+
+comment:
+  columns:
+    title:
+      type: string(100)
+      notnull: true
+    content: 
+      type: clob
+      notnull: true
+    book: 
+      type: integer
+      notnull: true
+    user:
+      type: integer
+      notnull: true
+    grade:
+      type: integer(1)
+      notnull: true
+  relations:
+    Book:
+      class: book
+      local: book
+    User:
+      class: sfGuardUser
+      local: user      
+
+author:
+  columns:
+    name:
+      type: string(255)
+      notnull: true
+    lastname:
+      type: string(255)
+      notnull: true
+
+category:
+  columns:
+    name:
+      type: string(255)
+      unique: true
+      notnull: true
+
+bookCategory:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  columns:
+    book_id: 
+      type: integer
+      primary: true
+    category_id:
+      type: integer
+      primary: true
+    
+    
+bookAuthor:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  columns:
+    book_id: 
+      type: integer
+      primary: true
+    author_id:
+      type: integer
+      primary: true
+  
+
+book:
+  actAs:
+    Sluggable:
+      fields: [title]
+  columns:
+    title:
+      type: string(100)
+      notnull: true
+  relations:
+    Authors:
+      class: author
+      local: book_id
+      foreign: author_id
+      refClass: bookAuthor
+    Categories:
+      class: category
+      local: book_id
+      foreign: category_id
+      refClass: bookCategory
+
+  

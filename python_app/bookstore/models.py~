@@ -1,0 +1,37 @@
+#-*- coding: utf-8 -*-
+
+from django.db import models
+from django.contrib.auth.models import User
+from django import forms
+from django.template.defaultfilters import slugify
+
+class Author(models.Model):
+    name = models.CharField(max_length = 100)
+    lastname = models.CharField(max_length = 100)
+
+class Category(models.Model):
+    name = models.CharField(max_length = 100)
+
+class Book(models.Model):
+    title = models.CharField(max_length = 100)
+    slug = models.SlugField(max_length=100, editable = False)
+    categories = ListField(models.ForeignKey(Category))
+    def save(self):
+        
+        self.slug = slugify(self.title)
+
+        super(Book, self).save()
+    def __str__(self):
+        return self.title
+
+SCORE_CHOICES = zip( range(1,6), range(1,6) )
+
+class Comment(models.Model):
+    title = models.CharField(max_length = 100)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add = True)
+    book = models.ForeignKey(Book)
+    user = models.ForeignKey(User)
+    grade = models.PositiveIntegerField(choices = SCORE_CHOICES, blank = False)
+    def __str__(self):
+        return self.title

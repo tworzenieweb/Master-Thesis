@@ -1,0 +1,12 @@
+<div class="page-header">
+    <h1>Welcome to our page</h1>
+</div>
+
+<div class="span6">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla orci arcu, imperdiet non cursus nec, feugiat eget arcu. Maecenas et gravida eros. Praesent a tristique massa. Nunc ullamcorper vehicula porttitor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum quis magna justo, ac lacinia orci. Quisque a felis ac nisl condimentum luctus quis at enim. Curabitur elementum diam ut massa gravida malesuada. Aenean in vulputate felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam ac nunc metus, at semper augue. Suspendisse faucibus lacinia blandit. Donec posuere, lacus nec gravida fermentum, velit libero lacinia dolor, quis hendrerit neque orci sed felis.
+
+Maecenas lectus odio, rhoncus placerat eleifend bibendum, lobortis volutpat justo. Vestibulum eget mi sed libero dignissim volutpat sit amet a leo. Aenean dolor justo, venenatis non mattis non, volutpat in tortor. Proin ut enim tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec nec neque mi, vitae pharetra nisl. Vestibulum condimentum turpis a justo dictum non convallis lorem varius. Integer rutrum elit eu libero convallis blandit. Etiam et massa tincidunt metus sagittis accumsan. Duis laoreet accumsan lorem, ut egestas dolor imperdiet ac. Vivamus malesuada condimentum urna ac fringilla. Nullam at est magna. Phasellus felis mauris, mattis non posuere a, tristique vel ipsum. Maecenas non mi ut enim sagittis hendrerit ac eget lorem. Aenean non lacus eu metus lobortis mollis eu id mi.
+</div>
+<div class="span3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla orci arcu, imperdiet non cursus nec, feugiat eget arcu. Maecenas et gravida eros. Praesent a tristique massa. Nunc ullamcorper vehicula porttitor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum quis magna justo, ac lacinia orci. Quisque a felis ac nisl condimentum luctus quis at enim. Curabitur elementum diam ut massa gravida malesuada. Aenean in vulputate felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam ac nunc metus, at semper augue. Suspendisse faucibus lacinia blandit. Donec posuere, lacus nec gravida fermentum, velit libero lacinia dolor, quis hendrerit neque orci sed felis.
+</div>

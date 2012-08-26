@@ -1,0 +1,63 @@
+10
+
+dir
+1
+http://xp-dev.com/svn/sis-pl/trunk
+http://xp-dev.com/svn/sis-pl
+
+
+
+2012-05-30T02:14:59.535282Z
+1
+svn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1525609f-f04c-44ca-9ef6-6cb1a97d937f
+
+lib
+dir
+
+
+
+add
+
+web
+dir
+
+
+
+add
+
+plugins
+dir
+
+
+
+add
+
+cache
+dir
+
+
+
+add
+
+apps
+dir
+
+
+
+add
+

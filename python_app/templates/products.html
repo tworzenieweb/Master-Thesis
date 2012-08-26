@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>ManyToMany Test</title>
+</head>
+<body>
+  <ul>
+    <li><a href="/companies/">companies</a></li>
+    <li><a href="/products/">products</a></li>
+  </ul>
+  <h2>Products</h2>
+  {% if products.count > 0 %}
+  <table>
+    <tr>
+      <th>
+        Name
+      </th><th>
+        Description
+      </th>
+    </tr>
+  {% endif %}
+  {% for product in products %}
+    <tr>
+      <td>
+        {{ product.name }}
+      </td><td>
+        {{ product.description }}
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+
+  <form action="" method="POST">
+    <table>
+      {{ form }}
+      <tr>
+        <td></td>
+        <td><input type=submit value="Add Product"></td>
+      </tr>
+    </table>
+    {% csrf_token %}
+  </form>
+</body>
+</html>

@@ -1,0 +1,33 @@
+region:
+  region_1:
+    name: dolnośląskie
+  region_2:
+    name: kujawsko-pomorskie
+  region_3:
+    name: lubelskie
+  region_4:
+    name: lubuskie
+  region_5:
+    name: łódzkie
+  region_6:
+    name: małopolskie
+  region_7:
+    name: mazowieckie
+  region_8:
+    name: opolskie
+  region_9:
+    name: podkarpackie
+  region_10:
+    name: podlaskie
+  region_11:
+    name: pomorskie
+  region_12:
+    name: śląskie
+  region_13:
+    name: świętokrzyskie
+  region_14:
+    name: warmińsko-mazurskie
+  region_15:
+    name: wielkopolskie
+  region_16:
+    name: zachodniopomorskie

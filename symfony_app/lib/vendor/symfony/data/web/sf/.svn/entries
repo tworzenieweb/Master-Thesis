@@ -1,0 +1,49 @@
+10
+
+dir
+0
+http://xp-dev.com/svn/sis-pl/trunk/lib/vendor/symfony/data/web/sf
+http://xp-dev.com/svn/sis-pl
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1525609f-f04c-44ca-9ef6-6cb1a97d937f
+
+sf_web_debug
+dir
+
+
+
+add
+
+sf_default
+dir
+
+
+
+add
+
+sf_admin
+dir
+
+
+
+add
+

@@ -1,0 +1,23 @@
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=polskinetwork'
+      username: root
+      password: 'lukasz.123'
+
+dev:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=polskinetwork'
+      username: root
+      password: 'lukasz.123'
+
+test:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=polskinetwork'
+      username: root
+      password: 'lukasz.123'

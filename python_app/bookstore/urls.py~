@@ -1,0 +1,14 @@
+from django.conf.urls.defaults import *
+from piston.resource import Resource
+from bookstore.handlers import CommentHandler
+from bookstore.handlers import CategoryHandler
+from piston.authentication import HttpBasicAuthentication
+
+
+auth = HttpBasicAuthentication(realm="My Realm")
+
+comment_handler = Resource(CommentHandler)
+
+urlpatterns = patterns('',
+   url(r'^comments/(?P<book_id>\d+)/', comment_handler, { 'emitter_format': 'json' }),
+)

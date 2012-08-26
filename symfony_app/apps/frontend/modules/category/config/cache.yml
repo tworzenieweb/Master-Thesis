@@ -1,0 +1,3 @@
+show:
+  enabled:     true
+  with_layout: true

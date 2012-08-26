@@ -1,0 +1,29 @@
+from piston.handler import BaseHandler, AnonymousBaseHandler
+from bookstore.models import *
+from bookstore.forms import CommentForm
+from piston.utils import rc
+from piston.utils import validate
+
+class GenericHandler(BaseHandler):
+    allowed_methods = ('GET', 'PUT', 'DELETE', 'POST')
+    fields = ('title', 'content', ('user', ('id','first_name', 'last_name', 'username')), 'date', 'grade')   
+
+    def read(self, request, model, book_id):
+        
+        return Comment.objects.filter(book = book_id)
+    
+    @validate(CommentForm)
+    def create(self, request, book_id):
+        data = request.data
+        
+        em = self.model(
+                        title=data['title'], 
+                        content=data['content'], 
+                        grade = data['grade'], 
+                        book_id = book_id, 
+                        user_id = data['user']
+                        )
+        em.save()
+        
+            
+        return rc.CREATED
