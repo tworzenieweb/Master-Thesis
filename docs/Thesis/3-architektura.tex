@@ -2,11 +2,14 @@
 \label{cha:architektura}
 Istotnym celem pracy jest zapewnienie mo¿liwie najlepszej w danej chwili wydajnoœci. Twierdzenie to powinno byæ prawdziwe równie¿ wówczas, kiedy aplikacja znajduje siê pod silnym ruchem sieciowym. Aby to zapewniæ, konieczne jest wykorzystanie odpowiedniej architektury aplikacji.\\
 
-Od kilku lat na rynku IT mo¿na zaobserwowaæ du¿e zainteresowanie zwi¹zane z chmurami obliczeniowymi. Jeszcze wiêksze zamieszanie na rynku spowodowa³o udostêpnienie przez Google oraz Microsoft ich flagowych produktów znanych jako \textit{Google Application Engine} (GAE) oraz \textit{Windows Azure}. S¹ to us³ugi kwalifikowane jako \textit{PaaS}, czyli \textit{Platform as a Service}. Oznacza to, ¿e korzystaj¹c z ich produktów otrzymujemy kompletne œrodowisko uruchomieniowe aplikacji oraz zaplecze technologiczne umo¿liwiaj¹ce uruchamianie aplikacji. W wypadku GAE mo¿liwe jest programowanie aplikacji z wykorzystaniem udostêpnionego przez us³ugê zbioru bibliotek, napisanych w trzech jêzykach: Java, Python oraz Go. Nastêpnie przy pomocy udostêpnionych narzêdzi mo¿liwe jest wdro¿enie aplikacji (\textit{Deployment}).\\
+Od kilku lat na rynku IT mo¿na zaobserwowaæ du¿e zainteresowanie zwi¹zane z chmurami obliczeniowymi (ang. \textit{Cloud Computing}). Jeszcze wiêksze zamieszanie na rynku spowodowa³o udostêpnienie przez Google oraz Microsoft ich flagowych produktów znanych jako \textit{Google Application Engine} (GAE) oraz \textit{Windows Azure}. S¹ to us³ugi kwalifikowane jako \textit{PaaS}, czyli \textit{Platform as a Service}. Oznacza to, ¿e korzystaj¹c z ich produktów otrzymujemy kompletne œrodowisko uruchomieniowe aplikacji oraz zaplecze technologiczne umo¿liwiaj¹ce uruchamianie aplikacji. W wypadku GAE mo¿liwe jest programowanie aplikacji z wykorzystaniem udostêpnionego przez us³ugê zbioru bibliotek, napisanych w trzech jêzykach: Java, Python oraz Go. Nastêpnie przy pomocy udostêpnionych narzêdzi mo¿liwe jest wdro¿enie aplikacji (\textit{Deployment}).\\
 
 Takie podejœcie do tworzenia aplikacji internetowych zyska³o olbrzymi¹ iloœæ zwolenników, poniewa¿ pozwoli³o na ca³kowite przeniesienie ciê¿aru zarz¹dzania skomplikowan¹ infrastruktur¹ na producentów rozwi¹zañ \textit{Paas}. Innym wa¿nym powodem, dla którego wielu ludzi zdecydowa³o siê na wykorzystanie nowych us³ug, jest mo¿liwoœæ konfiguracji architektury do w³asnych potrzeb, a tak¿e (co by³o kluczowym powodem), do aktualnego obci¹¿enia aplikacji.
 
+Preferowanie \textit{cloud computingu} jest napêdzanie przez wiele czynników, wœród których nale¿y wymieniæ ³atwoœæ dostêpu - wszystko czego potrzeba to przegl¹darka. Z drugiej strony równie wa¿na jest ³atwoœæ zarz¹dzania - nie potrzeba etatu do doœwiadczonego administratora. Mo¿liwoœci chmur obliczeniowych s¹ docenianie tak¿e przez dostawców us³ug ze wzglêdu na ³atwe zarz¹dzanie infrastruktur¹, poniewa¿ centra danych posiadaj¹ jednorodny sprzêt i oprogramowanie, co wiêcej s¹ one pod kontrol¹ jednego kompetentnego podmiotu \cite{book:cloud2}.
+
 \section{Rodzaje chmur}
+\label{sec:rodzaje_chmur}
 
 \begin{figure}[H]
 \caption{Zestawienie rodzajów chmury ze wzglêdu na udostêpniane zasoby}
@@ -14,7 +17,7 @@ Takie podejœcie do tworzenia aplikacji internetowych zyska³o olbrzymi¹ iloœæ zwo
 \label{fig:chmury}
 \end{figure}
 
-Najogólniej chmury dziel¹ siê na \textit{prywatne} i \textit{publiczne}. Prywatne wchodz¹ w sk³ad czêœci organizacji, ale jednoczesne stanowi¹ autonomiczn¹ us³ugê. Publiczne natomiast udostêpniane s¹ przez zewnêtrznych dostawców us³ug.
+Najogólniej chmury dziel¹ siê na \textit{prywatne} i \textit{publiczne}. Prywatne wchodz¹ w sk³ad czêœci organizacji, ale jednoczesne stanowi¹ autonomiczn¹ us³ugê. Publiczne natomiast udostêpniane s¹ przez zewnêtrznych dostawców us³ug \cite{book:cloud}.
 
 Rysunek \ref{fig:chmury} pokazuje zasadnicze ró¿nice miêdzy poszczególnymi rodzajami chmur. Chmura oferowana przez \textit{Google Application Engine}, zapewnia wsparcie w zakresie architektury serwera, systemu plików, a tak¿e systemu bazodanowego. Dodatkowo, \textit{GAE} udostêpnia równie¿ mo¿liwoœæ korzystania z us³ug w tle oraz serwerów mailowych, a tak¿e wiele mniejszych us³ug takich jak wykonywanie ¿¹dañ do zewnêtrznych us³ug. Nowoœci¹ w fazie testów jest tak¿e mo¿liwoœæ, rozdzielenie obci¹¿enia na kilka wersji aplikacji (\textit{traffic splitting}).\\
 
@@ -41,13 +44,24 @@ W wypadku GAE w ramach darmowych limitów do dyspozycji dostajemy 28h instancji. 
 Rysunek \ref{fig:gae_dashboard} przedstawia pogl¹dowy widok bie¿¹cych statystyk aplikacji, udostêpnianych przez GAE. U¿ytkownik ma dostêp do stanów bie¿¹cych limitów, a tak¿e szczegó³owych wykresów wydajnoœci aplikacji okreœlanych na podstawie ró¿nych czynników (zajêtoœæ pamiêci, iloœæ operacji na sekundê, wykorzystanie instancji serwerów). Bardzo przydatny jest równie¿ wykres bie¿¹cej aktywnoœci aplikacji. W ten sposób mo¿na szybko oceniæ, czy aplikacja jest obecnie pod du¿ym obci¹¿eniem, a tak¿e porównaæ, czy na przyk³ad wdro¿one zmiany poprawi³y jej wydajnoœæ.
 
 \begin{figure}[htbp]
-\caption{Wygl¹d panelu statystyk w ramach us³ugi GAE}
+\caption{Wygl¹d panelu statystyk w ramach us³ugi \textit{GAE}}
 \includegraphics[scale=0.7]{gae_dashboard.pdf}
 \label{fig:gae_dashboard}
 \end{figure}
 
+\section{Zarz¹dzanie wydajnoœci¹ aplikacji na platformie \textit{GAE}}
 
-\section{Nie relacyjne bazy danych \textit{NoSQL}}
+Jak zosta³o omówione we wstêpie w podrozdziale \ref{sec:rodzaje_chmur},  olbrzymi¹ zalet¹ rozwi¹zañ \textit{PaaS} jest mo¿liwoœæ kompleksowego zarz¹dzania aplikacj¹ z poziomu przegl¹darki i udostêpnionego interfejsu klienta. Rysunek \ref{fig:performance} pokazuje jak to wygl¹da w praktyce. Za pomoc¹ listy dostêpnej w sekcji \textit{Frontend Instance Class} okreœlamy jak bardzo wydajnej instancji chcemy u¿yæ dla naszej aplikacji. Ka¿da z instancji jest opisana za pomoc¹ umownego symbolu, czêstotliwoœci pracy procesora oraz maksymalnej dostêpnej pamiêci. Przy obecnym ustawieniu ka¿da utworzona instancja serwera posiadaæ bêdzie parametry instancji \textit{F1}.
+
+W celu zapewnienia aplikacji bazowej wydajnoœci na okreœlonym poziomie, wa¿ne jest zbalansowanie ustawieñ dwóch suwaków, odpowiednio \textit{Max Idle Instances} oraz \textit{Min Pending Latency}. Pierwszy suwak okreœla pocz¹tkow¹ iloœæ instancji dostêpn¹ zawsze (tak zwani \textit{rezydenci}). W wypadku kolejnych instancji, ich iloœæ jest warunkowana parametrami okreœlonymi przez  punkty brzegowe drugiego suwaka. Okreœla on jak d³ugo \textit{dyspozytor} ¿¹dañ poczeka, nim zadecyduje o odes³aniu ¿¹dania do innej instancji serwera. Jest to bardzo logiczne za³o¿enie, ¿e jeœli ¿¹danie wykonuje siê d³ugo, prawdopodobnie strona jest obci¹¿ona, dlatego trzeba odci¹¿yæ serwery i roz³o¿yæ ruch na nowo dodane. 
+
+\begin{figure}[htbp]
+\caption{Kontrola wydajnoœci aplikacji w  \textit{GAE}}
+\includegraphics[scale=0.6]{performance.pdf}
+\label{fig:performance}
+\end{figure}
+
+\section{Nierelacyjne bazy danych \textit{NoSQL}}
 
 Od pocz¹tku ery informatyzacji, informacja i jej przechowywanie by³o najwa¿niejszym zadaniem powierzanym komputerom. Bazy danych musz¹ zarówno przechowywaæ dane (zapis), jak i udostêpniaæ interfejs s³u¿¹cy ich odczytowi, a nawet wyszukiwaniu w oparci o zadane kryteria. Dotychczas wykorzystywano g³ównie relacyjne bazy danych, które ³¹czy³y pojedyncze tabele w ró¿nego rodzaju asocjacje. Wczeœniej jednak konieczne jest zdefiniowanie okreœlonego schematu bazy danych, który bêdzie obowi¹zywa³ i nak³ada³ ograniczenia na dane.
 

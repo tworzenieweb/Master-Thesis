@@ -16,20 +16,21 @@
 \contentsline {section}{\numberline {2.3}Projekt bazy danych}{45}
 \contentsline {chapter}{\numberline {3}Architektura aplikacji}{48}
 \contentsline {section}{\numberline {3.1}Rodzaje chmur}{49}
-\contentsline {section}{\numberline {3.2}Nie relacyjne bazy danych \textit {NoSQL}}{52}
-\contentsline {subsection}{\numberline {3.2.1}Specyfika \textit {Google Datastore}}{55}
-\contentsline {section}{\numberline {3.3}Aplikacja zorientowana na us\IeC {\l }ugi}{57}
-\contentsline {subsection}{\numberline {3.3.1}AJAX, a restrykcje bezpiecze\'nstwa kodu \textit {JavaScript}}{58}
-\contentsline {subsubsection}{\textit {JSONP} (\textit {JSON with padding})}{58}
-\contentsline {chapter}{\numberline {4}Optymalizacja kodu klienta}{62}
-\contentsline {section}{\numberline {4.1}Optymalizacja szablon\'ow}{68}
-\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{70}
-\contentsline {section}{\numberline {5.1}Framework Django}{70}
-\contentsline {section}{\numberline {5.2}Wystawienie us\IeC {\l }ug jako webserwis\'ow}{71}
-\contentsline {section}{\numberline {5.3}Uruchomienie panelu administracyjnego aplikacji}{74}
-\contentsline {section}{\numberline {5.4}Framework Symfony}{76}
-\contentsline {section}{\numberline {5.5}Test wydajno\'sci \textit {webserwis\'ow}}{80}
-\contentsline {chapter}{Bibliografia}{86}
-\contentsline {chapter}{Spis rysunk\'ow}{87}
-\contentsline {chapter}{Spis listing\'ow}{89}
-\contentsline {chapter}{Abstract}{90}
+\contentsline {section}{\numberline {3.2}Zarz\k adzanie wydajno\'sci\k a aplikacji na platformie \textit {GAE}}{52}
+\contentsline {section}{\numberline {3.3}Nierelacyjne bazy danych \textit {NoSQL}}{54}
+\contentsline {subsection}{\numberline {3.3.1}Specyfika \textit {Google Datastore}}{56}
+\contentsline {section}{\numberline {3.4}Aplikacja zorientowana na us\IeC {\l }ugi}{58}
+\contentsline {subsection}{\numberline {3.4.1}AJAX, a restrykcje bezpiecze\'nstwa kodu \textit {JavaScript}}{59}
+\contentsline {subsubsection}{\textit {JSONP} (\textit {JSON with padding})}{59}
+\contentsline {chapter}{\numberline {4}Optymalizacja kodu klienta}{63}
+\contentsline {section}{\numberline {4.1}Optymalizacja szablon\'ow}{69}
+\contentsline {chapter}{\numberline {5}Optymalizacja aplikacji}{71}
+\contentsline {section}{\numberline {5.1}Framework Django}{71}
+\contentsline {section}{\numberline {5.2}Wystawienie us\IeC {\l }ug jako webserwis\'ow}{72}
+\contentsline {section}{\numberline {5.3}Uruchomienie panelu administracyjnego aplikacji}{75}
+\contentsline {section}{\numberline {5.4}Framework Symfony}{77}
+\contentsline {section}{\numberline {5.5}Test wydajno\'sci \textit {webserwis\'ow}}{81}
+\contentsline {chapter}{Bibliografia}{90}
+\contentsline {chapter}{Spis rysunk\'ow}{92}
+\contentsline {chapter}{Spis listing\'ow}{94}
+\contentsline {chapter}{Abstract}{95}

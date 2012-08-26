@@ -1,4 +1,12 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{book:django}
+{\em Django 1.4 Dokumentacja}.
+\newblock \url{https://docs.djangoproject.com/en/dev/}.
+
+\bibitem{book:norel}
+{\em Django-norel Dokumentacja}.
+\newblock \url{http://docs.django-nonrel.org/en/latest/index.html}.
 
 \bibitem{phpUsage}
 Historical trends in the usage of server-side programming languages for
@@ -12,21 +20,42 @@ Historical trends in the usage of server-side programming languages for
 \newblock
   \url{http://dev.mysql.com/doc/refman/5.1/en/explain-output.html#explain_id}.
 
-\bibitem{book:mysql}
-V.~Tkachenko J. D.~Zawodny B.~Schwartz, P.~Zaitsev.
-\newblock {\em High performance MySQL, Second Edition}.
-\newblock O'Reily, 2008.
+\bibitem{book:cloud2}
+N.~Antonopoulos,  L.~Gillam.
+\newblock {\em Cloud Computing Principles, Systems and Applications}.
+\newblock Springer, 2010.
+
+\bibitem{book:python}
+M.~Lutz.
+\newblock {\em Learning Python}.
+\newblock O'Reily, 2009.
 
 \bibitem{book:proPHPProg}
-M.~Gogal T.~Myer P.~MacIntyrem, B.~Danchilla.
+P.~MacIntyrem, B.~Danchilla, M.~Gogal, T.~Myer.
 \newblock {\em Pro PHP Programming}.
 \newblock Apress, 2011.
 
 \bibitem{book:proPHP}
-A.~Padilla and T.~Hawkins.
+A.~Padilla,  T.~Hawkins.
 \newblock {\em Pro PHP Application Performance Tuning PHP Web Projects for
   Maximum Performance}.
 \newblock Apress, 2010.
+
+\bibitem{book:cloud}
+G.~Reese.
+\newblock {\em Cloud Application Architectures: Building Applications and
+  Infrastructure in the Cloud}.
+\newblock O'Reily, 2009.
+
+\bibitem{book:gae}
+D.~Sanderson.
+\newblock {\em Programming Google App Engine}.
+\newblock O'Reilly, 2009.
+
+\bibitem{book:mysql}
+B.~Schwartz, P.~Zaitsev, V.~Tkachenko, J.~D. Zawodny.
+\newblock {\em High performance MySQL, Second Edition}.
+\newblock O'Reily, 2008.
 
 \bibitem{book:yahoo}
 S.~Souders.
