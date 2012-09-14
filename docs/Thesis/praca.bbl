@@ -2,33 +2,52 @@
 
 \bibitem{book:django}
 {\em Django 1.4 Dokumentacja}.
-\newblock \url{https://docs.djangoproject.com/en/dev/}.
+\newblock \url{https://docs.djangoproject.com/en/dev/} [dostêp: 01-09-2012].
 
 \bibitem{book:norel}
 {\em Django-norel Dokumentacja}.
-\newblock \url{http://docs.django-nonrel.org/en/latest/index.html}.
+\newblock \url{http://docs.django-nonrel.org/en/latest/index.html} [dostêp:
+  01-09-2012].
 
 \bibitem{phpUsage}
 Historical trends in the usage of server-side programming languages for
   websites.
 \newblock Dostêpny w internecie.
 \newblock
-  \url{http://w3techs.com/technologies/history_overview/programming_language}.
+  \url{http://w3techs.com/technologies/history_overview/programming_language}
+  [dostêp: 01-09-2012].
 
 \bibitem{book:mapreduce}
 {\em Introduction to Parallel Programming and MapReduce}.
 \newblock
-  \url{http://code.google.com/intl/pl/edu/parallel/mapreduce-tutorial.html}.
+  \url{http://code.google.com/intl/pl/edu/parallel/mapreduce-tutorial.html}
+  [dostêp: 01-09-2012].
 
 \bibitem{book:mysql_explain}
 {\em MySQL 5.1 Reference Manual}.
 \newblock
-  \url{http://dev.mysql.com/doc/refman/5.1/en/explain-output.html#explain_id}.
+  \url{http://dev.mysql.com/doc/refman/5.1/en/explain-output.html#explain_id}
+  [dostêp: 01-09-2012].
 
 \bibitem{book:cloud2}
 N.~Antonopoulos,  L.~Gillam.
 \newblock {\em Cloud Computing Principles, Systems and Applications}.
 \newblock Springer, 2010.
+
+\bibitem{book:jquery}
+B.~Bibeault,  Y.~Katz.
+\newblock {\em jQuery in action}.
+\newblock Manning, United States of America, 2008.
+
+\bibitem{book:ajaxphp}
+C.~Darie, B.~Bogdan, F.~Cherecheº-Toºa, M.~Bucica.
+\newblock {\em AJAX and PHP: Building Responsive Web Applications}.
+\newblock Packt Publishing, UK, 2006.
+
+\bibitem{book:javascript}
+D.~Flanagan.
+\newblock {\em JavaScript: The Definitive Guide}.
+\newblock O'Reily, United States of America, 2011.
 
 \bibitem{book:python}
 M.~Lutz.
@@ -43,13 +62,19 @@ P.~MacIntyrem, B.~Danchilla, M.~Gogal, T.~Myer.
 \bibitem{book:piston}
 J.~Noehr.
 \newblock {\em Piston Dokumentacja}.
-\newblock \url{https://bitbucket.org/jespern/django-piston/wiki/Documentation}.
+\newblock \url{https://bitbucket.org/jespern/django-piston/wiki/Documentation}
+  [dostêp: 01-09-2012].
 
 \bibitem{book:proPHP}
 A.~Padilla,  T.~Hawkins.
 \newblock {\em Pro PHP Application Performance Tuning PHP Web Projects for
   Maximum Performance}.
 \newblock Apress, 2010.
+
+\bibitem{book:symfony}
+F.~Potencier,  F.~Zaninotto.
+\newblock {\em A Gentle Introduction to symfony 1.4}.
+\newblock Sensio Labs, France, 2010.
 
 \bibitem{book:cloud}
 G.~Reese.
@@ -71,5 +96,15 @@ B.~Schwartz, P.~Zaitsev, V.~Tkachenko, J.~D. Zawodny.
 S.~Souders.
 \newblock {\em High Performance Web Sites}.
 \newblock O'Reily, 2007.
+
+\bibitem{book:doctrine}
+J.~H. Wage, R.~Borschel, G.~Blanco.
+\newblock {\em Doctrine ORM for PHP (1.2)}.
+\newblock Sensio SA, March 2010.
+
+\bibitem{book:sql}
+P.~Wilton,  J.~W. Colby.
+\newblock {\em Beginning SQL}.
+\newblock Wiley Publishing, Canada, 2005.
 
 \end{thebibliography}

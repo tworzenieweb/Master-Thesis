@@ -7,45 +7,45 @@ Warning--to sort, need author, organization, or key in book:mysql_explain
 Warning--to sort, need author, organization, or key in book:django
 Warning--to sort, need author, organization, or key in book:norel
 Warning--to sort, need author, organization, or key in book:mapreduce
-You've used 14 entries,
+You've used 20 entries,
             2129 wiz_defined-function locations,
-            559 strings with 5216 characters,
-and the built_in function-call counts, 2971 in all, are:
-= -- 271
-> -- 112
+            589 strings with 5881 characters,
+and the built_in function-call counts, 4582 in all, are:
+= -- 419
+> -- 199
 < -- 0
-+ -- 48
-- -- 34
-* -- 142
-:= -- 484
-add.period$ -- 38
-call.type$ -- 14
-change.case$ -- 46
++ -- 83
+- -- 62
+* -- 234
+:= -- 765
+add.period$ -- 56
+call.type$ -- 20
+change.case$ -- 72
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 144
-empty$ -- 294
-format.name$ -- 34
-if$ -- 642
+cite$ -- 25
+duplicate$ -- 216
+empty$ -- 426
+format.name$ -- 62
+if$ -- 981
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 16
-newline$ -- 69
-num.names$ -- 18
-pop$ -- 104
+int.to.str$ -- 20
+missing$ -- 28
+newline$ -- 99
+num.names$ -- 30
+pop$ -- 155
 preamble$ -- 1
-purify$ -- 45
+purify$ -- 71
 quote$ -- 0
-skip$ -- 90
+skip$ -- 134
 stack$ -- 0
-substring$ -- 70
-swap$ -- 15
+substring$ -- 101
+swap$ -- 21
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 40
+type$ -- 52
 warning$ -- 5
-while$ -- 18
-width$ -- 16
-write$ -- 128
+while$ -- 30
+width$ -- 22
+write$ -- 193
 (There were 5 warnings)

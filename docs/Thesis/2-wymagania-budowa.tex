@@ -66,7 +66,7 @@ ca³ej strony. Dziêki zastosowaniu frameworka \textit{jQuery} dla jêzyka JavaScri
 
 Zaprojektowana aplikacja sk³ada siê tak naprawdê z dwóch niezale¿nych podaplikacji, jedna z nich hostowana jest wykorzystuj¹c us³ugê \textit{Google Application Engine}, która zostanie omówiona w rozdziale \ref{cha:architektura}. Aplikacja ta bêdzie udostêpnia³a us³ugi oparte o architekturê \textit{REST} (ang. \textit{Representation State Transfer}). Bêdzie zawiera³a równie¿ panel administracyjny do zarz¹dzania ksiêgarni¹. Jest ona napisana w jêzyku \textit{Python}, wykorzystuj¹c framework \textit{Django}, a tak¿e wtyczkê \textit{Piston}, umo¿liwiaj¹c¹ proste wystawienie webserwisów na podstawie modelu bazy danych.
 
-Druga aplikacja bêdzie zawiera³a zakres funkcjonalny zwyk³ego u¿ytkownika, natomiast wszystkie dane bêdzie pobiera³a przy u¿yciu udostêpnionych przez wczeœniej omawian¹ aplikacje \textit{webserwisów}. Aplikacja ta bêdzie napisana w jêzyku PHP z wykorzystaniem frameworka \textit{symfony}.\\
+Druga aplikacja bêdzie zawiera³a zakres funkcjonalny zwyk³ego u¿ytkownika, natomiast wszystkie dane bêdzie pobiera³a przy u¿yciu \textit{webserwisów} udostêpnionych przez wczeœniej omawian¹ aplikacje. Aplikacja ta bêdzie napisana w jêzyku PHP z wykorzystaniem frameworka \textit{symfony}.\\
 
 Obydwie aplikacje wykorzystuj¹ wzorzec MVC do separacji warstw logiki, prezentacji i danych. Dodatkowo, wykorzystane frameworki s¹ stworzone do szybkiego tworzenia oprogramowania, dziêki za³o¿eniom \textit{scaffoldingu} oraz konwencjom \textit{DRY} (ang. \textit{Don't repeat Yourself}) i \textit{KISS} (ang. \textit{Keep it simple stupid}).
 
@@ -75,7 +75,7 @@ Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³a
 
 \begin{figure}[htbp]
 \center
-\caption{Diagram budowy aplikacji ksiêgarni internetowej}
+\caption{Schemat budowy aplikacji ksiêgarni internetowej}
 \includegraphics[scale=0.5]{diagram_aplikacji.pdf}
 \label{fig:budowa_aplikacji}
 \end{figure}
@@ -83,11 +83,11 @@ Ka¿dy element w systemie posiada szereg zale¿noœci, których nieprawid³owe dzia³a
 
 \section{Projekt bazy danych}
 
-Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej w ramach projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL oraz proces de-normalizacji, który musia³ zostaæ dokonany. Na szczêœcie dziêki opisanemu w nastêpnym rozdziale frameworkowi \textit{Django-norel}, mo¿liwe jest ³atwe przechodzenie miêdzy istniej¹cymi implementacjami baz danych.
+Rysunek \ref{fig:baza_danych} przedstawia projekt bazy danych wykorzystanej w ramach projektu. Diagram ERD przedstawia jednak bazê w podejœciu relacyjnym, w póŸniejszej czêœci pracy pokazana zostanie baza NoSQL oraz proces de-normalizacji, który musia³ zostaæ dokonany. Dziêki opisanemu w nastêpnym rozdziale frameworkowi \textit{Django-norel}, mo¿liwe jest ³atwe przechodzenie miêdzy istniej¹cymi implementacjami baz danych.
 
-Baza zawiera ksi¹¿ki, powi¹zane z nimi s³owa kluczowe i kategorie. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo, u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Na przyk³ad ocena w komentarzu ma wartoœci miêdzy 1 a 5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)}, poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.\\
+Baza zawiera informacje dotycz¹ce ksi¹¿ek, powi¹zane z nimi s³owa kluczowe i kategorie tematyczne. Ka¿da ksi¹¿ka ma swojego wydawcê. Dodatkowo, u¿ytkownicy mog¹ komentowaæ wybrane ksi¹¿ki, ³¹cznie z wystawieniem oceny. Istotnym zamierzeniem projektowanego schematu by³a jak najwiêksza optymalizacja u¿ytych pól. Na przyk³ad ocena w komentarzu ma wartoœci miêdzy 1 a 5, wiêc wykorzystano typ danych \texttt{UNSIGNED INT(1) NOT NULL}, który przechowuje wartoœci od 0 do 255, bez sk³adowania wartoœci pustej. Do przechowywania has³a wykorzystano typ \texttt{CHAR(32)}, poniewa¿ w bazie przechowywana jest wartoœæ skrótu has³a przy u¿yciu algorytmu \textit{SHA1}.\\
 
-Ze wzglêdu na pewne ograniczenia bazy \textit{Google Datastore}, konieczne by³o stworzenie pewnej nadmiarowoœci w schemacie \texttt{book} oraz \texttt{category}. Poniewa¿ w \textit{GAE} nie funkcjonuj¹ \textit{z³¹czenia}, tabela \texttt{book} przechowuje listê identyfikatorów kategorii (\texttt{categories}) w celu imitacji zachowania dla relacji \textit{wiele do wielu}. Nale¿y dodaæ, ¿e \textit{GAE}, posiada tym danych zdolny do przechowywania list wskaŸników do poszczególnych encji, jak równie¿ liczb ca³kowitych i ³añcuchów znakowych. Dodatkowo posiada metody do sprawdzania przynale¿noœci zadanych wartoœci do zbiorów opisanych przez te listy. Kolejnym elementem specyficznym dla tej platform s¹ pola zliczaj¹ce - imituj¹ce dzia³anie funkcji grupuj¹cych. Pole \texttt{count} zawiera, wiêc informacjê o iloœci ksi¹¿ek w danej kategorii. Podobne zastosowanie ma pole \texttt{average} tabeli \texttt{book}. Zawiera ono œredni¹ g³osów wystawionych w komentarzach.
+Ze wzglêdu na pewne ograniczenia bazy \textit{Google Datastore}, konieczne by³o stworzenie pewnej nadmiarowoœci w schemacie \texttt{book} oraz \texttt{category}. Poniewa¿ w \textit{GAE} nie funkcjonuj¹ \textit{z³¹czenia}, tabela \texttt{book} przechowuje listê identyfikatorów kategorii (\texttt{categories}) w celu imitacji zachowania dla relacji \textit{wiele-do-wielu}. Nale¿y dodaæ, ¿e \textit{GAE} posiada typ danych zdolny do przechowywania list wskaŸników do poszczególnych encji, jak równie¿ liczb ca³kowitych i ³añcuchów znakowych. Dodatkowo posiada metody do sprawdzania przynale¿noœci zadanych wartoœci do zbiorów opisanych przez te listy. Kolejnym elementem specyficznym dla tej platform s¹ pola zliczaj¹ce - imituj¹ce dzia³anie funkcji grupuj¹cych. Pole \texttt{count} zawiera wiêc informacjê o iloœci ksi¹¿ek w danej kategorii. Podobne zastosowanie ma pole \texttt{average} tabeli \texttt{book}. Zawiera ono œredni¹ g³osów wystawionych w komentarzach.
 
 W celu osi¹gniêcia zachowania funkcji grupuj¹cych konieczne jest \textit{przeci¹¿enie} metod zapisu dla obiektów reprezentuj¹cych bazodanowe encje (Listing \ref{listing:model_overload}). 
 
@@ -123,7 +123,10 @@ class Book(models.Model):
 
 Podczas projektowania nale¿y mieæ na uwadze specyfikê u¿ycia poszczególnych tabel. Dla tabel \texttt{kategorii} i \texttt{ksi¹¿ek} dominowaæ bêd¹ operacje odczytu, natomiast dla tabeli komentarzy operacje zapisu.
 
-Poniewa¿ z za³o¿enia dostêp do danych bêdzie realizowany poprzez udostêpnione us³ugi, rysunek \ref{fig:uslugi} przedstawia ich definicje, a tak¿e metody komunikacji. W ten sposób tylko za pomoc¹ odpowiednich metod HTTP (PUT - tworzenie, POST - tworzenie / aktualizacja, GET - pobieranie), mo¿liwe jest wykonywanie odpowiedniej logiki.
+Poniewa¿ z za³o¿enia dostêp do danych bêdzie realizowany poprzez udostêpnione us³ugi, rysunek \ref{fig:uslugi} przedstawia ich definicje, a tak¿e metody komunikacji. W ten sposób tylko za pomoc¹ odpowiednich metod HTTP (PUT - tworzenie, POST - tworzenie / aktualizacja, GET - pobieranie), mo¿liwe jest wykonywanie odpowiedniej logiki.\\
+
+Stworzenie aplikacji realizuj¹cej konkretne za³o¿enia jest w zasadzie ma³o skuteczne bez przemyœlanego zbioru przypadków u¿ycia i scenariuszy. Zaimplementowana aplikacja nie jest, co prawda bardzo rozbudowana funkcjonalnie, ale jest w zupe³noœci wystarczaj¹ca do przeprowadzenia analizy i optymalizacji wydajnoœci. Rozdzia³ ten stanowi podstawê dalszych rozwa¿añ. Dziêki sprecyzowaniu ogólnych ram projektu, mo¿liwe jest póŸniejsze unikniêcie b³êdów logicznych i problemów z implementacj¹ niemo¿liw¹ do realizacji. Projekt bazy danych dla stworzonej aplikacji jest typowy dla baz relacyjnych. W kolejnych rozdzia³ach zostan¹ przedstawione operacje konieczne do dostosowania schematu do konwencji \textit{NoSQL}.
+
 
 \begin{figure}[htbp]
 \caption{Us³ugi udostêpnione na platformie \textit{GAE} (\textit{Google Application Engine}) }
@@ -138,3 +141,5 @@ Poniewa¿ z za³o¿enia dostêp do danych bêdzie realizowany poprzez udostêpnione us
 \caption{Projekt bazy danych aplikacji ksiêgarni internetowej}
 \label{fig:baza_danych}
 \end{sidewaysfigure}
+
+
