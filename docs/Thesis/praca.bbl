@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{book:cloudComputingWiki}
+{\em Chmura obliczeniowa}.
+\newblock \url{http://pl.wikipedia.org/wiki/Chmura_obliczeniowa} [dostêp:
+  01-09-2012].
+
 \bibitem{book:django}
 {\em Django 1.4 Dokumentacja}.
 \newblock \url{https://docs.djangoproject.com/en/dev/} [dostêp: 01-09-2012].

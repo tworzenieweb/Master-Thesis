@@ -4,48 +4,49 @@ The style file: plabbrv.bst
 Database file #1: bibliography.bib.bib
 Warning--to sort, need author or key in phpUsage
 Warning--to sort, need author, organization, or key in book:mysql_explain
+Warning--to sort, need author, organization, or key in book:cloudComputingWiki
 Warning--to sort, need author, organization, or key in book:django
 Warning--to sort, need author, organization, or key in book:norel
 Warning--to sort, need author, organization, or key in book:mapreduce
-You've used 20 entries,
+You've used 21 entries,
             2129 wiz_defined-function locations,
-            589 strings with 5881 characters,
-and the built_in function-call counts, 4582 in all, are:
-= -- 419
-> -- 199
+            593 strings with 6021 characters,
+and the built_in function-call counts, 4726 in all, are:
+= -- 433
+> -- 200
 < -- 0
-+ -- 83
++ -- 84
 - -- 62
-* -- 234
-:= -- 765
-add.period$ -- 56
-call.type$ -- 20
-change.case$ -- 72
+* -- 241
+:= -- 782
+add.period$ -- 58
+call.type$ -- 21
+change.case$ -- 74
 chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 216
-empty$ -- 426
+cite$ -- 27
+duplicate$ -- 224
+empty$ -- 445
 format.name$ -- 62
-if$ -- 981
+if$ -- 1015
 int.to.chr$ -- 0
-int.to.str$ -- 20
+int.to.str$ -- 21
 missing$ -- 28
-newline$ -- 99
+newline$ -- 103
 num.names$ -- 30
-pop$ -- 155
+pop$ -- 159
 preamble$ -- 1
-purify$ -- 71
+purify$ -- 73
 quote$ -- 0
-skip$ -- 134
+skip$ -- 140
 stack$ -- 0
-substring$ -- 101
-swap$ -- 21
+substring$ -- 106
+swap$ -- 22
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
-warning$ -- 5
+type$ -- 56
+warning$ -- 6
 while$ -- 30
-width$ -- 22
-write$ -- 193
-(There were 5 warnings)
+width$ -- 23
+write$ -- 200
+(There were 6 warnings)
